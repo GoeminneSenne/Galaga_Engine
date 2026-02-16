@@ -2,8 +2,21 @@
 
 using namespace dae;
 
-Component::Component(const GameObject* pOwner)
+Component::Component(GameObject* pOwner)
 	:m_pOwner{pOwner}
 {
+}
+
+void dae::Component::Update()
+{
+}
+
+void dae::Component::Render() const
+{
+}
+
+GameObject* dae::Component::GetOwner() const
+{
+	return m_pOwner;
 }
 

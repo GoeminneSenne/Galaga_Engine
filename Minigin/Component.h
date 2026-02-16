@@ -7,10 +7,16 @@ namespace dae
 	class Component
 	{
 	public:
-		explicit Component(const GameObject* pOwner);
+		explicit Component(GameObject* pOwner);
+		virtual ~Component() = default;
+		
+		virtual void Update();
+		virtual void Render() const;
+
+		GameObject* GetOwner() const;
 
 	protected:
-		const GameObject* const m_pOwner;
+		GameObject* const m_pOwner;
 
 	};
 }
