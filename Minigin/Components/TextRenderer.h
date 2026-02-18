@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SDL3_ttf/SDL_ttf.h>
 #include <memory>
 #include <string>
 #include "Component.h"
