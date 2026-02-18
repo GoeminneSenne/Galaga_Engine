@@ -16,6 +16,7 @@ namespace dae
 		bool m_pendingDestroy{ false };
 	public:
 		virtual void Update();
+		virtual void FixedUpdate();
 		virtual void Render() const;
 
 		void SetTexture(const std::string& filename);

@@ -13,6 +13,7 @@ namespace dae
 		void Destroy();
 
 		virtual void Update();
+		virtual void FixedUpdate();
 		virtual void Render() const;
 
 		GameObject* GetOwner() const;

@@ -14,6 +14,7 @@ namespace dae
 		Scene& CreateScene();
 
 		void Update();
+		void FixedUpdate();
 		void Render();
 		void ProcessPendingDestroys();
 	private:

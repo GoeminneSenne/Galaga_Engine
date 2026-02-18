@@ -14,6 +14,14 @@ void dae::GameObject::Update()
 	}
 }
 
+void dae::GameObject::FixedUpdate()
+{
+	for (auto& component : m_components)
+	{
+		component->FixedUpdate();
+	}
+}
+
 void dae::GameObject::Render() const
 {
 	const auto& pos = m_transform.GetPosition();
