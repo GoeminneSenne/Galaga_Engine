@@ -24,9 +24,20 @@ void dae::GameObject::FixedUpdate(float fixedTimeStep)
 
 void dae::GameObject::Render() const
 {
-	const auto& pos = m_transform.GetPosition();
-	Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
+	for (const auto& component : m_components)
+	{
+		component->Render();
+	}
+	//const auto& pos = m_transform.GetPosition();
+	//Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
 }
+
+dae::Transform dae::GameObject::GetTransform() const
+{
+	return m_transform;
+}
+
+
 
 void dae::GameObject::SetTexture(const std::string& filename)
 {

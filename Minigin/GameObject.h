@@ -19,6 +19,8 @@ namespace dae
 		virtual void FixedUpdate(float fixedTimeStep);
 		virtual void Render() const;
 
+		Transform GetTransform() const;
+
 		void SetTexture(const std::string& filename);
 		void SetPosition(float x, float y);
 

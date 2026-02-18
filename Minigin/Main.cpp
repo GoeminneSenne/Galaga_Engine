@@ -10,6 +10,7 @@
 #include "ResourceManager.h"
 #include "TextObject.h"
 #include "Components/FPS.h"
+#include "Components/TextRenderer.h"
 #include "Scene.h"
 
 #include <filesystem>
@@ -35,8 +36,10 @@ static void load()
 	scene.Add(std::move(to));
 
 	go = std::make_unique<dae::GameObject>();
-	auto fpsc = std::make_unique<dae::FPS>(go.get());
-	go->AddComponent(std::move(fpsc));
+	auto textRenderer = std::make_unique<dae::TextRenderer>(go.get(), "Programming 4 Assignment", font);
+	textRenderer->SetColor({ 255, 255, 0, 255 });
+	go->SetPosition(292, 20);
+	go->AddComponent(std::move(textRenderer));
 	scene.Add(std::move(go));
 
 }
