@@ -8,7 +8,7 @@
 namespace dae
 {
 	class Texture2D;
-	class GameObject 
+	class GameObject
 	{
 		Transform m_transform{};
 		std::shared_ptr<Texture2D> m_texture{};
@@ -21,6 +21,11 @@ namespace dae
 		void SetPosition(float x, float y);
 
 		void AddComponent(std::unique_ptr<Component> component);
+		template<typename T>
+		bool HasComponent() const;
+		template<typename T>
+		T* GetComponent();
+
 
 		GameObject() = default;
 		virtual ~GameObject();
@@ -29,4 +34,31 @@ namespace dae
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
 	};
+
+
+	template<typename T>
+	inline bool GameObject::HasComponent() const
+	{
+		{
+			for (const auto& component : m_components)
+			{
+				if (dynamic_cast<T*>(component.get()))
+					return true;
+			}
+
+			return false;
+		}
+	}
+
+	template<typename T>
+	inline T* GameObject::GetComponent()
+	{
+		for (const auto& component : m_components)
+		{
+			if (auto castResult = dynamic_cast<T*>(component.get()))
+				return castResult;
+		};
+
+		return nullptr;
+	}
 }

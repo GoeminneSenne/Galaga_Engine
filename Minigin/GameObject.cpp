@@ -34,3 +34,5 @@ void dae::GameObject::AddComponent(std::unique_ptr<Component> component)
 	assert(component != nullptr && "Cannot add a null Component to gameobject");
 	m_components.emplace_back(std::move(component));
 }
+
+
