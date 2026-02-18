@@ -14,9 +14,9 @@ namespace dae
 		std::vector<std::unique_ptr<Component>> m_components{};
 		bool m_pendingDestroy{ false };
 	public:
-		virtual void Update(float deltaTime);
-		virtual void FixedUpdate(float fixedTimeStep);
-		virtual void Render() const;
+		void Update(float deltaTime);
+		void FixedUpdate(float fixedTimeStep);
+		void Render() const;
 
 		Transform GetTransform() const;
 		void SetPosition(float x, float y);
