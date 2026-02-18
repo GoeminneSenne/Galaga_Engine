@@ -13,6 +13,7 @@ namespace dae
 		Transform m_transform{};
 		std::shared_ptr<Texture2D> m_texture{};
 		std::vector<std::unique_ptr<Component>> m_components{};
+		bool m_pendingDestroy{ false };
 	public:
 		virtual void Update();
 		virtual void Render() const;
@@ -26,8 +27,10 @@ namespace dae
 		bool HasComponent() const;
 		template<typename T>
 		T* GetComponent();
-		void ProcessPendingDestroys();
 
+		void Destroy();
+		bool GetPendingDestroy() const;
+		void ProcessPendingDestroys();
 
 		GameObject() = default;
 		virtual ~GameObject();

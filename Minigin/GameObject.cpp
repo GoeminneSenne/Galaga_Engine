@@ -43,6 +43,7 @@ void dae::GameObject::RemoveComponent(const Component& component)
 		if (ptr.get() == &component)
 		{
 			ptr->Destroy();
+			return;
 		}
 	}
 }
@@ -57,5 +58,15 @@ void dae::GameObject::ProcessPendingDestroys()
 		),
 		m_components.end()
 	);
+}
+
+void dae::GameObject::Destroy()
+{
+	m_pendingDestroy = true;
+}
+
+bool dae::GameObject::GetPendingDestroy() const
+{
+	return m_pendingDestroy;
 }
 

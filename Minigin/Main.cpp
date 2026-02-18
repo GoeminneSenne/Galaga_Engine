@@ -25,9 +25,6 @@ static void load()
 	go = std::make_unique<dae::GameObject>();
 	go->SetTexture("logo.png");
 	go->SetPosition(358, 180);
-
-	go->AddComponent(std::make_unique<dae::Component>(go.get()));
-	go->RemoveComponent(*(go->GetComponent<dae::Component>()));
 	scene.Add(std::move(go));
 
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
