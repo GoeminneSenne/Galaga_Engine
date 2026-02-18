@@ -8,10 +8,9 @@
 namespace dae
 {
 	class Texture2D;
-	class GameObject
+	class GameObject final
 	{
 		Transform m_transform{};
-		std::shared_ptr<Texture2D> m_texture{};
 		std::vector<std::unique_ptr<Component>> m_components{};
 		bool m_pendingDestroy{ false };
 	public:

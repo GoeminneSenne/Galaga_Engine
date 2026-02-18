@@ -12,6 +12,8 @@ namespace dae
 		explicit TextureRenderer(GameObject* pOwner, const std::string& filename);
 
 		virtual void Render() const override;
+
+		void SetTexture(const std::string& filename);
 	private:
 		std::shared_ptr<Texture2D> m_texture{};
 	};

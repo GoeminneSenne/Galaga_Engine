@@ -8,7 +8,6 @@
 #include "Minigin.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
-#include "TextObject.h"
 #include "Components/FPS.h"
 #include "Components/TextRenderer.h"
 #include "Components/TextureRenderer.h"
@@ -41,7 +40,7 @@ static void load()
 	scene.Add(std::move(go));
 
 	go = std::make_unique<dae::GameObject>();
-	textRenderer = std::make_unique<dae::TextRenderer>(go.get(), "100000 FPS", font);
+	textRenderer = std::make_unique<dae::TextRenderer>(go.get(), "0 FPS", font);
 	go->AddComponent(std::move(textRenderer));
 	go->SetPosition(20, 20);
 	auto fpsc = std::make_unique<dae::FPS>(go.get());

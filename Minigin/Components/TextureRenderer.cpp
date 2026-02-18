@@ -18,3 +18,8 @@ void dae::TextureRenderer::Render() const
 		Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
 	}
 }
+
+void dae::TextureRenderer::SetTexture(const std::string& filename)
+{
+	m_texture = ResourceManager::GetInstance().LoadTexture(filename);
+}
