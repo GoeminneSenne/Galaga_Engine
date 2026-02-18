@@ -9,6 +9,7 @@
 #include "SceneManager.h"
 #include "ResourceManager.h"
 #include "TextObject.h"
+#include "Components/FPS.h"
 #include "Scene.h"
 
 #include <filesystem>
@@ -32,6 +33,12 @@ static void load()
 	to->SetColor({ 255, 255, 0, 255 });
 	to->SetPosition(292, 20);
 	scene.Add(std::move(to));
+
+	go = std::make_unique<dae::GameObject>();
+	auto fpsc = std::make_unique<dae::FPS>(go.get());
+	go->AddComponent(std::move(fpsc));
+	scene.Add(std::move(go));
+
 }
 
 int main(int, char*[]) {
