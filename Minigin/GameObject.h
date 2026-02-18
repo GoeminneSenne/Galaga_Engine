@@ -15,8 +15,8 @@ namespace dae
 		std::vector<std::unique_ptr<Component>> m_components{};
 		bool m_pendingDestroy{ false };
 	public:
-		virtual void Update();
-		virtual void FixedUpdate();
+		virtual void Update(float deltaTime);
+		virtual void FixedUpdate(float fixedTimeStep);
 		virtual void Render() const;
 
 		void SetTexture(const std::string& filename);

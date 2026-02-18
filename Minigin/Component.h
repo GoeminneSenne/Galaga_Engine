@@ -12,8 +12,8 @@ namespace dae
 
 		void Destroy();
 
-		virtual void Update();
-		virtual void FixedUpdate();
+		virtual void Update(float deltaTime);
+		virtual void FixedUpdate(float fixedTimeStep);
 		virtual void Render() const;
 
 		GameObject* GetOwner() const;

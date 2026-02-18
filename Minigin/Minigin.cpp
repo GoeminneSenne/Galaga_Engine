@@ -110,11 +110,11 @@ void dae::Minigin::RunOneFrame()
 	
 	while (m_lag >= m_fixedTimeStep)
 	{
-		SceneManager::GetInstance().FixedUpdate();
+		SceneManager::GetInstance().FixedUpdate(m_fixedTimeStep);
 		m_lag -= m_fixedTimeStep;
 	}
 
-	SceneManager::GetInstance().Update();
+	SceneManager::GetInstance().Update(deltaTime);
 	Renderer::GetInstance().Render();
 	
 	SceneManager::GetInstance().ProcessPendingDestroys();

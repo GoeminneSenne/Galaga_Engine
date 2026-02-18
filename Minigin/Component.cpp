@@ -12,11 +12,11 @@ void dae::Component::Destroy()
 	m_pendingDestroy = true;
 }
 
-void dae::Component::Update()
+void dae::Component::Update(float)
 {
 }
 
-void dae::Component::FixedUpdate()
+void dae::Component::FixedUpdate(float)
 {
 }
 
