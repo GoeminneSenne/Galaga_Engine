@@ -7,6 +7,11 @@ Component::Component(GameObject* pOwner)
 {
 }
 
+void dae::Component::Destroy()
+{
+	m_pendingDestroy = true;
+}
+
 void dae::Component::Update()
 {
 }
@@ -18,5 +23,10 @@ void dae::Component::Render() const
 GameObject* dae::Component::GetOwner() const
 {
 	return m_pOwner;
+}
+
+bool dae::Component::GetPendingDestroy() const
+{
+	return m_pendingDestroy;
 }
 

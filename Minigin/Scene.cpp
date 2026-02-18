@@ -42,3 +42,11 @@ void Scene::Render() const
 	}
 }
 
+void dae::Scene::ProcessPendingDestroys()
+{
+	for (const auto& object : m_objects)
+	{
+		object->ProcessPendingDestroys();
+	}
+}
+

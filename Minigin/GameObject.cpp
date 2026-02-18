@@ -1,4 +1,5 @@
 #include <string>
+#include <ranges>
 #include "GameObject.h"
 #include "ResourceManager.h"
 #include "Renderer.h"
@@ -35,4 +36,26 @@ void dae::GameObject::AddComponent(std::unique_ptr<Component> component)
 	m_components.emplace_back(std::move(component));
 }
 
+void dae::GameObject::RemoveComponent(const Component& component)
+{
+	for (auto& ptr : m_components)
+	{
+		if (ptr.get() == &component)
+		{
+			ptr->Destroy();
+		}
+	}
+}
+
+void dae::GameObject::ProcessPendingDestroys()
+{
+	m_components.erase(
+		std::remove_if(
+			m_components.begin(),
+			m_components.end(),
+			[](const auto& component) {return component->GetPendingDestroy(); }
+		),
+		m_components.end()
+	);
+}
 

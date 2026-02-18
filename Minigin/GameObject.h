@@ -21,10 +21,12 @@ namespace dae
 		void SetPosition(float x, float y);
 
 		void AddComponent(std::unique_ptr<Component> component);
+		void RemoveComponent(const Component& component);
 		template<typename T>
 		bool HasComponent() const;
 		template<typename T>
 		T* GetComponent();
+		void ProcessPendingDestroys();
 
 
 		GameObject() = default;
