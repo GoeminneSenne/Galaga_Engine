@@ -21,6 +21,14 @@ void Scene::Remove(const GameObject& object)
 	}
 }
 
+void Scene::RemoveAll()
+{
+	for (auto& object : m_objects)
+	{
+		object->Destroy();
+	}
+}
+
 void Scene::Update(float deltaTime)
 {
 	for(auto& object : m_objects)
