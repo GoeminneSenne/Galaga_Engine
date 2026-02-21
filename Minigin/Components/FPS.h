@@ -12,6 +12,6 @@ namespace dae
 	private:
 		int m_frameCount{};
 		float m_elapsedTime{};
-		int m_currentFPS{};
+		float m_currentFPS{};
 	};
 }

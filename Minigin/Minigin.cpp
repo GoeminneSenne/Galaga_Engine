@@ -115,9 +115,8 @@ void dae::Minigin::RunOneFrame()
 	}
 
 	SceneManager::GetInstance().Update(deltaTime);
-	Renderer::GetInstance().Render();
-	
 	SceneManager::GetInstance().ProcessPendingDestroys();
+	Renderer::GetInstance().Render();
 
 	const auto sleepTime = currentTime + std::chrono::milliseconds(m_msPerFrame)
 		- std::chrono::high_resolution_clock::now();

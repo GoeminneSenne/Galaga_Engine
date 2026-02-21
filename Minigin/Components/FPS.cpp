@@ -16,7 +16,7 @@ void dae::FPS::Update(float deltaTime)
 
 	if (m_elapsedTime > 1.f)
 	{
-		m_currentFPS = static_cast<int>(static_cast<float>(m_frameCount) / m_elapsedTime);
+		m_currentFPS = static_cast<float>(m_frameCount) / m_elapsedTime;
 		m_frameCount = 0;
 		m_elapsedTime -= 1.f;
 

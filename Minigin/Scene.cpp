@@ -57,11 +57,8 @@ void dae::Scene::ProcessPendingDestroys()
 {
 	//Erase all pending GameObjects
 	m_objects.erase(
-		std::remove_if(
-			m_objects.begin(),
-			m_objects.end(),
-			[](const auto& ptr) { return ptr->GetPendingDestroy(); }
-		),
+		std::ranges::remove_if(m_objects,
+			[](const auto& ptr) { return ptr->GetPendingDestroy(); }).begin(),
 		m_objects.end()
 	);
 
