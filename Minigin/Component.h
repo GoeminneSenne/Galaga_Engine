@@ -7,16 +7,18 @@ namespace dae
 	class Component
 	{
 	public:
-		void Destroy();
-
 		virtual void Update(float deltaTime);
 		virtual void FixedUpdate(float fixedTimeStep);
 		virtual void Render() const;
 
+		void Destroy();
 		bool GetPendingDestroy() const;
 
 		virtual ~Component() = default;
-
+		Component(const Component& other) = delete;
+		Component(Component&& other) = delete;
+		Component& operator=(const Component& other) = delete;
+		Component& operator=(Component&& other) = delete;
 
 	protected:
 		explicit Component(GameObject* pOwner);
