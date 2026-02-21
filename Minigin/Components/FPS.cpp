@@ -20,7 +20,7 @@ void dae::FPS::Update(float deltaTime)
 		m_frameCount = 0;
 		m_elapsedTime -= 1.f;
 
-		auto* textRenderer = m_pOwner->GetComponent<TextRenderer>();
+		auto* textRenderer = GetOwner()->GetComponent<TextRenderer>();
 		textRenderer->SetText(std::to_string(m_currentFPS) + " FPS");
 	}
 }

@@ -14,7 +14,7 @@ void dae::TextureRenderer::Render() const
 {
 	if (m_texture != nullptr)
 	{
-		const auto& pos = m_pOwner->GetTransform().GetPosition();
+		const auto& pos = GetOwner()->GetTransform().GetPosition();
 		Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
 	}
 }
