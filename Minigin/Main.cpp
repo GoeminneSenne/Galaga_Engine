@@ -21,30 +21,24 @@ static void load()
 	auto& scene = dae::SceneManager::GetInstance().CreateScene();
 
 	auto go = std::make_unique<dae::GameObject>();
-	auto textureRenderer = std::make_unique<dae::TextureRenderer>(go.get(), "background.png");
-	go->AddComponent(std::move(textureRenderer));
+	go->AddComponent<dae::TextureRenderer>("background.png");
 	scene.Add(std::move(go));
 
 	go = std::make_unique<dae::GameObject>();
-	textureRenderer = std::make_unique<dae::TextureRenderer>(go.get(), "logo.png");
-	go->AddComponent(std::move(textureRenderer));
+	go->AddComponent<dae::TextureRenderer>("logo.png");
 	go->SetPosition(358, 180);
 	scene.Add(std::move(go));
 
 	go = std::make_unique<dae::GameObject>();
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto textRenderer = std::make_unique<dae::TextRenderer>(go.get(), "Programming 4 Assignment", font);
-	textRenderer->SetColor({ 255, 255, 0, 255 });
 	go->SetPosition(292, 20);
-	go->AddComponent(std::move(textRenderer));
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	go->AddComponent<dae::TextRenderer>("Programming 4 Assignment", font, SDL_Color{255, 255, 0, 255});
 	scene.Add(std::move(go));
 
 	go = std::make_unique<dae::GameObject>();
-	textRenderer = std::make_unique<dae::TextRenderer>(go.get(), "0 FPS", font);
-	go->AddComponent(std::move(textRenderer));
 	go->SetPosition(20, 20);
-	auto fpsc = std::make_unique<dae::FPS>(go.get());
-	go->AddComponent(std::move(fpsc));
+	go->AddComponent<dae::FPS>();
+	go->AddComponent<dae::TextRenderer>("0 FPS", font);
 	scene.Add(std::move(go));
 }
 

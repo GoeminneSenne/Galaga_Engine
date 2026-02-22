@@ -21,7 +21,9 @@ namespace dae
 		Transform GetTransform() const;
 		void SetPosition(float x, float y);
 
-		void AddComponent(std::unique_ptr<Component> component);
+		template<typename T, typename...  Args>
+			requires std::derived_from<T, Component>&& std::constructible_from<T, GameObject*, Args...>
+		void AddComponent(Args&&... args);
 		void RemoveComponent(const Component& component);
 		template<typename T>
 		bool HasComponent() const;
@@ -40,6 +42,13 @@ namespace dae
 		GameObject& operator=(GameObject&& other) = delete;
 	};
 
+
+	template <typename T, typename ... Args>
+	requires std::derived_from<T, Component> && std::constructible_from<T, GameObject*, Args...>
+	void GameObject::AddComponent(Args&&... args)
+	{
+		m_components.emplace_back(std::make_unique<T>(this, std::forward<Args>(args)...));
+	}
 
 	template<typename T>
 	bool GameObject::HasComponent() const

@@ -40,12 +40,6 @@ void dae::GameObject::SetPosition(float x, float y)
 	m_transform.SetPosition(x, y, 0.0f);
 }
 
-void dae::GameObject::AddComponent(std::unique_ptr<Component> component)
-{
-	assert(component != nullptr && "Cannot add a null Component to gameobject");
-	m_components.emplace_back(std::move(component));
-}
-
 void dae::GameObject::RemoveComponent(const Component& component)
 {
 	for (auto& ptr : m_components)
