@@ -7,6 +7,9 @@
 
 namespace dae
 {
+	template<typename T>
+	concept ComponentType = std::derived_from<T, Component>;
+
 	class Texture2D;
 	class GameObject final
 	{
@@ -21,13 +24,13 @@ namespace dae
 		Transform GetTransform() const;
 		void SetPosition(float x, float y);
 
-		template<typename T, typename...  Args>
-			requires std::derived_from<T, Component>&& std::constructible_from<T, GameObject*, Args...>
+		template<ComponentType T, typename...  Args>
+			requires std::constructible_from<T, GameObject*, Args...>
 		void AddComponent(Args&&... args);
 		void RemoveComponent(const Component& component);
-		template<typename T>
+		template<ComponentType T>
 		bool HasComponent() const;
-		template<typename T>
+		template<ComponentType T>
 		T* GetComponent() const;
 
 		void Destroy();
@@ -43,14 +46,14 @@ namespace dae
 	};
 
 
-	template <typename T, typename ... Args>
-	requires std::derived_from<T, Component> && std::constructible_from<T, GameObject*, Args...>
+	template <ComponentType T, typename ... Args>
+	requires std::constructible_from<T, GameObject*, Args...>
 	void GameObject::AddComponent(Args&&... args)
 	{
 		m_components.emplace_back(std::make_unique<T>(this, std::forward<Args>(args)...));
 	}
 
-	template<typename T>
+	template<ComponentType T>
 	bool GameObject::HasComponent() const
 	{
 		{
@@ -64,7 +67,7 @@ namespace dae
 		}
 	}
 
-	template<typename T>
+	template<ComponentType T>
 	T* GameObject::GetComponent() const
 	{
 		for (const auto& component : m_components)
