@@ -26,7 +26,7 @@ namespace dae
 		template<typename T>
 		bool HasComponent() const;
 		template<typename T>
-		T* GetComponent();
+		T* GetComponent() const;
 
 		void Destroy();
 		bool GetPendingDestroy() const;
@@ -42,7 +42,7 @@ namespace dae
 
 
 	template<typename T>
-	inline bool GameObject::HasComponent() const
+	bool GameObject::HasComponent() const
 	{
 		{
 			for (const auto& component : m_components)
@@ -56,7 +56,7 @@ namespace dae
 	}
 
 	template<typename T>
-	inline T* GameObject::GetComponent()
+	T* GameObject::GetComponent() const
 	{
 		for (const auto& component : m_components)
 		{

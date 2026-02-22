@@ -61,11 +61,9 @@ void dae::GameObject::RemoveComponent(const Component& component)
 void dae::GameObject::ProcessPendingDestroys()
 {
 	m_components.erase(
-		std::remove_if(
-			m_components.begin(),
-			m_components.end(),
+		std::ranges::remove_if(m_components,
 			[](const auto& component) {return component->GetPendingDestroy(); }
-		),
+		).begin(),
 		m_components.end()
 	);
 }
