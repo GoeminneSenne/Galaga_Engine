@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "TextRenderer.h"
 #include <string>
+#include <sstream>
+#include <iomanip>
 #include <cmath>
 
 dae::FPS::FPS(GameObject* pOwner)
@@ -20,7 +22,11 @@ void dae::FPS::Update(float deltaTime)
 		m_frameCount = 0;
 		m_elapsedTime -= 1.f;
 
+		std::stringstream ss;
+
+		ss << std::fixed << std::setprecision(1) << m_currentFPS << " FPS";
+
 		auto* textRenderer = GetOwner()->GetComponent<TextRenderer>();
-		textRenderer->SetText(std::to_string(m_currentFPS) + " FPS");
+		textRenderer->SetText(ss.str());
 	}
 }
