@@ -9,7 +9,7 @@
 #include "SceneManager.h"
 #include "ResourceManager.h"
 #include "Components/FPS.h"
-#include "Components/TextRenderer.h"
+#include "Components/TextComponent.h"
 #include "Components/TextureRenderer.h"
 #include "Scene.h"
 
@@ -31,14 +31,16 @@ static void load()
 
 	go = std::make_unique<dae::GameObject>();
 	go->SetPosition(292, 20);
+	go->AddComponent<dae::TextureRenderer>();
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	go->AddComponent<dae::TextRenderer>("Programming 4 Assignment", font, SDL_Color{255, 255, 0, 255});
+	go->AddComponent<dae::TextComponent>("Programming 4 Assignment", font, SDL_Color{255, 255, 0, 255});
 	scene.Add(std::move(go));
 
 	go = std::make_unique<dae::GameObject>();
 	go->SetPosition(20, 20);
+	go->AddComponent<dae::TextureRenderer>();
+	go->AddComponent<dae::TextComponent>("0 FPS", font);
 	go->AddComponent<dae::FPS>();
-	go->AddComponent<dae::TextRenderer>("0 FPS", font);
 	scene.Add(std::move(go));
 }
 

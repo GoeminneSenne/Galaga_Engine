@@ -4,6 +4,11 @@
 #include "Renderer.h"
 #include "GameObject.h"
 
+dae::TextureRenderer::TextureRenderer(GameObject* pOwner)
+	: Component(pOwner)
+{
+}
+
 dae::TextureRenderer::TextureRenderer(GameObject* pOwner, const std::string& filename)
 	: Component(pOwner)
 {
@@ -22,4 +27,9 @@ void dae::TextureRenderer::Render() const
 void dae::TextureRenderer::SetTexture(const std::string& filename)
 {
 	m_texture = ResourceManager::GetInstance().LoadTexture(filename);
+}
+
+void dae::TextureRenderer::SetTexture(const std::shared_ptr<Texture2D>& pTexture)
+{
+	m_texture = pTexture;
 }

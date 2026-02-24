@@ -1,6 +1,6 @@
 #include "FPS.h"
 #include "GameObject.h"
-#include "TextRenderer.h"
+#include "TextComponent.h"
 #include <string>
 #include <sstream>
 #include <iomanip>
@@ -26,7 +26,7 @@ void dae::FPS::Update(float deltaTime)
 
 		ss << std::fixed << std::setprecision(1) << m_currentFPS << " FPS";
 
-		auto* textRenderer = GetOwner()->GetComponent<TextRenderer>();
+		auto* textRenderer = GetOwner()->GetComponent<TextComponent>();
 		textRenderer->SetText(ss.str());
 	}
 }
