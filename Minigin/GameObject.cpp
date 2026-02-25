@@ -61,7 +61,6 @@ void dae::GameObject::SetParent(GameObject* pParent, bool keepWorldPosition)
 	if (IsChild(pParent) || pParent == this || pParent == m_pParent)
 		return;
 	
-	//TODO: implement once Local/World Position has been added to Transform
 	if (pParent == nullptr)
 	{
 		
@@ -102,6 +101,7 @@ dae::GameObject* dae::GameObject::GetChildAt(int index) const
 const std::vector<dae::GameObject*>& dae::GameObject::GetChildren() const
 {
 	return m_children;
+}
 
 void dae::GameObject::RemoveComponent(const Component& component)
 {
