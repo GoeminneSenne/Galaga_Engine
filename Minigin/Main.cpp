@@ -26,22 +26,24 @@ static void load()
 
 	go = std::make_unique<dae::GameObject>();
 	go->AddComponent<dae::TextureRenderer>("logo.png");
-	go->SetPosition(358, 180);
+	go->GetTransform()->SetLocalPosition(358, 180);
 	scene.Add(std::move(go));
 
 	go = std::make_unique<dae::GameObject>();
-	go->SetPosition(292, 20);
+	go->GetTransform()->SetLocalPosition(292, 20);
 	go->AddComponent<dae::TextureRenderer>();
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	go->AddComponent<dae::TextComponent>("Programming 4 Assignment", font, SDL_Color{255, 255, 0, 255});
 	scene.Add(std::move(go));
 
 	go = std::make_unique<dae::GameObject>();
-	go->SetPosition(20, 20);
+	go->GetTransform()->SetLocalPosition(20, 20);
 	go->AddComponent<dae::TextureRenderer>();
 	go->AddComponent<dae::TextComponent>("0 FPS", font);
 	go->AddComponent<dae::FPS>();
 	scene.Add(std::move(go));
+
+	go = std::make_unique<dae::GameObject>();
 }
 
 int main(int, char*[]) {
