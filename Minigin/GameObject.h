@@ -27,7 +27,6 @@ namespace dae
 		void Render() const;
 
 		Transform* GetTransform();
-		void SetPosition(float x, float y);
 
 		GameObject* GetParent() const;
 		void SetParent(GameObject* pParent, bool keepWorldPosition = true);
