@@ -8,10 +8,12 @@
 #include "Minigin.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
+#include "Scene.h"
+
 #include "Components/FPS.h"
 #include "Components/TextComponent.h"
 #include "Components/TextureRenderer.h"
-#include "Scene.h"
+#include "Components/Orbit.h"
 
 #include <filesystem>
 namespace fs = std::filesystem;
@@ -44,6 +46,16 @@ static void load()
 	scene.Add(std::move(go));
 
 	go = std::make_unique<dae::GameObject>();
+	go->AddComponent<dae::TextureRenderer>("Galaga/ship1.png");
+	go->AddComponent<dae::Orbit>(glm::vec3{300, 300, 0}, 20.f, -10.f);
+
+	auto child = std::make_unique<dae::GameObject>();
+	child->SetParent(go.get());
+	child->GetTransform()->SetLocalPosition(10, 10);
+	child->AddComponent<dae::TextureRenderer>("Galaga/ship2.png");
+
+	scene.Add(std::move(go));
+	scene.Add(std::move(child));
 }
 
 int main(int, char*[]) {

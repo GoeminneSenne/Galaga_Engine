@@ -43,7 +43,7 @@ void dae::GameObject::Render() const
 
 dae::Transform* dae::GameObject::GetTransform()
 {
-	return &m_transform;
+	return m_pTransform;
 }
 
 
@@ -59,15 +59,15 @@ void dae::GameObject::SetParent(GameObject* pParent, bool keepWorldPosition)
 	
 	if (pParent == nullptr)
 	{
-		m_transform.SetLocalPosition(m_transform.GetWorldPosition());
+		m_pTransform->SetLocalPosition(m_pTransform->GetWorldPosition());
 	}
 	else
 	{
-		if (keepWorldPosition)
+		if (keepWorldPosition && m_pParent)
 		{
-			m_transform.SetLocalPosition(m_transform.GetWorldPosition() - m_pParent->GetTransform()->GetWorldPosition());
+			m_pTransform->SetLocalPosition(m_pTransform->GetWorldPosition() - m_pParent->GetTransform()->GetWorldPosition());
 		}
-		m_transform.SetPositionDirty();
+		m_pTransform->SetPositionDirty();
 	}
 
 	if (m_pParent)

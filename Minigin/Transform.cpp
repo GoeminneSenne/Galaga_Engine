@@ -33,7 +33,7 @@ void dae::Transform::UpdateWorldPosition()
 		if (m_pOwner->GetParent() == nullptr)
 			m_worldPosition = m_localPosition;
 		else
-			m_worldPosition = m_pOwner->GetTransform()->GetWorldPosition() + m_localPosition;
+			m_worldPosition = m_pOwner->GetParent()->GetTransform()->GetWorldPosition() + m_localPosition;
 	}
 
 	m_isPositionDirty = false;
