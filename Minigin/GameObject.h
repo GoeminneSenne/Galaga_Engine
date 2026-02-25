@@ -34,6 +34,7 @@ namespace dae
 		bool IsChild(GameObject* child) const;
 		int GetChildCount() const;
 		GameObject* GetChildAt(int index) const;
+		const std::vector<GameObject*>& GetChildren() const;
 
 		template<ComponentType T, typename...  Args>
 			requires std::constructible_from<T, GameObject*, Args...>

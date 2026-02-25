@@ -99,6 +99,10 @@ dae::GameObject* dae::GameObject::GetChildAt(int index) const
 	return m_children[index];
 }
 
+const std::vector<dae::GameObject*>& dae::GameObject::GetChildren() const
+{
+	return m_children;
+
 void dae::GameObject::RemoveComponent(const Component& component)
 {
 	for (auto& ptr : m_components)

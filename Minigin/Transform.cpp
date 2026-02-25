@@ -2,16 +2,20 @@
 
 #include "GameObject.h"
 
+const glm::vec3& dae::Transform::GetLocalPosition() const
+{
+	return m_localPosition;
+}
+
 void dae::Transform::SetLocalPosition(const float x, const float y, const float z)
 {
-	m_localPosition.x = x;
-	m_localPosition.y = y;
-	m_localPosition.z = z;
+	SetLocalPosition(glm::vec3{ x,y,z });
 }
 
 void dae::Transform::SetLocalPosition(const glm::vec3& position) 
 { 
 	m_localPosition = position; 
+	SetPositionDirty();
 }
 
 const glm::vec3& dae::Transform::GetWorldPosition()
@@ -38,6 +42,11 @@ void dae::Transform::UpdateWorldPosition()
 void dae::Transform::SetPositionDirty()
 {
 	m_isPositionDirty = true;
+
+	for (auto child : m_pOwner->GetChildren())
+	{
+		child->GetTransform()->SetPositionDirty();
+	}
 }
 
 dae::Transform::Transform(GameObject* pOwner)
