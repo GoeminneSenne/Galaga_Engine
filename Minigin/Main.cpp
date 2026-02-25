@@ -53,6 +53,7 @@ static void load()
 	child->SetParent(go.get());
 	child->GetTransform()->SetLocalPosition(10, 10);
 	child->AddComponent<dae::TextureRenderer>("Galaga/ship2.png");
+	child->AddComponent<dae::Orbit>(glm::vec3{}, 30.f, 5.f);
 
 	scene.Add(std::move(go));
 	scene.Add(std::move(child));

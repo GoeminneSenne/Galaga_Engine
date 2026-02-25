@@ -13,7 +13,7 @@ namespace dae
 	class Texture2D;
 	class GameObject final
 	{
-		Transform* m_pTransform{new Transform(this)};
+		Transform m_transform{this};
 		std::vector<std::unique_ptr<Component>> m_components{};
 		std::vector<GameObject*> m_children{};
 		GameObject* m_pParent{ nullptr };
