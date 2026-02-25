@@ -93,7 +93,7 @@ int dae::GameObject::GetChildCount() const
 
 dae::GameObject* dae::GameObject::GetChildAt(int index) const
 {
-	if (index < 0 || index > m_children.size()) return nullptr;
+	if (index < 0 || static_cast<size_t>(index) > m_children.size()) return nullptr;
 
 	return m_children[index];
 }
