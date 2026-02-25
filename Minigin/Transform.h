@@ -17,7 +17,11 @@ namespace dae
 		void SetPositionDirty();
 
 		explicit Transform(GameObject* pOwner);
-		//TODO: add Rule of 5?
+		~Transform() = default;
+		Transform(const Transform& other) = delete;
+		Transform(Transform&& other) = delete;
+		Transform& operator=(const Transform& other) = delete;
+		Transform& operator=(Transform&& other) = delete;
 	private:
 		void UpdateWorldPosition();
 
