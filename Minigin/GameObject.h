@@ -13,7 +13,7 @@ namespace dae
 	class Texture2D;
 	class GameObject final
 	{
-		Transform m_transform{};
+		Transform m_transform{this};
 		std::vector<std::unique_ptr<Component>> m_components{};
 		std::vector<GameObject*> m_children{};
 		GameObject* m_pParent{ nullptr };
@@ -26,7 +26,7 @@ namespace dae
 		void FixedUpdate(float fixedTimeStep);
 		void Render() const;
 
-		Transform GetTransform() const;
+		const Transform* GetTransform() const;
 		void SetPosition(float x, float y);
 
 		GameObject* GetParent() const;

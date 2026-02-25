@@ -41,9 +41,9 @@ void dae::GameObject::Render() const
 	}
 }
 
-dae::Transform dae::GameObject::GetTransform() const
+const dae::Transform* dae::GameObject::GetTransform() const
 {
-	return m_transform;
+	return &m_transform;
 }
 
 void dae::GameObject::SetPosition(float x, float y)
