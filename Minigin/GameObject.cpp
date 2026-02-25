@@ -51,6 +51,54 @@ void dae::GameObject::SetPosition(float x, float y)
 	m_transform.SetPosition(x, y, 0.0f);
 }
 
+dae::GameObject* dae::GameObject::GetParent() const
+{
+	return m_pParent;
+}
+
+void dae::GameObject::SetParent(GameObject* pParent, bool keepWorldPosition)
+{
+	if (IsChild(pParent) || pParent == this || pParent == m_pParent)
+		return;
+	
+	//TODO: implement once Local/World Position has been added to Transform
+	if (pParent == nullptr)
+	{
+		
+	}
+	else
+	{
+		if (keepWorldPosition)
+		{
+			
+		}
+		
+	}
+
+	if (m_pParent)
+		m_pParent->RemoveChild(this);
+	m_pParent = pParent;
+	if (m_pParent)
+		m_pParent->AddChild(this);
+}
+
+bool dae::GameObject::IsChild(GameObject* child) const
+{
+	return (std::ranges::count(m_children, child) > 0);
+}
+
+int dae::GameObject::GetChildCount() const
+{
+	return static_cast<int>(m_children.size());
+}
+
+dae::GameObject* dae::GameObject::GetChildAt(int index) const
+{
+	if (index < 0 || index > m_children.size()) return nullptr;
+
+	return m_children[index];
+}
+
 void dae::GameObject::RemoveComponent(const Component& component)
 {
 	for (auto& ptr : m_components)

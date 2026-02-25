@@ -29,6 +29,12 @@ namespace dae
 		Transform GetTransform() const;
 		void SetPosition(float x, float y);
 
+		GameObject* GetParent() const;
+		void SetParent(GameObject* pParent, bool keepWorldPosition = true);
+		bool IsChild(GameObject* child) const;
+		int GetChildCount() const;
+		GameObject* GetChildAt(int index) const;
+
 		template<ComponentType T, typename...  Args>
 			requires std::constructible_from<T, GameObject*, Args...>
 		void AddComponent(Args&&... args);
