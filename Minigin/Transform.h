@@ -13,11 +13,12 @@ namespace dae
 		void SetLocalPosition(const glm::vec3& position);
 	
 		const glm::vec3& GetWorldPosition();
+		
+		void SetPositionDirty();
 
 		explicit Transform(GameObject* pOwner);
 		//TODO: add Rule of 5?
 	private:
-		void SetPositionDirty();
 		void UpdateWorldPosition();
 
 		GameObject* const m_pOwner{};
