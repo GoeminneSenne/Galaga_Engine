@@ -14,6 +14,8 @@ void dae::Transform::SetLocalPosition(const float x, const float y, const float 
 
 void dae::Transform::SetLocalPosition(const glm::vec3& position) 
 { 
+	if (m_localPosition == position) return;
+
 	m_localPosition = position; 
 	SetPositionDirty();
 }
