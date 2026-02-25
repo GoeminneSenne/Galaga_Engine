@@ -26,7 +26,7 @@ namespace dae
 		void FixedUpdate(float fixedTimeStep);
 		void Render() const;
 
-		const Transform* GetTransform() const;
+		Transform* GetTransform();
 		void SetPosition(float x, float y);
 
 		GameObject* GetParent() const;

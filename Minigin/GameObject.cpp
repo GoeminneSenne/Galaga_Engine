@@ -41,14 +41,14 @@ void dae::GameObject::Render() const
 	}
 }
 
-const dae::Transform* dae::GameObject::GetTransform() const
+dae::Transform* dae::GameObject::GetTransform()
 {
 	return &m_transform;
 }
 
 void dae::GameObject::SetPosition(float x, float y)
 {
-	m_transform.SetPosition(x, y, 0.0f);
+	m_transform.SetLocalPosition(x, y, 0.0f);
 }
 
 dae::GameObject* dae::GameObject::GetParent() const
