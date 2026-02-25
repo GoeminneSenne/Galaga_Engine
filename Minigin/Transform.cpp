@@ -11,3 +11,6 @@ void dae::Transform::SetPosition(const glm::vec3& position)
 { 
 	m_position = position; 
 }
+
+dae::Transform::Transform(GameObject* pOwner)
+	: m_pOwner{pOwner} {}
