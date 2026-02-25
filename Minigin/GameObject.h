@@ -15,7 +15,12 @@ namespace dae
 	{
 		Transform m_transform{};
 		std::vector<std::unique_ptr<Component>> m_components{};
+		std::vector<GameObject*> m_children{};
+		GameObject* m_pParent{ nullptr };
 		bool m_pendingDestroy{ false };
+
+		void AddChild(GameObject* child);
+		void RemoveChild(GameObject* child);
 	public:
 		void Update(float deltaTime);
 		void FixedUpdate(float fixedTimeStep);

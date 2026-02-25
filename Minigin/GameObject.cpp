@@ -6,6 +6,17 @@
 
 dae::GameObject::~GameObject() = default;
 
+
+void dae::GameObject::AddChild(GameObject* child)
+{
+	m_children.push_back(child);
+}
+
+void dae::GameObject::RemoveChild(GameObject* child)
+{
+	std::erase(m_children, child);
+}
+
 void dae::GameObject::Update(float deltaTime)
 {
 	for (auto& component : m_components)
