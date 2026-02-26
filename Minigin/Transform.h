@@ -14,6 +14,7 @@ namespace dae
 	
 		const glm::vec3& GetWorldPosition();
 		
+		void SetPositionDirty();
 
 		explicit Transform(GameObject* pOwner);
 		~Transform() = default;
@@ -22,7 +23,6 @@ namespace dae
 		Transform& operator=(const Transform& other) = delete;
 		Transform& operator=(Transform&& other) = delete;
 	private:
-		void SetPositionDirty();
 		void UpdateWorldPosition();
 
 		GameObject* const m_pOwner{};
