@@ -45,16 +45,21 @@ static void load()
 	go->AddComponent<dae::FPS>();
 	scene.Add(std::move(go));
 
+	auto p = std::make_unique<dae::GameObject>();
+	p->GetTransform()->SetLocalPosition(400, 400);
+
 	go = std::make_unique<dae::GameObject>();
 	go->AddComponent<dae::TextureRenderer>("Galaga/ship1.png");
-	go->AddComponent<dae::Orbit>(glm::vec3{300, 300, 0}, 20.f, -10.f);
+	go->AddComponent<dae::Orbit>( 20.f, -10.f);
+	go->SetParent(p.get());
 
 	auto child = std::make_unique<dae::GameObject>();
 	child->SetParent(go.get());
 	child->GetTransform()->SetLocalPosition(10, 10);
 	child->AddComponent<dae::TextureRenderer>("Galaga/ship2.png");
-	child->AddComponent<dae::Orbit>(glm::vec3{}, 30.f, 5.f);
+	child->AddComponent<dae::Orbit>(30.f, 5.f);
 
+	scene.Add(std::move(p));
 	scene.Add(std::move(go));
 	scene.Add(std::move(child));
 

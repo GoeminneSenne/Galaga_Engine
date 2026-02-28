@@ -9,14 +9,13 @@ namespace dae
 	class Orbit : public Component
 	{
 	public:
-		explicit Orbit(GameObject* pOwner, const glm::vec3& center, float radius, float rotationSpeed);
+		explicit Orbit(GameObject* pOwner, float radius, float rotationSpeed);
 
 		virtual void Update(float deltaTime) override;
 
 	private:
 		Transform* m_pTransform{};
 
-		glm::vec3 m_center{};
 		float m_radius{};
 		float m_rotationSpeed{};
 		float m_currentAngle{};
