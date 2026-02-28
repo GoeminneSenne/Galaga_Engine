@@ -124,6 +124,11 @@ void dae::GameObject::ProcessPendingDestroys()
 void dae::GameObject::Destroy()
 {
 	m_pendingDestroy = true;
+
+	for (const auto& child : m_children)
+	{
+		child->Destroy();
+	}
 }
 
 bool dae::GameObject::GetPendingDestroy() const
