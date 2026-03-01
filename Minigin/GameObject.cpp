@@ -44,6 +44,14 @@ void dae::GameObject::Render() const
 	}
 }
 
+void dae::GameObject::RenderUI() const
+{
+	for (const auto& component : m_components)
+	{
+		component->RenderUI();
+	}
+}
+
 dae::Transform* dae::GameObject::GetTransform()
 {
 	return &m_transform;

@@ -10,7 +10,7 @@ namespace dae
 		virtual void Update(float deltaTime);
 		virtual void FixedUpdate(float fixedTimeStep);
 		virtual void Render() const;
-		//TODO RenderUi function toevoegen
+		virtual void RenderUI() const;
 
 		void Destroy();
 		bool GetPendingDestroy() const;

@@ -24,6 +24,10 @@ void dae::Component::Render() const
 {
 }
 
+void Component::RenderUI() const
+{
+}
+
 GameObject* dae::Component::GetOwner() const
 {
 	return m_pOwner;

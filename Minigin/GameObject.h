@@ -25,6 +25,7 @@ namespace dae
 		void Update(float deltaTime);
 		void FixedUpdate(float fixedTimeStep);
 		void Render() const;
+		void RenderUI() const;
 
 		Transform* GetTransform(); 
 		//TODO GetTransform terug veranderen naar een &

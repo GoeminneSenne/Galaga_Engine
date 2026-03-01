@@ -25,6 +25,14 @@ void dae::SceneManager::Render()
 	}
 }
 
+void dae::SceneManager::RenderUI()
+{
+	for (const auto& scene : m_scenes)
+	{
+		scene->RenderUI();
+	}
+}
+
 void dae::SceneManager::ProcessPendingDestroys()
 {
 	for (auto& scene : m_scenes)

@@ -55,6 +55,14 @@ void Scene::Render() const
 	}
 }
 
+void Scene::RenderUI() const
+{
+	for (const auto& object : m_objects)
+	{
+		object->RenderUI();
+	}
+}
+
 void dae::Scene::ProcessPendingDestroys()
 {
 	//Erase all pending GameObjects
