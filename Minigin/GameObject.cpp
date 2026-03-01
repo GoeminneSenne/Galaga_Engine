@@ -4,7 +4,10 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 
-dae::GameObject::~GameObject() = default;
+dae::GameObject::~GameObject()
+{
+	
+}
 
 
 void dae::GameObject::AddChild(GameObject* child)
@@ -129,6 +132,9 @@ void dae::GameObject::Destroy()
 	{
 		child->Destroy();
 	}
+
+	//TODO ask why doing this in the destructor of gameobject causes crash.
+	if (m_pParent) m_pParent->RemoveChild(this);
 }
 
 bool dae::GameObject::GetPendingDestroy() const
