@@ -14,6 +14,7 @@
 #include "Components/TextComponent.h"
 #include "Components/TextureRenderer.h"
 #include "Components/Orbit.h"
+#include "Components/CacheGraph.h"
 
 #include <filesystem>
 namespace fs = std::filesystem;
