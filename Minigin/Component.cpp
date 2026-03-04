@@ -24,7 +24,7 @@ void dae::Component::Render() const
 {
 }
 
-void Component::RenderUI() const
+void Component::RenderUI()
 {
 }
 

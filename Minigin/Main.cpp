@@ -64,6 +64,12 @@ static void load()
 	scene.Add(std::move(go));
 	scene.Add(std::move(child));
 
+	go = std::make_unique<dae::GameObject>();
+	go->GetTransform()->SetLocalPosition(50, 50);
+	go->AddComponent<dae::CacheGraph>();
+
+	scene.Add(std::move(go));
+
 }
 
 int main(int, char*[]) {

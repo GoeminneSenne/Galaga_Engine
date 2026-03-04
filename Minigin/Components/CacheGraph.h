@@ -1,5 +1,9 @@
 #pragma once
 
+#include <vector>
+#include <chrono>
+
+
 #include "Component.h"
 
 namespace dae
@@ -9,9 +13,12 @@ namespace dae
 	public:
 		explicit CacheGraph(GameObject* pOwner);
 
+		virtual void RenderUI() override;
+
 		void SampleIntCache();
 
 	private:
-		int m_intSampleCount{ 10 };
+		int m_sampleCount{ 10 };
+		std::vector<float> m_elapsedTimes;
 	};
 }
