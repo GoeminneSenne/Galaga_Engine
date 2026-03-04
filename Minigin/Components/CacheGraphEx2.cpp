@@ -65,7 +65,7 @@ void dae::CacheGraphEx2::SampleCache()
 		{
 			auto start = std::chrono::high_resolution_clock::now();
 			
-			for (int i = 0; i < (int)arr.size(); i+=stepSize)
+			for (size_t i = 0; i < arr.size(); i+=stepSize)
 			{
 				arr[i].ID += 1;
 			}
@@ -107,7 +107,7 @@ void dae::CacheGraphEx2::SampleCacheAlt()
 		{
 			auto start = std::chrono::high_resolution_clock::now();
 
-			for (int i = 0; i < arr.size(); i += stepSize)
+			for (size_t i = 0; i < arr.size(); i += stepSize)
 			{
 				arr[i].ID += 1;
 			}

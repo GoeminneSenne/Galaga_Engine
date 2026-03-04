@@ -59,7 +59,7 @@ void dae::CacheGraph::SampleIntCache()
 		{
 			auto start = std::chrono::high_resolution_clock::now();
 
-			for (int i = 0; i < (int)arr.size(); i += stepSize)
+			for (size_t i = 0; i < arr.size(); i += stepSize)
 			{
 				arr[i] += 1;
 			}
