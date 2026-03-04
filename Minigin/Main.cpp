@@ -15,6 +15,7 @@
 #include "Components/TextureRenderer.h"
 #include "Components/Orbit.h"
 #include "Components/CacheGraph.h"
+#include "Components/CacheGraphEx2.h"
 
 #include <filesystem>
 namespace fs = std::filesystem;
@@ -67,6 +68,7 @@ static void load()
 	go = std::make_unique<dae::GameObject>();
 	go->GetTransform()->SetLocalPosition(50, 50);
 	go->AddComponent<dae::CacheGraph>();
+	go->AddComponent<dae::CacheGraphEx2>();
 
 	scene.Add(std::move(go));
 

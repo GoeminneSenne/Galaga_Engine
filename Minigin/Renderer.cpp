@@ -49,9 +49,6 @@ void dae::Renderer::Render() const
 	ImGui_ImplSDL3_NewFrame();
 	ImGui::NewFrame();
 
-	//TODO for demonstration purposes only, remove this
-	//And replace it with a renderUI function
-	ImGui::ShowDemoWindow();
 	SceneManager::GetInstance().RenderUI();
 
 	ImGui::Render();

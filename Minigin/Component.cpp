@@ -33,8 +33,8 @@ GameObject* dae::Component::GetOwner() const
 	return m_pOwner;
 }
 
+
 bool dae::Component::GetPendingDestroy() const
 {
 	return m_pendingDestroy;
 }
-
