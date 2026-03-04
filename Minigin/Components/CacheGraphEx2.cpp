@@ -55,7 +55,7 @@ void dae::CacheGraphEx2::SampleCache()
 	m_elapsedTimes.clear();
 	m_elapsedTimes.reserve(10);
 
-	std::vector<GameObject3D> arr(1 << 26);
+	std::vector<GameObject3D> arr(1 << 22);
 
 	for (int stepSize = 1; stepSize <= maxStepSize; stepSize *= 2)
 	{
@@ -97,7 +97,7 @@ void dae::CacheGraphEx2::SampleCacheAlt()
 	m_elapsedTimesAlt.clear();
 	m_elapsedTimesAlt.reserve(10);
 
-	std::vector<GameObject3DAlt> arr(1 << 26);
+	std::vector<GameObject3DAlt> arr(1 << 22);
 
 	for (int stepSize = 1; stepSize <= maxStepSize; stepSize *= 2)
 	{
