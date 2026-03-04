@@ -15,10 +15,11 @@ namespace dae
 
 		virtual void RenderUI() override;
 
-		void SampleIntCache();
 
 	private:
 		int m_sampleCount{ 10 };
 		std::vector<float> m_elapsedTimes;
+
+		void SampleIntCache();
 	};
 }

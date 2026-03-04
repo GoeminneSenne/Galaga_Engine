@@ -80,7 +80,7 @@ void dae::CacheGraph::SampleIntCache()
 			sum += sample;
 		}
 
-		m_elapsedTimes.push_back(sum / samples.size());
+		m_elapsedTimes.push_back(sum / (float)samples.size());
 
 	}
 }

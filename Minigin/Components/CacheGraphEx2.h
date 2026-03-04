@@ -13,14 +13,13 @@ namespace dae
 
 		virtual void RenderUI() override;
 
-		void SampleCache();
-		void SampleCacheAlt();
-
 	private:
 		int m_sampleCount{ 100 };
 		std::vector<float> m_elapsedTimes;
 		std::vector<float> m_elapsedTimesAlt;
 
+		void SampleCache();
+		void SampleCacheAlt();
 
 		//Data structures for testing
 		struct Transform

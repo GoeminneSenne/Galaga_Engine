@@ -86,7 +86,7 @@ void dae::CacheGraphEx2::SampleCache()
 			sum += sample;
 		}
 
-		m_elapsedTimes.push_back(sum / samples.size());
+		m_elapsedTimes.push_back(sum / (float)samples.size());
 	}
 }
 
@@ -128,7 +128,7 @@ void dae::CacheGraphEx2::SampleCacheAlt()
 			sum += sample;
 		}
 
-		m_elapsedTimesAlt.push_back(sum / samples.size());
+		m_elapsedTimesAlt.push_back(sum / (float)samples.size());
 	}
 }
 
