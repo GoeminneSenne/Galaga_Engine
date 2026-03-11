@@ -34,3 +34,18 @@ bool dae::InputManager::ProcessInput()
 
 	return true;
 }
+
+bool dae::InputManager::IsKeyDown(SDL_Scancode key) const
+{
+	return m_currentKeyboardState[key] && !m_previousKeyboardState[key];
+}
+
+bool dae::InputManager::IsKeyUp(SDL_Scancode key) const
+{
+	return !m_currentKeyboardState[key] && m_previousKeyboardState[key];
+}
+
+bool dae::InputManager::IsKeyPressed(SDL_Scancode key) const
+{
+	return m_currentKeyboardState[key];
+}
