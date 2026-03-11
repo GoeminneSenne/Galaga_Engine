@@ -38,23 +38,23 @@ bool dae::InputManager::ProcessInput()
 	m_currentKeyboardState = SDL_GetKeyboardState(&m_numKeys);
 
 	//Process Keyboard Input
-	for (const auto& keybind : m_keybinds)
+	for (const auto& [key, state, pCommand] : m_keybinds)
 	{
 		bool triggered = false;
-		switch (keybind.state)
+		switch (state)
 		{
 		case KeyState::Down:
-			triggered = IsKeyDown(keybind.key);
+			triggered = IsKeyDown(key);
 			break;
 		case KeyState::Up:
-			triggered = IsKeyUp(keybind.key);
+			triggered = IsKeyUp(key);
 			break;
 		case KeyState::Pressed:
-			triggered = IsKeyPressed(keybind.key);
+			triggered = IsKeyPressed(key);
 			break;
 		}
 
-		if (triggered) keybind.pCommand->Execute();
+		if (triggered) pCommand->Execute();
 	}
 
 	//Controller input
