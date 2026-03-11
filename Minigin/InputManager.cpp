@@ -12,14 +12,10 @@ bool dae::InputManager::ProcessInput()
 		if (e.type == SDL_EVENT_QUIT) {
 			return false;
 		}
-		if (e.type == SDL_EVENT_KEY_DOWN) {
 
-		}
-		if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
-			
-		}
 		// etc...
 
+		
 
 		//process event for IMGUI
 		ImGui_ImplSDL3_ProcessEvent(&e);
@@ -28,6 +24,24 @@ bool dae::InputManager::ProcessInput()
 	m_currentKeyboardState = SDL_GetKeyboardState(&m_numKeys);
 
 	//Process Input
+	for (const auto& keybind : m_keybinds)
+	{
+		bool triggered = false;
+		switch (keybind.state)
+		{
+		case KeyState::Down:
+			triggered = IsKeyDown(keybind.key);
+			break;
+		case KeyState::Up:
+			triggered = IsKeyUp(keybind.key);
+			break;
+		case KeyState::Pressed:
+			triggered = IsKeyPressed(keybind.key);
+			break;
+		}
+
+		if (triggered) keybind.pCommand->Execute();
+	}
 
 
 	

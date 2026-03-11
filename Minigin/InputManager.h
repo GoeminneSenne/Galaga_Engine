@@ -2,13 +2,13 @@
 #include <memory>
 #include <vector>
 
+#include "InputBinding.h"
 #include "Singleton.h"
 
 
 namespace dae
 {
 	enum class KeyState;
-	class Keybind;
 	class Command;
 	class InputManager final : public Singleton<InputManager>
 	{

@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <SDL3/SDL.h>
-
+#include "Command.h"
 
 namespace dae
 {
