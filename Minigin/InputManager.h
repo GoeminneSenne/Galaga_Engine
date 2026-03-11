@@ -5,7 +5,7 @@
 #include "InputBinding.h"
 #include "Singleton.h"
 
-#include "Gamepad.h"
+#include "XInputGamepad.h"
 
 namespace dae
 {
@@ -35,7 +35,7 @@ namespace dae
 		int m_numKeys{};
 
 		int m_nrOfGamepads{ 4 }; //Max for Xinput
-		std::vector<Gamepad> m_gamepads;
+		std::vector<XInputGamepad> m_gamepads;
 
 		std::vector<ButtonBind> m_buttonbinds;
 	};
