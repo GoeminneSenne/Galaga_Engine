@@ -3,7 +3,6 @@
 #include <memory>
 #include "Gamepad.h"
 
-#include "InputBinding.h"
 
 namespace dae
 {

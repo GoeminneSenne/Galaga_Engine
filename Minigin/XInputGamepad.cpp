@@ -29,12 +29,6 @@ private:
 	WORD m_buttonsReleasedThisFrame{};
 };
 
-dae::XInputGamepad::XInputGamepad(int gamepadIndex)
-	:m_pImpl{std::make_unique<XInputGamepadImpl>(gamepadIndex)}
-{}
-
-dae::XInputGamepad::~XInputGamepad() = default;
-
 void dae::XInputGamepad::XInputGamepadImpl::Update()
 {
 	CopyMemory(&m_previousState, &m_currentState, sizeof(XINPUT_STATE));
@@ -82,6 +76,13 @@ WORD dae::XInputGamepad::XInputGamepadImpl::GamepadButtonToXinput(GamepadButton 
 	default: return 0;
 	}
 }
+
+dae::XInputGamepad::XInputGamepad(int gamepadIndex)
+	:m_pImpl{ std::make_unique<XInputGamepadImpl>(gamepadIndex) }
+{
+}
+
+dae::XInputGamepad::~XInputGamepad() = default;
 
 void dae::XInputGamepad::Update()
 {
