@@ -42,6 +42,7 @@ namespace dae
 	struct ButtonBind
 	{
 		GamepadButton button;
+		int gamepadIndex;
 		KeyState state;
 		std::unique_ptr<Command> pCommand;
 	};

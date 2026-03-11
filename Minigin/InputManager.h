@@ -5,14 +5,7 @@
 #include "InputBinding.h"
 #include "Singleton.h"
 
-
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-#include <Windows.h>
-#include <Xinput.h>
-#endif
-
+#include "Gamepad.h"
 
 namespace dae
 {
@@ -21,10 +14,11 @@ namespace dae
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
+		explicit InputManager();
 		bool ProcessInput();
 
 		void AddKeybind(SDL_Scancode key, KeyState state, std::unique_ptr<Command> pCommand);
-		void AddButtonbind(GamepadButton button, KeyState state, std::unique_ptr<Command> pCommand);
+		void AddButtonbind(GamepadButton button, int gamepadIndex, KeyState state, std::unique_ptr<Command> pCommand);
 	private:
 
 		bool IsKeyDown(SDL_Scancode key) const;
@@ -37,18 +31,8 @@ namespace dae
 		std::vector<bool> m_previousKeyboardState;
 		int m_numKeys{};
 
-
-		bool IsButtonDown(GamepadButton button) const;
-		bool IsButtonUp(GamepadButton button) const;
-		bool IsButtonPressed(GamepadButton button) const;
-
-		WORD GamepadButtonToXinput(GamepadButton button) const;
-
-		XINPUT_STATE previousState{};
-		XINPUT_STATE currentState{};
-
-		WORD buttonsPressedThisFrame{};
-		WORD buttonsReleasedThisFrame{};
+		int m_nrOfGamepads{ 4 }; //Max for Xinput
+		std::vector<Gamepad> m_gamepads;
 
 		std::vector<ButtonBind> m_buttonbinds;
 	};
