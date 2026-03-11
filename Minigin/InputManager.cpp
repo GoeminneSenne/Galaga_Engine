@@ -11,7 +11,7 @@ bool dae::InputManager::ProcessInput()
 			return false;
 		}
 		if (e.type == SDL_EVENT_KEY_DOWN) {
-			
+
 		}
 		if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
 			
@@ -19,10 +19,18 @@ bool dae::InputManager::ProcessInput()
 		// etc...
 
 
-
 		//process event for IMGUI
 		ImGui_ImplSDL3_ProcessEvent(&e);
 	}
+
+	m_currentKeyboardState = SDL_GetKeyboardState(&m_numKeys);
+
+	//Process Input
+
+
+	
+	//Copy state to previous 
+	m_previousKeyboardState.assign(m_currentKeyboardState, m_currentKeyboardState + m_numKeys);
 
 	return true;
 }
