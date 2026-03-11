@@ -102,6 +102,13 @@ void dae::InputManager::RemoveKeybind(SDL_Scancode key, KeyState state)
 	std::erase_if(m_keybinds, [key, state](const Keybind& bind) {return bind.key == key && bind.state == state; });
 }
 
+void dae::InputManager::RemoveButtonbind(GamepadButton button, int gamepadIndex, KeyState state)
+{
+	std::erase_if(m_buttonbinds, [button, gamepadIndex, state](const ButtonBind& bind)
+		{return bind.button == button && bind.gamepadIndex == gamepadIndex && bind.state == state; }
+	);
+}
+
 bool dae::InputManager::IsKeyDown(SDL_Scancode key) const
 {
 	return m_currentKeyboardState[key] && !m_previousKeyboardState[key];

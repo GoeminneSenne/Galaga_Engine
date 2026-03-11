@@ -85,8 +85,6 @@ static void load()
 	//child->AddComponent<dae::Orbit>(30.f, 5.f);
 
 	scene.Add(std::move(go));
-
-	dae::InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_D, dae::KeyState::Pressed);
 }
 
 int main(int, char*[]) {
