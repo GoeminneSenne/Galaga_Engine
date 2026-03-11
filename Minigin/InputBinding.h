@@ -1,9 +1,12 @@
 #pragma once
+#include <memory>
 #include <SDL3/SDL.h>
 
 
 namespace dae
 {
+	class Command;
+
 	enum class KeyState
 	{
 		Down,
@@ -15,5 +18,7 @@ namespace dae
 	{
 		SDL_Scancode key;
 		KeyState state;
+		std::unique_ptr<Command> pCommand;
 	};
+
 }
