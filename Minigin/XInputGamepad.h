@@ -1,12 +1,9 @@
 #pragma once
 
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-#include <Windows.h>
-#include <Xinput.h>
-#endif
+#include <memory>
 #include "Gamepad.h"
+
+#include "InputBinding.h"
 
 namespace dae
 {
@@ -15,6 +12,7 @@ namespace dae
 	{
 	public:
 		explicit XInputGamepad(int gamepadIndex);
+		~XInputGamepad() override;
 
 		void Update() override;
 
@@ -24,12 +22,9 @@ namespace dae
 
 
 	private:
-		static WORD GamepadButtonToXinput(GamepadButton button);
+		class XInputGamepadImpl;
+		std::unique_ptr<XInputGamepadImpl> m_pImpl;
 
-		XINPUT_STATE m_previousState{};
-		XINPUT_STATE m_currentState{};
 
-		WORD m_buttonsPressedThisFrame{};
-		WORD m_buttonsReleasedThisFrame{};
 	};
 }

@@ -35,7 +35,7 @@ namespace dae
 		int m_numKeys{};
 
 		int m_nrOfGamepads{ 4 }; //Max for Xinput
-		std::vector<XInputGamepad> m_gamepads;
+		std::vector<std::unique_ptr<Gamepad>> m_gamepads;
 
 		std::vector<ButtonBind> m_buttonbinds;
 	};

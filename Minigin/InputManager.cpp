@@ -10,7 +10,7 @@ dae::InputManager::InputManager()
 {
 	for (int idx{}; idx < m_nrOfGamepads; ++idx)
 	{
-		m_gamepads.emplace_back(idx);
+		m_gamepads.push_back(std::make_unique<XInputGamepad>(idx));
 	}
 
 	//Check first state of SDL keyboard
@@ -60,7 +60,7 @@ bool dae::InputManager::ProcessInput()
 	//Controller input
 	for (auto& gamepad : m_gamepads)
 	{
-		gamepad.Update();
+		gamepad->Update();
 	}
 	
 	for (const auto& buttonbind : m_buttonbinds)
@@ -69,13 +69,13 @@ bool dae::InputManager::ProcessInput()
 		switch (buttonbind.state)
 		{
 		case KeyState::Down:
-			triggered = m_gamepads[buttonbind.gamepadIndex].IsButtonDown(buttonbind.button);
+			triggered = m_gamepads[buttonbind.gamepadIndex]->IsButtonDown(buttonbind.button);
 			break;
 		case KeyState::Up:
-			triggered = m_gamepads[buttonbind.gamepadIndex].IsButtonUp(buttonbind.button);
+			triggered = m_gamepads[buttonbind.gamepadIndex]->IsButtonUp(buttonbind.button);
 			break;
 		case KeyState::Pressed:
-			triggered = m_gamepads[buttonbind.gamepadIndex].IsButtonPressed(buttonbind.button);
+			triggered = m_gamepads[buttonbind.gamepadIndex]->IsButtonPressed(buttonbind.button);
 			break;
 		}
 
