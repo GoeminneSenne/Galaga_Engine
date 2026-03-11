@@ -6,6 +6,14 @@
 #include "Singleton.h"
 
 
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <Windows.h>
+#include <Xinput.h>
+#endif
+
+
 namespace dae
 {
 	enum class KeyState;
@@ -16,6 +24,7 @@ namespace dae
 		bool ProcessInput();
 
 		void AddKeybind(SDL_Scancode key, KeyState state, std::unique_ptr<Command> pCommand);
+		void AddButtonbind(unsigned int button, KeyState state, std::unique_ptr<Command> pCommand);
 	private:
 
 		bool IsKeyDown(SDL_Scancode key) const;
@@ -27,6 +36,19 @@ namespace dae
 		const bool* m_currentKeyboardState{};
 		std::vector<bool> m_previousKeyboardState;
 		int m_numKeys{};
+
+
+		bool IsButtonDown(unsigned int button) const;
+		bool IsButtonUp(unsigned int button) const;
+		bool IsButtonPressed(unsigned int button) const;
+
+		XINPUT_STATE previousState{};
+		XINPUT_STATE currentState{};
+
+		WORD buttonsPressedThisFrame{};
+		WORD buttonsReleasedThisFrame{};
+
+		std::vector<ButtonBind> m_buttonbinds;
 	};
 
 }

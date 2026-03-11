@@ -21,4 +21,11 @@ namespace dae
 		std::unique_ptr<Command> pCommand;
 	};
 
+	struct ButtonBind
+	{
+		unsigned int button;
+		KeyState state;
+		std::unique_ptr<Command> pCommand;
+	};
+
 }

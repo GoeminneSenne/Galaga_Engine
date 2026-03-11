@@ -21,6 +21,7 @@
 
 #include "InputManager.h"
 #include "MoveObjectCommand.h"
+
 namespace fs = std::filesystem;
 
 static void load()
@@ -59,6 +60,12 @@ static void load()
 
 	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1,0,0), 1.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_D, dae::KeyState::Pressed, std::move(moc));
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(-1, 0, 0), 1.f);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_A, dae::KeyState::Pressed, std::move(moc));
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, -1, 0), 1.f);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_W, dae::KeyState::Pressed, std::move(moc));
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, 1, 0), 1.f);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_S, dae::KeyState::Pressed, std::move(moc));
 
 	scene.Add(std::move(go));
 
@@ -66,6 +73,15 @@ static void load()
 	//child->SetParent(go.get());
 	go->GetTransform()->SetLocalPosition(400, 310);
 	go->AddComponent<dae::TextureRenderer>("Galaga/ship2.png");
+
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1, 0, 0), 2.f);
+	dae::InputManager::GetInstance().AddButtonbind(XINPUT_GAMEPAD_DPAD_RIGHT, dae::KeyState::Pressed, std::move(moc));
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(-1, 0, 0), 2.f);
+	dae::InputManager::GetInstance().AddButtonbind(XINPUT_GAMEPAD_DPAD_LEFT, dae::KeyState::Pressed, std::move(moc));
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, -1, 0), 2.f);
+	dae::InputManager::GetInstance().AddButtonbind(XINPUT_GAMEPAD_DPAD_UP, dae::KeyState::Pressed, std::move(moc));
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, 1, 0), 2.f);
+	dae::InputManager::GetInstance().AddButtonbind(XINPUT_GAMEPAD_DPAD_DOWN, dae::KeyState::Pressed, std::move(moc));
 	//child->AddComponent<dae::Orbit>(30.f, 5.f);
 
 	scene.Add(std::move(go));

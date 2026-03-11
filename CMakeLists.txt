@@ -126,6 +126,8 @@ target_include_directories(imgui PUBLIC ${imgui_SOURCE_DIR} ${sdl3_SOURCE_DIR}/i
 target_link_libraries(imgui PUBLIC SDL3::SDL3)
 target_compile_features(imgui PUBLIC cxx_std_20)
 
+
+
 if (WIN32)
   # Add VLD (Visual Leak Detector) for memory leak detection on Windows
   find_package(VLD CONFIG)
@@ -148,6 +150,11 @@ target_link_libraries("${TARGET_NAME}" PUBLIC
   imgui
   ${VLD_LIBRARIES}
 )
+
+# Add Xinput if on Windows
+if(WIN32)
+    target_link_libraries(${TARGET_NAME} PRIVATE XInput)
+endif()
 
 if(MSVC)
   # compile at warning level 4 + treat warnings as errors
