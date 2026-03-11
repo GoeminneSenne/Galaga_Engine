@@ -75,13 +75,13 @@ static void load()
 	go->AddComponent<dae::TextureRenderer>("Galaga/ship2.png");
 
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1, 0, 0), 2.f);
-	dae::InputManager::GetInstance().AddButtonbind(XINPUT_GAMEPAD_DPAD_RIGHT, dae::KeyState::Pressed, std::move(moc));
+	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_RIGHT, dae::KeyState::Pressed, std::move(moc));
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(-1, 0, 0), 2.f);
-	dae::InputManager::GetInstance().AddButtonbind(XINPUT_GAMEPAD_DPAD_LEFT, dae::KeyState::Pressed, std::move(moc));
+	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_LEFT, dae::KeyState::Pressed, std::move(moc));
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, -1, 0), 2.f);
-	dae::InputManager::GetInstance().AddButtonbind(XINPUT_GAMEPAD_DPAD_UP, dae::KeyState::Pressed, std::move(moc));
+	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_UP, dae::KeyState::Pressed, std::move(moc));
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, 1, 0), 2.f);
-	dae::InputManager::GetInstance().AddButtonbind(XINPUT_GAMEPAD_DPAD_DOWN, dae::KeyState::Pressed, std::move(moc));
+	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_DOWN, dae::KeyState::Pressed, std::move(moc));
 	//child->AddComponent<dae::Orbit>(30.f, 5.f);
 
 	scene.Add(std::move(go));

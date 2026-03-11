@@ -84,7 +84,7 @@ void dae::InputManager::AddKeybind(SDL_Scancode key, KeyState state, std::unique
 	m_keybinds.emplace_back(key, state, std::move(pCommand));
 }
 
-void dae::InputManager::AddButtonbind(unsigned int button, KeyState state, std::unique_ptr<Command> pCommand)
+void dae::InputManager::AddButtonbind(GamepadButton button, KeyState state, std::unique_ptr<Command> pCommand)
 {
 	m_buttonbinds.emplace_back(button, state, std::move(pCommand));
 }
@@ -104,17 +104,39 @@ bool dae::InputManager::IsKeyPressed(SDL_Scancode key) const
 	return m_currentKeyboardState[key];
 }
 
-bool dae::InputManager::IsButtonDown(unsigned int button) const
+bool dae::InputManager::IsButtonDown(GamepadButton button) const
 {
-	return buttonsPressedThisFrame & button;
+	return buttonsPressedThisFrame & GamepadButtonToXinput(button);
 }
 
-bool dae::InputManager::IsButtonUp(unsigned int button) const
+bool dae::InputManager::IsButtonUp(GamepadButton button) const
 {
-	return buttonsReleasedThisFrame & button;
+	return buttonsReleasedThisFrame & GamepadButtonToXinput(button);
 }
 
-bool dae::InputManager::IsButtonPressed(unsigned int button) const
+bool dae::InputManager::IsButtonPressed(GamepadButton button) const
 {
-	return currentState.Gamepad.wButtons & button;
+	return currentState.Gamepad.wButtons & GamepadButtonToXinput(button);
+}
+
+WORD dae::InputManager::GamepadButtonToXinput(GamepadButton button) const
+{
+	switch (button)
+	{
+	case GamepadButton::A: return XINPUT_GAMEPAD_A;
+	case GamepadButton::B: return XINPUT_GAMEPAD_B;
+	case GamepadButton::X: return XINPUT_GAMEPAD_X;
+	case GamepadButton::Y: return XINPUT_GAMEPAD_Y;
+	case GamepadButton::START: return XINPUT_GAMEPAD_START;
+	case GamepadButton::BACK: return XINPUT_GAMEPAD_BACK;
+	case GamepadButton::LEFT_THUMB: return XINPUT_GAMEPAD_LEFT_THUMB;
+	case GamepadButton::RIGHT_THUMB: return XINPUT_GAMEPAD_RIGHT_THUMB;
+	case GamepadButton::LEFT_SHOULDER: return XINPUT_GAMEPAD_LEFT_SHOULDER;
+	case GamepadButton::RIGHT_SHOULDER: return XINPUT_GAMEPAD_RIGHT_SHOULDER;
+	case GamepadButton::DPAD_UP: return XINPUT_GAMEPAD_DPAD_UP;
+	case GamepadButton::DPAD_DOWN: return XINPUT_GAMEPAD_DPAD_DOWN;
+	case GamepadButton::DPAD_LEFT: return XINPUT_GAMEPAD_DPAD_LEFT;
+	case GamepadButton::DPAD_RIGHT: return XINPUT_GAMEPAD_DPAD_RIGHT;
+	default: return 0;
+	}
 }

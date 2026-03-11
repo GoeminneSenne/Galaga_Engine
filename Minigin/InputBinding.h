@@ -21,9 +21,27 @@ namespace dae
 		std::unique_ptr<Command> pCommand;
 	};
 
+	enum class GamepadButton
+	{
+		A,
+		B,
+		X,
+		Y,
+		START,
+		BACK,
+		LEFT_THUMB,
+		RIGHT_THUMB,
+		LEFT_SHOULDER,
+		RIGHT_SHOULDER,
+		DPAD_UP,
+		DPAD_DOWN,
+		DPAD_LEFT,
+		DPAD_RIGHT
+	};
+
 	struct ButtonBind
 	{
-		unsigned int button;
+		GamepadButton button;
 		KeyState state;
 		std::unique_ptr<Command> pCommand;
 	};

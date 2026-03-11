@@ -24,7 +24,7 @@ namespace dae
 		bool ProcessInput();
 
 		void AddKeybind(SDL_Scancode key, KeyState state, std::unique_ptr<Command> pCommand);
-		void AddButtonbind(unsigned int button, KeyState state, std::unique_ptr<Command> pCommand);
+		void AddButtonbind(GamepadButton button, KeyState state, std::unique_ptr<Command> pCommand);
 	private:
 
 		bool IsKeyDown(SDL_Scancode key) const;
@@ -38,9 +38,11 @@ namespace dae
 		int m_numKeys{};
 
 
-		bool IsButtonDown(unsigned int button) const;
-		bool IsButtonUp(unsigned int button) const;
-		bool IsButtonPressed(unsigned int button) const;
+		bool IsButtonDown(GamepadButton button) const;
+		bool IsButtonUp(GamepadButton button) const;
+		bool IsButtonPressed(GamepadButton button) const;
+
+		WORD GamepadButtonToXinput(GamepadButton button) const;
 
 		XINPUT_STATE previousState{};
 		XINPUT_STATE currentState{};
