@@ -19,6 +19,8 @@ namespace dae
 
 		void AddKeybind(SDL_Scancode key, KeyState state, std::unique_ptr<Command> pCommand);
 		void AddButtonbind(GamepadButton button, int gamepadIndex, KeyState state, std::unique_ptr<Command> pCommand);
+
+		void RemoveKeybind(SDL_Scancode key, KeyState state);
 	private:
 
 		bool IsKeyDown(SDL_Scancode key) const;
