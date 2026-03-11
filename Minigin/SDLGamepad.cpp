@@ -9,9 +9,12 @@
 class dae::SDLGamepad::SDLGamepadImpl
 {
 public:
-	explicit SDLGamepadImpl(int gamepadIndex) : m_gamepadIndex{gamepadIndex}
+	explicit SDLGamepadImpl(int gamepadIdx)
 	{
-		m_gamepad = SDL_OpenGamepad(gamepadIndex);
+		int count = 0;
+		auto ids = SDL_GetGamepads(&count);
+
+		m_gamepad = SDL_OpenGamepad(ids[gamepadIdx]);
 
 	}
 
@@ -26,7 +29,6 @@ public:
 private:
 	static std::uint32_t GamepadButtonToSDL(GamepadButton button);
 
-	int m_gamepadIndex;
 	SDL_Gamepad* m_gamepad{ nullptr };
 
 	std::uint32_t m_currentState{};
