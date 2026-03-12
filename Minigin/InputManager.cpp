@@ -13,6 +13,7 @@
 #endif
 
 dae::InputManager::InputManager()
+	: m_keyboard{}
 {
 	SDL_InitSubSystem(SDL_INIT_JOYSTICK | SDL_INIT_GAMEPAD);
 
@@ -24,10 +25,6 @@ dae::InputManager::InputManager()
 		m_gamepads.push_back(std::make_unique<SDLGamepad>(idx));
 #endif
 	}
-
-	//Check first state of SDL keyboard
-	m_currentKeyboardState = SDL_GetKeyboardState(&m_numKeys);
-
 }
 
 dae::InputManager::~InputManager()
@@ -51,8 +48,7 @@ bool dae::InputManager::ProcessInput()
 		ImGui_ImplSDL3_ProcessEvent(&e);
 	}
 
-	m_previousKeyboardState.assign(m_currentKeyboardState, m_currentKeyboardState + m_numKeys);
-	m_currentKeyboardState = SDL_GetKeyboardState(&m_numKeys);
+	m_keyboard.UpdateState();
 
 	//Process Keyboard Input
 	for (const auto& [key, state, pCommand] : m_keybinds)
@@ -61,13 +57,13 @@ bool dae::InputManager::ProcessInput()
 		switch (state)
 		{
 		case KeyState::Down:
-			triggered = IsKeyDown(key);
+			triggered = m_keyboard.IsKeyDown(key);
 			break;
 		case KeyState::Up:
-			triggered = IsKeyUp(key);
+			triggered = m_keyboard.IsKeyUp(key);
 			break;
 		case KeyState::Pressed:
-			triggered = IsKeyPressed(key);
+			triggered = m_keyboard.IsKeyPressed(key);
 			break;
 		}
 
@@ -124,20 +120,5 @@ void dae::InputManager::RemoveButtonbind(GamepadButton button, int gamepadIndex,
 	std::erase_if(m_buttonbinds, [button, gamepadIndex, state](const ButtonBind& bind)
 		{return bind.button == button && bind.gamepadIndex == gamepadIndex && bind.state == state; }
 	);
-}
-
-bool dae::InputManager::IsKeyDown(SDL_Scancode key) const
-{
-	return m_currentKeyboardState[key] && !m_previousKeyboardState[key];
-}
-
-bool dae::InputManager::IsKeyUp(SDL_Scancode key) const
-{
-	return !m_currentKeyboardState[key] && m_previousKeyboardState[key];
-}
-
-bool dae::InputManager::IsKeyPressed(SDL_Scancode key) const
-{
-	return m_currentKeyboardState[key];
 }
 

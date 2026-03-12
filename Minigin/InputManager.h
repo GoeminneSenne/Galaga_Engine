@@ -5,6 +5,7 @@
 #include "InputBinding.h"
 #include "Singleton.h"
 #include "Input/Gamepad.h"
+#include "Input/Keyboard.h"
 
 namespace dae
 {
@@ -24,21 +25,14 @@ namespace dae
 		void RemoveKeybind(SDL_Scancode key, KeyState state);
 		void RemoveButtonbind(GamepadButton button, int gamepadIndex, KeyState state);
 	private:
-
-		bool IsKeyDown(SDL_Scancode key) const;
-		bool IsKeyUp(SDL_Scancode key) const;
-		bool IsKeyPressed(SDL_Scancode key) const;
-
 		std::vector<Keybind> m_keybinds;
+		std::vector<ButtonBind> m_buttonbinds;
 
-		const bool* m_currentKeyboardState{};
-		std::vector<bool> m_previousKeyboardState;
-		int m_numKeys{};
+		Keyboard m_keyboard;
 
 		int m_nrOfGamepads{ 4 }; //Max for Xinput
 		std::vector<std::unique_ptr<Gamepad>> m_gamepads;
 
-		std::vector<ButtonBind> m_buttonbinds;
 	};
 
 }
