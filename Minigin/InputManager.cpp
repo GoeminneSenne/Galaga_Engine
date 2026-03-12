@@ -9,7 +9,7 @@
 #ifdef _WIN32
 #include "Input/XInputGamepad.h"
 #else
-#include "SDLGamepad.h"
+#include "Input/SDLGamepad.h"
 #endif
 
 dae::InputManager::InputManager()
@@ -39,9 +39,6 @@ bool dae::InputManager::ProcessInput()
 		if (e.type == SDL_EVENT_QUIT) {
 			return false;
 		}
-
-		// etc...
-
 		
 
 		//process event for IMGUI
