@@ -6,7 +6,7 @@
 
 #include "backends/imgui_impl_sdl3.h"
 
-#ifndef _WIN32
+#ifdef _WIN32
 #include "XInputGamepad.h"
 #else
 #include "SDLGamepad.h"
@@ -18,7 +18,7 @@ dae::InputManager::InputManager()
 
 	for (int idx{}; idx < m_nrOfGamepads; ++idx)
 	{
-#ifndef _WIN32
+#ifdef _WIN32
 		m_gamepads.push_back(std::make_unique<XInputGamepad>(idx));
 #else
 		m_gamepads.push_back(std::make_unique<SDLGamepad>(idx));
