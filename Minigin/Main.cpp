@@ -21,7 +21,7 @@
 #include <filesystem>
 
 #include "InputManager.h"
-#include "MoveObjectCommand.h"
+#include "Commands/MoveObjectCommand.h"
 
 namespace fs = std::filesystem;
 

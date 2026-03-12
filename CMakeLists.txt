@@ -26,7 +26,7 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
   Minigin/SceneManager.cpp
   Minigin/Texture2D.cpp
   Minigin/Transform.cpp
- "Minigin/Component.cpp" "Minigin/GameTime.cpp" "Minigin/Components/FPS.cpp"  "Minigin/Components/TextureRenderer.cpp" "Minigin/Components/TextComponent.cpp" "Minigin/Components/Orbit.cpp" "Minigin/Components/CacheGraph.cpp" "Minigin/Components/CacheGraphEx2.cpp" "Minigin/MoveObjectCommand.cpp"  "Minigin/Input/Gamepad.cpp" "Minigin/Input/SDLGamepad.cpp" "Minigin/Components/Health.cpp" "Minigin/Input/Keyboard.cpp")
+ "Minigin/Component.cpp" "Minigin/GameTime.cpp" "Minigin/Components/FPS.cpp"  "Minigin/Components/TextureRenderer.cpp" "Minigin/Components/TextComponent.cpp" "Minigin/Components/Orbit.cpp" "Minigin/Components/CacheGraph.cpp" "Minigin/Components/CacheGraphEx2.cpp" "Minigin/Commands/MoveObjectCommand.cpp"  "Minigin/Input/Gamepad.cpp" "Minigin/Input/SDLGamepad.cpp" "Minigin/Components/Health.cpp" "Minigin/Input/Keyboard.cpp")
 
  if(WIN32)
     target_sources(${TARGET_NAME} PRIVATE "Minigin/Input/XInputGamepad.cpp")
