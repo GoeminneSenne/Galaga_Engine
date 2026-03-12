@@ -6,7 +6,7 @@
 
 #include "backends/imgui_impl_sdl3.h"
 
-#ifdef _WIN32
+#ifndef _WIN32
 #include "XInputGamepad.h"
 #else
 #include "SDLGamepad.h"
@@ -14,9 +14,11 @@
 
 dae::InputManager::InputManager()
 {
+	SDL_InitSubSystem(SDL_INIT_JOYSTICK | SDL_INIT_GAMEPAD);
+
 	for (int idx{}; idx < m_nrOfGamepads; ++idx)
 	{
-#ifdef _WIN32
+#ifndef _WIN32
 		m_gamepads.push_back(std::make_unique<XInputGamepad>(idx));
 #else
 		m_gamepads.push_back(std::make_unique<SDLGamepad>(idx));
@@ -26,6 +28,11 @@ dae::InputManager::InputManager()
 	//Check first state of SDL keyboard
 	m_currentKeyboardState = SDL_GetKeyboardState(&m_numKeys);
 
+}
+
+dae::InputManager::~InputManager()
+{
+	SDL_QuitSubSystem(SDL_INIT_JOYSTICK | SDL_INIT_GAMEPAD);
 }
 
 bool dae::InputManager::ProcessInput()

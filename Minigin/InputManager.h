@@ -14,6 +14,8 @@ namespace dae
 	{
 	public:
 		explicit InputManager();
+		~InputManager() override;
+
 		bool ProcessInput();
 
 		void AddKeybind(SDL_Scancode key, KeyState state, std::unique_ptr<Command> pCommand);
