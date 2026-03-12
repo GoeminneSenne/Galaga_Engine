@@ -17,7 +17,7 @@ namespace dae
 		explicit InputManager();
 		~InputManager() override;
 
-		bool ProcessInput();
+		bool ProcessInput(float deltaTime);
 
 		void AddKeybind(SDL_Scancode key, KeyState state, std::unique_ptr<Command> pCommand);
 		void AddButtonbind(GamepadButton button, int gamepadIndex, KeyState state, std::unique_ptr<Command> pCommand);

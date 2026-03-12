@@ -11,7 +11,7 @@ namespace dae
 		MoveObjectCommand(GameObject* pObject, glm::vec3 direction, float speed);
 		virtual ~MoveObjectCommand() override = default;
 
-		virtual void Execute() override;
+		virtual void Execute(float deltaTime) override;
 
 	private:
 		glm::vec3 m_direction;

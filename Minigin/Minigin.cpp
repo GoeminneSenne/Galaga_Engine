@@ -123,7 +123,7 @@ void dae::Minigin::RunOneFrame()
 	m_lastTime = currentTime;
 	m_lag += deltaTime;
 
-	m_quit = !InputManager::GetInstance().ProcessInput();
+	m_quit = !InputManager::GetInstance().ProcessInput(deltaTime);
 	
 #if USE_STEAMWORKS
 	SteamAPI_RunCallbacks();

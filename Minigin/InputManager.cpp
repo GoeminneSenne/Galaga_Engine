@@ -32,7 +32,7 @@ dae::InputManager::~InputManager()
 	SDL_QuitSubSystem(SDL_INIT_JOYSTICK | SDL_INIT_GAMEPAD);
 }
 
-bool dae::InputManager::ProcessInput()
+bool dae::InputManager::ProcessInput(float deltaTime)
 {
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
@@ -64,7 +64,7 @@ bool dae::InputManager::ProcessInput()
 			break;
 		}
 
-		if (triggered) pCommand->Execute();
+		if (triggered) pCommand->Execute(deltaTime);
 	}
 
 	//Controller input
@@ -89,7 +89,7 @@ bool dae::InputManager::ProcessInput()
 			break;
 		}
 
-		if (triggered) buttonbind.pCommand->Execute();
+		if (triggered) buttonbind.pCommand->Execute(deltaTime);
 	}
 
 	//Copy state to previous 

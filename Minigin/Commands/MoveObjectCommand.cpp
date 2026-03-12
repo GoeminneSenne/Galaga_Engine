@@ -6,10 +6,10 @@ dae::MoveObjectCommand::MoveObjectCommand(GameObject* pObject, glm::vec3 directi
 	: GameObjectCommand{ pObject }, m_direction{ direction }, m_speed{ speed }
 {}
 
-void dae::MoveObjectCommand::Execute()
+void dae::MoveObjectCommand::Execute(float deltaTime)
 {
 	auto oldPos = GetGameObject()->GetTransform()->GetLocalPosition();
-	auto newPos = oldPos + m_direction * m_speed;
+	auto newPos = oldPos + m_direction * m_speed * deltaTime;
 
 	GetGameObject()->GetTransform()->SetLocalPosition(newPos);
 }
