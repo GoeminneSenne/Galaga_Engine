@@ -16,6 +16,7 @@
 #include "Components/Orbit.h"
 #include "Components/CacheGraph.h"
 #include "Components/CacheGraphEx2.h"
+#include "Components/Health.h"
 
 #include <filesystem>
 
