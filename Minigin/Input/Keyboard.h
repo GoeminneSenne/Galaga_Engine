@@ -11,6 +11,7 @@ namespace dae
 		explicit Keyboard();
 
 		void UpdateState();
+		void UpdatePreviousState();
 
 		bool IsKeyDown(SDL_Scancode key) const;
 		bool IsKeyUp(SDL_Scancode key) const;

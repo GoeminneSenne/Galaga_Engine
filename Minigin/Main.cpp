@@ -1,6 +1,8 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
+#include "Commands/DamageCommand.h"
+
 #if _DEBUG && __has_include(<vld.h>)
 #include <vld.h>
 #endif
@@ -45,19 +47,22 @@ static void load()
 	go->AddComponent<dae::TextComponent>("Programming 4 Assignment", font, SDL_Color{255, 255, 0, 255});
 	scene.Add(std::move(go));
 
+	///FPS COMPONENT
+	/////////////////////////////////////////////
 	go = std::make_unique<dae::GameObject>();
 	go->GetTransform()->SetLocalPosition(20, 20);
 	go->AddComponent<dae::TextureRenderer>();
 	go->AddComponent<dae::TextComponent>("0 FPS", font);
 	go->AddComponent<dae::FPS>();
 	scene.Add(std::move(go));
+	/////////////////////////////////////////////
 
-
+	///SHIP 1
+	/////////////////////////////////////////////////////////
 	go = std::make_unique<dae::GameObject>();
 	go->AddComponent<dae::TextureRenderer>("Galaga/ship1.png");
 	go->GetTransform()->SetLocalPosition(500, 400);
-	//go->AddComponent<dae::Orbit>( 20.f, -10.f);
-	//go->SetParent(p.get());
+	auto pHealth = go->AddComponent<dae::Health>(2);
 
 	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1,0,0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_D, dae::KeyState::Pressed, std::move(moc));
@@ -68,8 +73,14 @@ static void load()
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, 1, 0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_S, dae::KeyState::Pressed, std::move(moc));
 
-	scene.Add(std::move(go));
+	auto dc = std::make_unique<dae::DamageCommand>(pHealth);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_C, dae::KeyState::Down, std::move(dc));
 
+	scene.Add(std::move(go));
+	////////////////////////////////////////////////////////////
+
+	///SHIP 2
+	/////////////////////////////////////////////////////////////
 	go = std::make_unique<dae::GameObject>();
 	//child->SetParent(go.get());
 	go->GetTransform()->SetLocalPosition(400, 310);
@@ -83,9 +94,9 @@ static void load()
 	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_UP, 0, dae::KeyState::Pressed, std::move(moc));
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, 1, 0), 100.f);
 	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_DOWN, 0, dae::KeyState::Pressed, std::move(moc));
-	//child->AddComponent<dae::Orbit>(30.f, 5.f);
 
 	scene.Add(std::move(go));
+	///////////////////////////////////////////////////////////
 }
 
 int main(int, char*[]) {

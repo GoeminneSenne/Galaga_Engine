@@ -93,6 +93,7 @@ bool dae::InputManager::ProcessInput(float deltaTime)
 	}
 
 	//Copy state to previous 
+	m_keyboard.UpdatePreviousState();
 
 	return true;
 }

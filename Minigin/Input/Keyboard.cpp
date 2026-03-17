@@ -10,13 +10,19 @@ dae::Keyboard::Keyboard()
 
 void dae::Keyboard::UpdateState()
 {
-	m_previousState.assign(m_currentState, m_currentState + m_numKeys);
+
 	SDL_PumpEvents();
 	m_currentState = SDL_GetKeyboardState(&m_numKeys);
 }
 
+void dae::Keyboard::UpdatePreviousState()
+{
+	m_previousState.assign(m_currentState, m_currentState + m_numKeys);
+}
+
 bool dae::Keyboard::IsKeyDown(SDL_Scancode key) const
 {
+
 	return m_currentState[key] && !m_previousState[key];
 }
 
