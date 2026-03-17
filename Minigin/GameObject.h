@@ -41,7 +41,7 @@ namespace dae
 
 		template<ComponentType T, typename...  Args>
 			requires std::constructible_from<T, GameObject*, Args...>
-		void AddComponent(Args&&... args); //TODO add component kan Component returnen
+		T* AddComponent(Args&&... args); //TODO add component kan Component returnen
 		void RemoveComponent(const Component& component);
 		template<ComponentType T>
 		bool HasComponent() const;
@@ -63,9 +63,14 @@ namespace dae
 
 	template <ComponentType T, typename ... Args>
 	requires std::constructible_from<T, GameObject*, Args...>
-	void GameObject::AddComponent(Args&&... args)
+	T* GameObject::AddComponent(Args&&... args)
 	{
-		m_components.emplace_back(std::make_unique<T>(this, std::forward<Args>(args)...));
+		auto ptr = std::make_unique<T>(this, std::forward<Args>(args)...);
+		T* rawPtr = ptr.get();
+
+		m_components.emplace_back(std::move(ptr));
+
+		return rawPtr;
 	}
 
 	template<ComponentType T>
