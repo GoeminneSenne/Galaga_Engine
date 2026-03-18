@@ -4,6 +4,7 @@ namespace dae
 {
 	enum class EventType
 	{
-		PlayerDied
+		PlayerDied,
+		ScoreAdded
 	};
 }
