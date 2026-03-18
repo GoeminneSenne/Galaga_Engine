@@ -22,13 +22,16 @@
 
 #include <filesystem>
 
-#include "AchievementObserver.h"
 #include "InputManager.h"
 #include "Commands/AddScoreCommand.h"
 #include "Commands/MoveObjectCommand.h"
 #include "Components/HealthDisplay.h"
 #include "Components/Score.h"
 #include "Components/ScoreDisplay.h"
+
+#if USE_STEAMWORKS
+#include "AchievementObserver.h"
+#endif
 
 namespace fs = std::filesystem;
 
