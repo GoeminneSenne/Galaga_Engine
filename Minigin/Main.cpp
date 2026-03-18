@@ -24,6 +24,7 @@
 
 #include "InputManager.h"
 #include "Commands/MoveObjectCommand.h"
+#include "Components/HealthDisplay.h"
 
 namespace fs = std::filesystem;
 
@@ -82,7 +83,7 @@ static void load()
 	go = std::make_unique<dae::GameObject>();
 	go->AddComponent<dae::TextureRenderer>("Galaga/ship1.png");
 	go->GetTransform()->SetLocalPosition(500, 400);
-	auto pHealth = go->AddComponent<dae::Health>(2);
+	auto pHealth = go->AddComponent<dae::Health>(3);
 
 	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1,0,0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_D, dae::KeyState::Pressed, std::move(moc));
@@ -98,6 +99,18 @@ static void load()
 
 	scene.Add(std::move(go));
 	////////////////////////////////////////////////////////////
+
+	///HealthDisplay 1
+	/////////////////////////////////////////////////////////////
+	go = std::make_unique<dae::GameObject>();
+	go->AddComponent<dae::TextureRenderer>();
+	go->AddComponent<dae::TextComponent>("Yeey", font);
+	auto healthDisplay = go->AddComponent<dae::HealthDisplay>(pHealth);
+	go->GetTransform()->SetLocalPosition(10, 150);
+	pHealth->GetSubject()->AddObserver(healthDisplay);
+
+	scene.Add(std::move(go));
+	/////////////////////////////////////////////////////////////
 
 	///SHIP 2
 	/////////////////////////////////////////////////////////////

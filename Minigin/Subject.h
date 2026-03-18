@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 
+#include "EventType.h"
+
 namespace dae
 {
 	class GameObject;
@@ -12,7 +14,7 @@ namespace dae
 	public:
 		void AddObserver(Observer* observer);
 		void RemoveObserver(Observer* observer);
-		void NotifyObservers(const std::string& eventId, GameObject* object) const;
+		void NotifyObservers(EventType eventType, GameObject* object) const;
 
 	private:
 		std::vector<Observer*> m_observers;
