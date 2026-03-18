@@ -8,38 +8,20 @@
 
 dae::CSteamAchievements::CSteamAchievements() :
     m_iAppID(0),
-    m_bInitialized(true),
+    m_bInitialized(false),
     m_CallbackUserStatsReceived(this, &CSteamAchievements::OnUserStatsReceived),
     m_CallbackUserStatsStored(this, &CSteamAchievements::OnUserStatsStored),
     m_CallbackAchievementStored(this, &CSteamAchievements::OnAchievementStored)
-{
+{}
 
-    //RequestStats();
-}
-
-/*
-bool CSteamAchievements::RequestStats()
-{
-	// Is Steam loaded? If not we can't get stats.
-	if (NULL == SteamUserStats() || NULL == SteamUser())
-	{
-		return false;
-	}
-	// Is the user logged on?  If not we can't get stats.
-	if (!SteamUser()->BLoggedOn())
-	{
-		return false;
-	}
-	// Request user stats.
-	return SteamUserStats()->RequestCurrentStats();
-}
-*/
 
 void dae::CSteamAchievements::Init(Achievement_t* Achievements, int NumAchievements)
 {
 	m_iAppID = SteamUtils()->GetAppID();
 	m_pAchievements = Achievements;
 	m_iNumAchievements = NumAchievements;
+
+	m_bInitialized = true;
 }
 
 bool dae::CSteamAchievements::SetAchievement(const char* ID)

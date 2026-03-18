@@ -195,6 +195,8 @@ static void load()
 	scene.Add(std::move(go));
 	////////////////////////////////////////////////////////////
 
+
+#if USE_STEAMWORKS
 	///Achievements
 	////////////////////////////////////
 	go = std::make_unique<dae::GameObject>();
@@ -205,6 +207,7 @@ static void load()
 
 	scene.Add(std::move(go));
 	///////////////////////////////////
+#endif
 }
 
 int main(int, char*[]) {
