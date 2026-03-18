@@ -23,8 +23,11 @@
 #include <filesystem>
 
 #include "InputManager.h"
+#include "Commands/AddScoreCommand.h"
 #include "Commands/MoveObjectCommand.h"
 #include "Components/HealthDisplay.h"
+#include "Components/Score.h"
+#include "Components/ScoreDisplay.h"
 
 namespace fs = std::filesystem;
 
@@ -64,17 +67,7 @@ static void load()
 	go->GetTransform()->SetLocalPosition(10, 100);
 	go->AddComponent<dae::TextureRenderer>();
 	font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 18);
-	go->AddComponent<dae::TextComponent>("Use WASD to move Bird, C to inflict damage, Z and X to pick up pellets", font);
-	scene.Add(std::move(go));
-	///////////////////////////////////////////
-
-	///CONTROLS 2
-	////////////////////////////////////////////
-	go = std::make_unique<dae::GameObject>();
-	go->GetTransform()->SetLocalPosition(10, 118);
-	go->AddComponent<dae::TextureRenderer>();
-	font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 18);
-	go->AddComponent<dae::TextComponent>("Use WASD to move Bird, C to inflict damage, Z and X to pick up pellets", font);
+	go->AddComponent<dae::TextComponent>("Use WASD to move Bird, C to inflict damage, Z and X to kill ships", font);
 	scene.Add(std::move(go));
 	///////////////////////////////////////////
 
@@ -84,6 +77,7 @@ static void load()
 	go->AddComponent<dae::TextureRenderer>("Galaga/ship1.png");
 	go->GetTransform()->SetLocalPosition(500, 400);
 	auto pHealth = go->AddComponent<dae::Health>(3);
+	auto pScore = go->AddComponent<dae::Score>();
 
 	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1,0,0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_D, dae::KeyState::Pressed, std::move(moc));
@@ -96,6 +90,10 @@ static void load()
 
 	auto dc = std::make_unique<dae::DamageCommand>(pHealth);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_C, dae::KeyState::Down, std::move(dc));
+	auto asc = std::make_unique<dae::AddScoreCommand>(pScore, 10);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_Z, dae::KeyState::Down, std::move(asc));
+	asc = std::make_unique<dae::AddScoreCommand>(pScore, 100);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_X, dae::KeyState::Down, std::move(asc));
 
 	scene.Add(std::move(go));
 	////////////////////////////////////////////////////////////
@@ -112,13 +110,38 @@ static void load()
 	scene.Add(std::move(go));
 	/////////////////////////////////////////////////////////////
 
+	///ScoreDisplay 1
+	////////////////////////////////////////////////////////////
+	go = std::make_unique<dae::GameObject>();
+	go->AddComponent<dae::TextureRenderer>();
+	go->AddComponent<dae::TextComponent>("Score: 0", font);
+	auto scoreDisplay = go->AddComponent<dae::ScoreDisplay>();
+	go->GetTransform()->SetLocalPosition(10, 170);
+	pScore->GetSubject()->AddObserver(scoreDisplay);
+
+	scene.Add(std::move(go));
+	////////////////////////////////////////////////////////////
+
+	///CONTROLS 2
+	////////////////////////////////////////////
+	go = std::make_unique<dae::GameObject>();
+	go->GetTransform()->SetLocalPosition(10, 118);
+	go->AddComponent<dae::TextureRenderer>();
+	font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 18);
+	go->AddComponent<dae::TextComponent>("Use Arrow keys to move Ship, I to inflict damage, O and P to kill ships", font);
+	scene.Add(std::move(go));
+	///////////////////////////////////////////
+
 	///SHIP 2
 	/////////////////////////////////////////////////////////////
 	go = std::make_unique<dae::GameObject>();
 	//child->SetParent(go.get());
 	go->GetTransform()->SetLocalPosition(400, 310);
 	go->AddComponent<dae::TextureRenderer>("Galaga/ship2.png");
+	pHealth = go->AddComponent<dae::Health>(3);
+	pScore = go->AddComponent<dae::Score>();
 
+	/*
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1, 0, 0), 100.f);
 	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_RIGHT, 0, dae::KeyState::Pressed, std::move(moc));
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(-1, 0, 0), 100.f);
@@ -127,9 +150,49 @@ static void load()
 	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_UP, 0, dae::KeyState::Pressed, std::move(moc));
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, 1, 0), 100.f);
 	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_DOWN, 0, dae::KeyState::Pressed, std::move(moc));
+	*/
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1, 0, 0), 50.f);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_RIGHT, dae::KeyState::Pressed, std::move(moc));
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(-1, 0, 0), 50.f);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_LEFT, dae::KeyState::Pressed, std::move(moc));
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, -1, 0), 50.f);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_UP, dae::KeyState::Pressed, std::move(moc));
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, 1, 0), 50.f);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_DOWN, dae::KeyState::Pressed, std::move(moc));
+
+	dc = std::make_unique<dae::DamageCommand>(pHealth);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_I, dae::KeyState::Down, std::move(dc));
+	asc = std::make_unique<dae::AddScoreCommand>(pScore, 10);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_O, dae::KeyState::Down, std::move(asc));
+	asc = std::make_unique<dae::AddScoreCommand>(pScore, 100);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_P, dae::KeyState::Down, std::move(asc));
 
 	scene.Add(std::move(go));
 	///////////////////////////////////////////////////////////
+
+	///HealthDisplay 2
+	/////////////////////////////////////////////////////////////
+	go = std::make_unique<dae::GameObject>();
+	go->AddComponent<dae::TextureRenderer>();
+	go->AddComponent<dae::TextComponent>("Yeey", font);
+	healthDisplay = go->AddComponent<dae::HealthDisplay>(pHealth);
+	go->GetTransform()->SetLocalPosition(10, 200);
+	pHealth->GetSubject()->AddObserver(healthDisplay);
+
+	scene.Add(std::move(go));
+	/////////////////////////////////////////////////////////////
+
+	///ScoreDisplay 2
+	////////////////////////////////////////////////////////////
+	go = std::make_unique<dae::GameObject>();
+	go->AddComponent<dae::TextureRenderer>();
+	go->AddComponent<dae::TextComponent>("Score: 0", font);
+	scoreDisplay = go->AddComponent<dae::ScoreDisplay>();
+	go->GetTransform()->SetLocalPosition(10, 220);
+	pScore->GetSubject()->AddObserver(scoreDisplay);
+
+	scene.Add(std::move(go));
+	////////////////////////////////////////////////////////////
 }
 
 int main(int, char*[]) {
