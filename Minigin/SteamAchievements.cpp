@@ -6,16 +6,14 @@
 
 #include "isteamutils.h"
 
-dae::CSteamAchievements::CSteamAchievements(Achievement_t* Achievements, int NumAchievements) :
+dae::CSteamAchievements::CSteamAchievements() :
     m_iAppID(0),
     m_bInitialized(true),
     m_CallbackUserStatsReceived(this, &CSteamAchievements::OnUserStatsReceived),
     m_CallbackUserStatsStored(this, &CSteamAchievements::OnUserStatsStored),
     m_CallbackAchievementStored(this, &CSteamAchievements::OnAchievementStored)
 {
-    m_iAppID = SteamUtils()->GetAppID();
-    m_pAchievements = Achievements;
-    m_iNumAchievements = NumAchievements;
+
     //RequestStats();
 }
 
@@ -36,6 +34,13 @@ bool CSteamAchievements::RequestStats()
 	return SteamUserStats()->RequestCurrentStats();
 }
 */
+
+void dae::CSteamAchievements::Init(Achievement_t* Achievements, int NumAchievements)
+{
+	m_iAppID = SteamUtils()->GetAppID();
+	m_pAchievements = Achievements;
+	m_iNumAchievements = NumAchievements;
+}
 
 bool dae::CSteamAchievements::SetAchievement(const char* ID)
 {

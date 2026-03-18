@@ -26,7 +26,7 @@ inline void dae::AchievementObserver::Notify(EventType eventType, GameObject* ob
 		{
 			if (score->GetScore() >= 500)
 			{
-				g_SteamAchievements->SetAchievement("ACH_WIN_ONE_GAME");
+				CSteamAchievements::GetInstance().SetAchievement("ACH_WIN_ONE_GAME");
 			}
 		}
 	}

@@ -1,5 +1,7 @@
 #pragma once
 #include <steam_api.h>
+#include "Singleton.h"
+
 #define _ACH_ID( id, name ) { id, #id, name, "", 0, 0 }
 
 namespace dae
@@ -14,18 +16,19 @@ namespace dae
 		int m_iIconImage;
 	};
 	
-	class CSteamAchievements
+	class CSteamAchievements final : public Singleton<CSteamAchievements>
 	{
 	private:
-		int64 m_iAppID; // Our current AppID
-		Achievement_t* m_pAchievements; // Achievements data
-		int m_iNumAchievements; // The number of Achievements
-		bool m_bInitialized; // Have we called Request stats and received the callback?
+		int64 m_iAppID{}; // Our current AppID
+		Achievement_t* m_pAchievements{}; // Achievements data
+		int m_iNumAchievements{}; // The number of Achievements
+		bool m_bInitialized{}; // Have we called Request stats and received the callback?
 	
 	public:
-		CSteamAchievements(Achievement_t* Achievements, int NumAchievements);
-		~CSteamAchievements() = default;
+		CSteamAchievements();
+		void Init(Achievement_t* Achievements, int NumAchievements);
 	
+
 		//bool RequestStats();
 		bool SetAchievement(const char* ID);
 	
@@ -55,6 +58,4 @@ namespace dae
 		_ACH_ID(ACH_TRAVEL_FAR_SINGLE, "Orbiter"),
 	};
 	
-	// Global access to Achievements object
-	inline CSteamAchievements* g_SteamAchievements = NULL;
 }
