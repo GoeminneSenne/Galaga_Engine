@@ -2,7 +2,7 @@
 
 namespace dae
 {
-	class GameObject
+	class GameObject;
 	class Observer
 	{
 	public:
