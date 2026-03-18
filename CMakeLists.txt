@@ -142,6 +142,11 @@ endif()
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/steam")
 find_package(Steamworks QUIET)
 
+#Add Steamworks specific classes
+if(Steamworks_FOUND)
+    target_sources(${TARGET_NAME} PRIVATE "Minigin/SteamAchievements.cpp")
+endif()
+
 target_include_directories("${TARGET_NAME}" PUBLIC
   ${CMAKE_SOURCE_DIR}/Minigin/
   ${imgui_SOURCE_DIR}
@@ -274,7 +279,4 @@ else()
 endif()
 
 
-#Add Steamworks specific classes
-if(Steamworks_FOUND)
-    target_sources(${TARGET_NAME} PRIVATE "Minigin/SteamAchievements.cpp")
-endif()
+
