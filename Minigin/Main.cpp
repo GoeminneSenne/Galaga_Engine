@@ -50,12 +50,22 @@ static void load()
 	///FPS COMPONENT
 	/////////////////////////////////////////////
 	go = std::make_unique<dae::GameObject>();
-	go->GetTransform()->SetLocalPosition(20, 20);
+	go->GetTransform()->SetLocalPosition(10, 10);
 	go->AddComponent<dae::TextureRenderer>();
 	go->AddComponent<dae::TextComponent>("0 FPS", font);
 	go->AddComponent<dae::FPS>();
 	scene.Add(std::move(go));
 	/////////////////////////////////////////////
+
+	///CONTROLS 2
+	////////////////////////////////////////////
+	go = std::make_unique<dae::GameObject>();
+	go->GetTransform()->SetLocalPosition(10, 100);
+	go->AddComponent<dae::TextureRenderer>();
+	font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 18);
+	go->AddComponent<dae::TextComponent>("Use WASD to move Bird, C to inflict damage, Z and X to pick up pellets", font);
+	scene.Add(std::move(go));
+	///////////////////////////////////////////
 
 	///SHIP 1
 	/////////////////////////////////////////////////////////
