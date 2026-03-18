@@ -22,6 +22,7 @@
 
 #include <filesystem>
 
+#include "AchievementObserver.h"
 #include "InputManager.h"
 #include "Commands/AddScoreCommand.h"
 #include "Commands/MoveObjectCommand.h"
@@ -77,7 +78,7 @@ static void load()
 	go->AddComponent<dae::TextureRenderer>("Galaga/ship1.png");
 	go->GetTransform()->SetLocalPosition(500, 400);
 	auto pHealth = go->AddComponent<dae::Health>(3);
-	auto pScore = go->AddComponent<dae::Score>();
+	auto pScore1 = go->AddComponent<dae::Score>();
 
 	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1,0,0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_D, dae::KeyState::Pressed, std::move(moc));
@@ -90,9 +91,9 @@ static void load()
 
 	auto dc = std::make_unique<dae::DamageCommand>(pHealth);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_C, dae::KeyState::Down, std::move(dc));
-	auto asc = std::make_unique<dae::AddScoreCommand>(pScore, 10);
+	auto asc = std::make_unique<dae::AddScoreCommand>(pScore1, 10);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_Z, dae::KeyState::Down, std::move(asc));
-	asc = std::make_unique<dae::AddScoreCommand>(pScore, 100);
+	asc = std::make_unique<dae::AddScoreCommand>(pScore1, 100);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_X, dae::KeyState::Down, std::move(asc));
 
 	scene.Add(std::move(go));
@@ -117,7 +118,7 @@ static void load()
 	go->AddComponent<dae::TextComponent>("Score: 0", font);
 	auto scoreDisplay = go->AddComponent<dae::ScoreDisplay>();
 	go->GetTransform()->SetLocalPosition(10, 170);
-	pScore->GetSubject()->AddObserver(scoreDisplay);
+	pScore1->GetSubject()->AddObserver(scoreDisplay);
 
 	scene.Add(std::move(go));
 	////////////////////////////////////////////////////////////
@@ -139,7 +140,7 @@ static void load()
 	go->GetTransform()->SetLocalPosition(400, 310);
 	go->AddComponent<dae::TextureRenderer>("Galaga/ship2.png");
 	pHealth = go->AddComponent<dae::Health>(3);
-	pScore = go->AddComponent<dae::Score>();
+	auto pScore2 = go->AddComponent<dae::Score>();
 
 	/*
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1, 0, 0), 100.f);
@@ -162,9 +163,9 @@ static void load()
 
 	dc = std::make_unique<dae::DamageCommand>(pHealth);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_I, dae::KeyState::Down, std::move(dc));
-	asc = std::make_unique<dae::AddScoreCommand>(pScore, 10);
+	asc = std::make_unique<dae::AddScoreCommand>(pScore2, 10);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_O, dae::KeyState::Down, std::move(asc));
-	asc = std::make_unique<dae::AddScoreCommand>(pScore, 100);
+	asc = std::make_unique<dae::AddScoreCommand>(pScore2, 100);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_P, dae::KeyState::Down, std::move(asc));
 
 	scene.Add(std::move(go));
@@ -189,10 +190,21 @@ static void load()
 	go->AddComponent<dae::TextComponent>("Score: 0", font);
 	scoreDisplay = go->AddComponent<dae::ScoreDisplay>();
 	go->GetTransform()->SetLocalPosition(10, 220);
-	pScore->GetSubject()->AddObserver(scoreDisplay);
+	pScore2->GetSubject()->AddObserver(scoreDisplay);
 
 	scene.Add(std::move(go));
 	////////////////////////////////////////////////////////////
+
+	///Achievements
+	////////////////////////////////////
+	go = std::make_unique<dae::GameObject>();
+	auto achObs = go->AddComponent<dae::AchievementObserver>();
+
+	pScore1->GetSubject()->AddObserver(achObs);
+	pScore2->GetSubject()->AddObserver(achObs);
+
+	scene.Add(std::move(go));
+	///////////////////////////////////
 }
 
 int main(int, char*[]) {

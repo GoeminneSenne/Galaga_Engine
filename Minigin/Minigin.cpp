@@ -12,6 +12,7 @@
 #pragma warning (push)
 #pragma warning (disable:4996)
 #include <steam_api.h>
+#include "SteamAchievements.h"
 #pragma warning (pop)
 #endif
 
@@ -67,8 +68,11 @@ dae::Minigin::Minigin(const std::filesystem::path& dataPath)
 #if USE_STEAMWORKS
 	if (!SteamAPI_Init())
 		throw std::runtime_error(std::string("Fatal Error - Steam must be running to play this game (SteamAPI_Init() failed)."));
+	else
+	{
+		g_SteamAchievements = new CSteamAchievements(g_Achievements, 4);
+	}
 #endif
-
 	PrintSDLVersion();
 	
 	if (!SDL_InitSubSystem(SDL_INIT_VIDEO))

@@ -29,7 +29,8 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
  "Minigin/Component.cpp" "Minigin/GameTime.cpp" "Minigin/Components/FPS.cpp"  "Minigin/Components/TextureRenderer.cpp" "Minigin/Components/TextComponent.cpp" "Minigin/Components/Orbit.cpp" "Minigin/Components/CacheGraph.cpp" "Minigin/Components/CacheGraphEx2.cpp" "Minigin/Commands/MoveObjectCommand.cpp"  "Minigin/Input/Gamepad.cpp" "Minigin/Input/SDLGamepad.cpp" "Minigin/Components/Health.cpp" "Minigin/Input/Keyboard.cpp" "Minigin/Commands/DamageCommand.cpp" "Minigin/Subject.cpp" "Minigin/Components/HealthDisplay.cpp" "Minigin/Components/Score.cpp" "Minigin/Components/ScoreDisplay.cpp")
 
  if(WIN32)
-    target_sources(${TARGET_NAME} PRIVATE "Minigin/Input/XInputGamepad.cpp")
+    target_sources(${TARGET_NAME} PRIVATE "Minigin/Input/XInputGamepad.cpp" "Minigin/SteamAchievements.cpp")
+
  endif()
 
 # enable c++20 features
