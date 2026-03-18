@@ -11,10 +11,10 @@ void dae::Subject::RemoveObserver(Observer* observer)
 	std::erase(m_observers, observer);
 }
 
-void dae::Subject::NotifyObservers(GameObject* object) const
+void dae::Subject::NotifyObservers(const std::string& eventId, GameObject* object) const
 {
 	for (auto observer : m_observers)
 	{
-		observer->Notify(object);
+		observer->Notify(eventId, object);
 	}
 }

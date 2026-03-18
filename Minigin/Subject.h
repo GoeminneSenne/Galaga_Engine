@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 
 namespace dae
 {
@@ -11,7 +12,7 @@ namespace dae
 	public:
 		void AddObserver(Observer* observer);
 		void RemoveObserver(Observer* observer);
-		void NotifyObservers(GameObject* object) const;
+		void NotifyObservers(const std::string& eventId, GameObject* object) const;
 
 	private:
 		std::vector<Observer*> m_observers;

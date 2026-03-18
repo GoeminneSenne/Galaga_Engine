@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace dae
 {
@@ -7,6 +8,6 @@ namespace dae
 	{
 	public:
 		virtual ~Observer() = default;
-		virtual void Notify(GameObject* object) = 0;
+		virtual void Notify(const std::string& event, GameObject* object) = 0;
 	};
 }
