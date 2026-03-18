@@ -1,5 +1,7 @@
 #pragma once
 #include <steam_api.h>
+#include <vector>
+
 #include "Singleton.h"
 
 #define _ACH_ID( id, name ) { id, #id, name, "", 0, 0 }
@@ -16,6 +18,15 @@ namespace dae
 		int m_iIconImage;
 	};
 	
+	// Defining our achievements
+	enum EAchievements
+	{
+		ACH_WIN_ONE_GAME = 0,
+		ACH_WIN_100_GAMES = 1,
+		ACH_TRAVEL_FAR_ACCUM = 2,
+		ACH_TRAVEL_FAR_SINGLE = 3,
+	};
+
 	class CSteamAchievements final : public Singleton<CSteamAchievements>
 	{
 	private:
@@ -24,9 +35,17 @@ namespace dae
 		int m_iNumAchievements{}; // The number of Achievements
 		bool m_bInitialized{}; // Have we called Request stats and received the callback?
 	
+		std::vector<Achievement_t> m_achievements =
+		{
+			_ACH_ID(ACH_WIN_ONE_GAME, "Winner"),
+			_ACH_ID(ACH_WIN_100_GAMES, "Champion"),
+			_ACH_ID(ACH_TRAVEL_FAR_ACCUM, "Interstellar"),
+			_ACH_ID(ACH_TRAVEL_FAR_SINGLE, "Orbiter"),
+		};
+
 	public:
 		CSteamAchievements();
-		void Init(Achievement_t* Achievements, int NumAchievements);
+		void Init();
 	
 
 		//bool RequestStats();
@@ -40,14 +59,7 @@ namespace dae
 			UserAchievementStored_t, m_CallbackAchievementStored);
 	};
 	
-	// Defining our achievements
-	enum EAchievements
-	{
-		ACH_WIN_ONE_GAME = 0,
-		ACH_WIN_100_GAMES = 1,
-		ACH_TRAVEL_FAR_ACCUM = 2,
-		ACH_TRAVEL_FAR_SINGLE = 3,
-	};
+
 	
 	// Achievement array which will hold data about the achievements and their state
 	inline Achievement_t g_Achievements[] =

@@ -15,11 +15,11 @@ dae::CSteamAchievements::CSteamAchievements() :
 {}
 
 
-void dae::CSteamAchievements::Init(Achievement_t* Achievements, int NumAchievements)
+void dae::CSteamAchievements::Init()
 {
 	m_iAppID = SteamUtils()->GetAppID();
-	m_pAchievements = Achievements;
-	m_iNumAchievements = NumAchievements;
+	m_pAchievements = m_achievements.data();
+	m_iNumAchievements = static_cast<int>(m_achievements.size());
 
 	m_bInitialized = true;
 }

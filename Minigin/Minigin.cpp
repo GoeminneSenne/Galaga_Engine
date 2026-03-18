@@ -69,7 +69,7 @@ dae::Minigin::Minigin(const std::filesystem::path& dataPath)
 	if (!SteamAPI_Init())
 		throw std::runtime_error(std::string("Fatal Error - Steam must be running to play this game (SteamAPI_Init() failed)."));
 	
-	CSteamAchievements::GetInstance().Init(g_Achievements, 4);
+	CSteamAchievements::GetInstance().Init();
 #endif
 	PrintSDLVersion();
 	
