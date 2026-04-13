@@ -9,7 +9,12 @@ namespace dae
 	class IObserver
 	{
 	public:
-		virtual ~IObserver() = default;
 		virtual void Notify(EventId eventId, GameObject* object) = 0;
+
+		virtual ~IObserver() = default;
+		IObserver(const IObserver& other) = delete;
+		IObserver(IObserver&& other) = delete;
+		IObserver& operator=(const IObserver& other) = delete;
+		IObserver& operator=(IObserver&& other) = delete;
 	};
 }
