@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-#include "EventType.h"
+#include "Event.h"
 #include "GameObject.h"
 
 namespace dae

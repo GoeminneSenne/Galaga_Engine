@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 
-#include "EventType.h"
+#include "Event.h"
 
 namespace dae
 {
