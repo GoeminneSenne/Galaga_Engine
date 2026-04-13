@@ -1,12 +1,12 @@
 #pragma once
-#include "../Command.h"
+#include "../ICommand.h"
 #include "../Components/Score.h"
 
 namespace dae
 {
 	class Score;
 
-	class AddScoreCommand : public Command
+	class AddScoreCommand : public ICommand
 	{
 	public: 
 		explicit AddScoreCommand(Score* pScore, int scoreIncrease) : m_scoreIncrease{ scoreIncrease }, pScore{ pScore } {}

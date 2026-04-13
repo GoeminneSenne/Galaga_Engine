@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Command.h"
+#include "ICommand.h"
 
 namespace dae
 {
 	class GameObject;
 	
-	class GameObjectCommand : public Command
+	class GameObjectCommand : public ICommand
 	{
 	public:
 		GameObjectCommand(GameObject* pObject) : m_pObject{ pObject } {}

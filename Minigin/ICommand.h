@@ -3,10 +3,10 @@
 namespace dae
 {
 	
-	class Command
+	class ICommand
 	{
 	public:
-		virtual ~Command() = default;
+		virtual ~ICommand() = default;
 		virtual void Execute(float deltaTime) = 0;
 	};
 }

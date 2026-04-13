@@ -1,10 +1,10 @@
 #pragma once
-#include "../Command.h"
+#include "../ICommand.h"
 #include "../Components/Health.h"
 
 namespace dae
 {
-	class DamageCommand : public Command
+	class DamageCommand : public ICommand
 	{
 	public:
 		explicit DamageCommand(Health* pHealth) : pHealth{pHealth} {}

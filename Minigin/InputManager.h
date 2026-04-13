@@ -10,7 +10,7 @@
 namespace dae
 {
 	enum class KeyState;
-	class Command;
+	class ICommand;
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
@@ -19,8 +19,8 @@ namespace dae
 
 		bool ProcessInput(float deltaTime);
 
-		void AddKeybind(SDL_Scancode key, KeyState state, std::unique_ptr<Command> pCommand);
-		void AddButtonbind(GamepadButton button, int gamepadIndex, KeyState state, std::unique_ptr<Command> pCommand);
+		void AddKeybind(SDL_Scancode key, KeyState state, std::unique_ptr<ICommand> pCommand);
+		void AddButtonbind(GamepadButton button, int gamepadIndex, KeyState state, std::unique_ptr<ICommand> pCommand);
 
 		void RemoveKeybind(SDL_Scancode key, KeyState state);
 		void RemoveButtonbind(GamepadButton button, int gamepadIndex, KeyState state);

@@ -1,12 +1,10 @@
 #pragma once
 #include <memory>
 #include <SDL3/SDL.h>
-#include "Command.h"
+#include "ICommand.h"
 
 namespace dae
 {
-	class Command;
-
 	enum class KeyState
 	{
 		Down,
@@ -18,7 +16,7 @@ namespace dae
 	{
 		SDL_Scancode key;
 		KeyState state;
-		std::unique_ptr<Command> pCommand;
+		std::unique_ptr<ICommand> pCommand;
 	};
 
 	enum class GamepadButton
@@ -44,7 +42,7 @@ namespace dae
 		GamepadButton button;
 		int gamepadIndex;
 		KeyState state;
-		std::unique_ptr<Command> pCommand;
+		std::unique_ptr<ICommand> pCommand;
 	};
 
 }

@@ -1,7 +1,7 @@
 #include <SDL3/SDL.h>
 #include "InputManager.h"
 #include "InputBinding.h"
-#include "Command.h"
+#include "ICommand.h"
 #include "Input/Gamepad.h"
 
 #include "backends/imgui_impl_sdl3.h"
@@ -98,12 +98,12 @@ bool dae::InputManager::ProcessInput(float deltaTime)
 	return true;
 }
 
-void dae::InputManager::AddKeybind(SDL_Scancode key, KeyState state, std::unique_ptr<Command> pCommand)
+void dae::InputManager::AddKeybind(SDL_Scancode key, KeyState state, std::unique_ptr<ICommand> pCommand)
 {
 	m_keybinds.emplace_back(key, state, std::move(pCommand));
 }
 
-void dae::InputManager::AddButtonbind(GamepadButton button, int gamepadIndex, KeyState state, std::unique_ptr<Command> pCommand)
+void dae::InputManager::AddButtonbind(GamepadButton button, int gamepadIndex, KeyState state, std::unique_ptr<ICommand> pCommand)
 {
 	m_buttonbinds.emplace_back(button, gamepadIndex, state, std::move(pCommand));
 }
