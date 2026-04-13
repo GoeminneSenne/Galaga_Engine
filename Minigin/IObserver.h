@@ -10,6 +10,6 @@ namespace dae
 	{
 	public:
 		virtual ~IObserver() = default;
-		virtual void Notify(EventType eventType, GameObject* object) = 0;
+		virtual void Notify(EventId eventId, GameObject* object) = 0;
 	};
 }

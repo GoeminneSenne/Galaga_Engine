@@ -13,7 +13,7 @@ namespace dae
 		explicit ScoreDisplay(GameObject* pOwner);
 		~ScoreDisplay() override = default;
 
-		void Notify(EventType eventType, GameObject* object) override;
+		void Notify(EventId eventId, GameObject* object) override;
 
 	private:
 		void UpdateText(int score) const;

@@ -10,9 +10,9 @@ dae::ScoreDisplay::ScoreDisplay(GameObject* pOwner)
 	m_pTextComponent = pOwner->GetComponent<TextComponent>();
 }
 
-void dae::ScoreDisplay::Notify(EventType eventType, GameObject* object)
+void dae::ScoreDisplay::Notify(EventId eventId, GameObject* object)
 {
-	if (eventType == EventType::ScoreAdded)
+	if (eventId == make_sdbm_hash("ScoreAdded"))
 	{
 		if (auto score = object->GetComponent<Score>())
 		{

@@ -11,14 +11,14 @@ namespace dae
 	public:
 		explicit AchievementObserver(GameObject* pOwner) : Component{ pOwner } {}
 
-		void Notify(EventType eventType, GameObject* object) override;
+		void Notify(EventId eventId, GameObject* object) override;
 	};
 }
 
 
-inline void dae::AchievementObserver::Notify(EventType eventType, GameObject* object)
+inline void dae::AchievementObserver::Notify(EventId eventId, GameObject* object)
 {
-	if (eventType == EventType::ScoreAdded)
+	if (eventId == make_sdbm_hash("ScoreAdded"))
 	{
 		auto score = object->GetComponent<Score>();
 

@@ -14,7 +14,7 @@ namespace dae
 	public:
 		void AddObserver(IObserver* observer);
 		void RemoveObserver(IObserver* observer);
-		void NotifyObservers(EventType eventType, GameObject* object) const;
+		void NotifyObservers(EventId eventId, GameObject* object) const;
 
 	private:
 		std::vector<IObserver*> m_observers;

@@ -16,9 +16,9 @@ dae::HealthDisplay::HealthDisplay(GameObject* pOwner, Health* pHealth)
 }
 
 
-void dae::HealthDisplay::Notify(EventType eventType, GameObject* object)
+void dae::HealthDisplay::Notify(EventId eventId, GameObject* object)
 {
-	if (eventType == EventType::PlayerDied)
+	if (eventId == make_sdbm_hash("PlayerDied"))
 	{
 		if (auto health = object->GetComponent<Health>())
 		{

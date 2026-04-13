@@ -17,5 +17,5 @@ int dae::Score::GetScore() const
 void dae::Score::AddScore(int score)
 {
 	m_score += score;
-	m_pSubject->NotifyObservers(EventType::ScoreAdded, GetOwner());
+	m_pSubject->NotifyObservers(make_sdbm_hash("ScoreAdded"), GetOwner());
 }

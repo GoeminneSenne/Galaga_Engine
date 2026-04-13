@@ -17,5 +17,5 @@ int dae::Health::GetNumLives() const
 void dae::Health::Damage()
 {
 	--m_numLives;
-	m_pSubject->NotifyObservers(EventType::PlayerDied, GetOwner());
+	m_pSubject->NotifyObservers(make_sdbm_hash("PlayerDied"), GetOwner());
 }
