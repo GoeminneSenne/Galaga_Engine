@@ -26,9 +26,9 @@ namespace dae
 		void FixedUpdate(float fixedTimeStep);
 		void Render() const;
 		void RenderUI() const;
-
+	
+		//TODO change to nodiscard version
 		Transform* GetTransform(); 
-		//TODO GetTransform terug veranderen naar een &
 		//[[nodiscard]] const Transform& GetTransformC(){ return m_transform; }
 
 
@@ -41,7 +41,7 @@ namespace dae
 
 		template<ComponentType T, typename...  Args>
 		requires std::constructible_from<T, GameObject*, Args...>
-		T* AddComponent(Args&&... args); //TODO add component kan Component returnen
+		T* AddComponent(Args&&... args);
 		void RemoveComponent(const Component& component);
 		template<ComponentType T>
 		bool HasComponent() const;

@@ -9,20 +9,6 @@ void Scene::Add(std::unique_ptr<GameObject> object)
 	m_objects.emplace_back(std::move(object));
 }
 
-
-//TODO: zijn deze functies nog nodig?
-void Scene::Remove(const GameObject& object)
-{
-	for (auto& ptr : m_objects)
-	{
-		if (ptr.get() == &object)
-		{
-			ptr->Destroy();
-			return;
-		}
-	}
-}
-
 void Scene::RemoveAll()
 {
 	for (auto& object : m_objects)
