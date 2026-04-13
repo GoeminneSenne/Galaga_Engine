@@ -4,6 +4,18 @@ namespace dae
 {
 	using EventId = unsigned int;
 
+	struct EventArgs
+	{
+		virtual ~EventArgs() = default;
+	};
+
+	struct Event
+	{
+		EventId id;
+		std::unique_ptr<EventArgs> args;
+	};
+
+
 	template <int length> struct sdbm_hash
 	{
 		consteval static unsigned int _calculate(const char* const text, unsigned int& value)
