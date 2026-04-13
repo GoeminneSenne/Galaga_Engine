@@ -11,6 +11,7 @@ namespace dae
 	public:
 		virtual void Notify(EventId eventId, GameObject* object) = 0;
 
+		IObserver() = default;
 		virtual ~IObserver() = default;
 		IObserver(const IObserver& other) = delete;
 		IObserver(IObserver&& other) = delete;

@@ -8,6 +8,7 @@ namespace dae
 	public:
 		virtual void Execute(float deltaTime) = 0;
 
+		ICommand() = default;
 		virtual ~ICommand() = default;
 		ICommand(const ICommand& other) = delete;
 		ICommand(ICommand&& other) = delete;
