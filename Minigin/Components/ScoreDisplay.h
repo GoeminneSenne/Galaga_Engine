@@ -1,13 +1,13 @@
 #pragma once
 #include "../Component.h"
-#include "../Observer.h"
+#include "../IObserver.h"
 
 namespace dae
 {
 	class TextComponent;
 	class Score;
 
-	class ScoreDisplay : public Component, public Observer
+	class ScoreDisplay : public Component, public IObserver
 	{
 	public:
 		explicit ScoreDisplay(GameObject* pOwner);

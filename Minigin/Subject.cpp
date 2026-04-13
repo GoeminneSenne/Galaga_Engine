@@ -1,12 +1,12 @@
 #include "Subject.h"
-#include "Observer.h"
+#include "IObserver.h"
 
-void dae::Subject::AddObserver(Observer* observer)
+void dae::Subject::AddObserver(IObserver* observer)
 {
 	m_observers.push_back(observer);
 }
 
-void dae::Subject::RemoveObserver(Observer* observer)
+void dae::Subject::RemoveObserver(IObserver* observer)
 {
 	std::erase(m_observers, observer);
 }

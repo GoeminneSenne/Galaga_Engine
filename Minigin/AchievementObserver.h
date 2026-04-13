@@ -1,12 +1,12 @@
 #pragma once
-#include "Observer.h"
+#include "IObserver.h"
 #include "Component.h"
 #include "SteamAchievements.h"
 #include "Components/Score.h"
 
 namespace dae
 {
-	class AchievementObserver : public Component, public Observer
+	class AchievementObserver : public Component, public IObserver
 	{
 	public:
 		explicit AchievementObserver(GameObject* pOwner) : Component{ pOwner } {}

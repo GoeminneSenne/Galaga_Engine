@@ -1,13 +1,13 @@
 #pragma once
 #include "../Component.h"
-#include "../Observer.h"
+#include "../IObserver.h"
 
 namespace dae
 {
 	class TextComponent;
 	class Health;
 
-	class HealthDisplay : public Component, public Observer
+	class HealthDisplay : public Component, public IObserver
 	{
 	public:
 		explicit HealthDisplay(GameObject* pOwner, Health* pHealth = nullptr);

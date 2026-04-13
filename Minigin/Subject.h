@@ -7,16 +7,16 @@
 namespace dae
 {
 	class GameObject;
-	class Observer;
+	class IObserver;
 
 	class Subject
 	{
 	public:
-		void AddObserver(Observer* observer);
-		void RemoveObserver(Observer* observer);
+		void AddObserver(IObserver* observer);
+		void RemoveObserver(IObserver* observer);
 		void NotifyObservers(EventType eventType, GameObject* object) const;
 
 	private:
-		std::vector<Observer*> m_observers;
+		std::vector<IObserver*> m_observers;
 	};
 }

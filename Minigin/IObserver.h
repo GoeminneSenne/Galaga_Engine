@@ -6,10 +6,10 @@
 
 namespace dae
 {
-	class Observer
+	class IObserver
 	{
 	public:
-		virtual ~Observer() = default;
+		virtual ~IObserver() = default;
 		virtual void Notify(EventType eventType, GameObject* object) = 0;
 	};
 }
