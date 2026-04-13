@@ -40,7 +40,7 @@ namespace dae
 		const std::vector<GameObject*>& GetChildren() const;
 
 		template<ComponentType T, typename...  Args>
-		//requires std::constructible_from<T, GameObject*, Args...>
+		requires std::constructible_from<T, GameObject*, Args...>
 		T* AddComponent(Args&&... args); //TODO add component kan Component returnen
 		void RemoveComponent(const Component& component);
 		template<ComponentType T>
@@ -62,7 +62,7 @@ namespace dae
 
 
 	template <ComponentType T, typename ... Args>
-	//requires std::constructible_from<T, GameObject*, Args...>
+	requires std::constructible_from<T, GameObject*, Args...>
 	T* GameObject::AddComponent(Args&&... args)
 	{
 		auto ptr = std::make_unique<T>(this, std::forward<Args>(args)...);
