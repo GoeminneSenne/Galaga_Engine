@@ -5,18 +5,17 @@
 namespace dae
 {
 	class TextComponent;
-	class Health;
+	class Lives;
 
-	class HealthDisplay : public Component, public IObserver
+	class LivesDisplay : public Component, public IObserver
 	{
 	public:
-		explicit HealthDisplay(GameObject* pOwner, Health* pHealth = nullptr);
-		~HealthDisplay() override = default;
+		explicit LivesDisplay(GameObject* pOwner, Lives* pLives = nullptr);
 
 		void Notify(EventId eventId, GameObject* object) override;
 
 	private:
-		void UpdateText(int health) const;
+		void UpdateText(int numLives) const;
 
 		TextComponent* m_pTextComponent;
 	};

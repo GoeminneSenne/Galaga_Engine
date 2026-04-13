@@ -2,5 +2,5 @@
 
 void dae::DamageCommand::Execute(float)
 {
-	if (pHealth) pHealth->Damage();
+	if (pLives) pLives->Damage();
 }

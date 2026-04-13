@@ -1,18 +1,18 @@
 #pragma once
 #include "../ICommand.h"
-#include "../Components/Health.h"
+#include "../Components/Lives.h"
 
 namespace dae
 {
 	class DamageCommand : public ICommand
 	{
 	public:
-		explicit DamageCommand(Health* pHealth) : pHealth{pHealth} {}
+		explicit DamageCommand(Lives* pLives) : pLives{pLives} {}
 		~DamageCommand() override = default;
 
 		void Execute(float deltaTime) override;
 
 	private:
-		Health* pHealth;
+		Lives* pLives;
 	};
 }

@@ -1,20 +1,20 @@
-#include "Health.h"
+#include "Lives.h"
 
-dae::Health::Health(GameObject* pOwner, int numLives)
+dae::Lives::Lives(GameObject* pOwner, int numLives)
 	: Component{ pOwner }, m_numLives{ numLives }, m_pSubject{std::make_unique<Subject>()}
 {}
 
-dae::Subject* dae::Health::GetSubject() const
+dae::Subject* dae::Lives::GetSubject() const
 {
 	return m_pSubject.get();
 }
 
-int dae::Health::GetNumLives() const
+int dae::Lives::GetNumLives() const
 {
 	return m_numLives;
 }
 
-void dae::Health::Damage()
+void dae::Lives::Damage()
 {
 	--m_numLives;
 	m_pSubject->NotifyObservers(make_sdbm_hash("PlayerDied"), GetOwner());

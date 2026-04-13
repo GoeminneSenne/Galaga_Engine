@@ -7,11 +7,10 @@
 
 namespace dae
 {
-	class Health : public Component
+	class Lives : public Component
 	{
 	public:
-		explicit Health(GameObject* pOwner, int numLives);
-		~Health() override = default;
+		explicit Lives(GameObject* pOwner, int numLives);
 
 		Subject* GetSubject() const;
 		int GetNumLives() const;

@@ -37,11 +37,11 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
  "Minigin/Commands/MoveObjectCommand.cpp"  
  "Minigin/Input/Gamepad.cpp" 
  "Minigin/Input/SDLGamepad.cpp" 
- "Minigin/Components/Health.cpp" 
+ "Minigin/Components/Lives.cpp" 
  "Minigin/Input/Keyboard.cpp" 
  "Minigin/Commands/DamageCommand.cpp" 
  "Minigin/Subject.cpp" 
- "Minigin/Components/HealthDisplay.cpp" 
+ "Minigin/Components/LivesDisplay.cpp" 
  "Minigin/Components/Score.cpp" 
  "Minigin/Components/ScoreDisplay.cpp")
 

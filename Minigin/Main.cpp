@@ -18,14 +18,14 @@
 #include "Components/Orbit.h"
 #include "Components/CacheGraph.h"
 #include "Components/CacheGraphEx2.h"
-#include "Components/Health.h"
+#include "Components/Lives.h"
 
 #include <filesystem>
 
 #include "InputManager.h"
 #include "Commands/AddScoreCommand.h"
 #include "Commands/MoveObjectCommand.h"
-#include "Components/HealthDisplay.h"
+#include "Components/LivesDisplay.h"
 #include "Components/Score.h"
 #include "Components/ScoreDisplay.h"
 
@@ -80,7 +80,7 @@ static void load()
 	go = std::make_unique<dae::GameObject>();
 	go->AddComponent<dae::TextureRenderer>("Galaga/ship1.png");
 	go->GetTransform()->SetLocalPosition(500, 400);
-	auto pHealth = go->AddComponent<dae::Health>(3);
+	auto pLives = go->AddComponent<dae::Lives>(3);
 	auto pScore1 = go->AddComponent<dae::Score>();
 
 	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1,0,0), 50.f);
@@ -92,7 +92,7 @@ static void load()
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, 1, 0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_S, dae::KeyState::Pressed, std::move(moc));
 
-	auto dc = std::make_unique<dae::DamageCommand>(pHealth);
+	auto dc = std::make_unique<dae::DamageCommand>(pLives);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_C, dae::KeyState::Down, std::move(dc));
 	auto asc = std::make_unique<dae::AddScoreCommand>(pScore1, 10);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_Z, dae::KeyState::Down, std::move(asc));
@@ -102,14 +102,14 @@ static void load()
 	scene.Add(std::move(go));
 	////////////////////////////////////////////////////////////
 
-	///HealthDisplay 1
+	///LivesDisplay 1
 	/////////////////////////////////////////////////////////////
 	go = std::make_unique<dae::GameObject>();
 	go->AddComponent<dae::TextureRenderer>();
 	go->AddComponent<dae::TextComponent>("Yeey", font);
-	auto healthDisplay = go->AddComponent<dae::HealthDisplay>(pHealth);
+	auto livesDisplay = go->AddComponent<dae::LivesDisplay>(pLives);
 	go->GetTransform()->SetLocalPosition(10, 150);
-	pHealth->GetSubject()->AddObserver(healthDisplay);
+	pLives->GetSubject()->AddObserver(livesDisplay);
 
 	scene.Add(std::move(go));
 	/////////////////////////////////////////////////////////////
@@ -142,7 +142,7 @@ static void load()
 	//child->SetParent(go.get());
 	go->GetTransform()->SetLocalPosition(400, 310);
 	go->AddComponent<dae::TextureRenderer>("Galaga/ship2.png");
-	pHealth = go->AddComponent<dae::Health>(3);
+	pLives = go->AddComponent<dae::Lives>(3);
 	auto pScore2 = go->AddComponent<dae::Score>();
 
 	/*
@@ -164,7 +164,7 @@ static void load()
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, 1, 0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_DOWN, dae::KeyState::Pressed, std::move(moc));
 
-	dc = std::make_unique<dae::DamageCommand>(pHealth);
+	dc = std::make_unique<dae::DamageCommand>(pLives);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_I, dae::KeyState::Down, std::move(dc));
 	asc = std::make_unique<dae::AddScoreCommand>(pScore2, 10);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_O, dae::KeyState::Down, std::move(asc));
@@ -174,14 +174,14 @@ static void load()
 	scene.Add(std::move(go));
 	///////////////////////////////////////////////////////////
 
-	///HealthDisplay 2
+	///LivesDisplay 2
 	/////////////////////////////////////////////////////////////
 	go = std::make_unique<dae::GameObject>();
 	go->AddComponent<dae::TextureRenderer>();
 	go->AddComponent<dae::TextComponent>("Yeey", font);
-	healthDisplay = go->AddComponent<dae::HealthDisplay>(pHealth);
+	livesDisplay = go->AddComponent<dae::LivesDisplay>(pLives);
 	go->GetTransform()->SetLocalPosition(10, 200);
-	pHealth->GetSubject()->AddObserver(healthDisplay);
+	pLives->GetSubject()->AddObserver(livesDisplay);
 
 	scene.Add(std::move(go));
 	/////////////////////////////////////////////////////////////
