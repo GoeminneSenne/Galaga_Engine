@@ -10,6 +10,11 @@ namespace dae
 		virtual ~EventArgs() = default;
 	};
 
+	struct ScoreAddedArgs : public EventArgs
+	{
+		int scoreInc;
+	};
+
 	struct Event
 	{
 		EventId id;

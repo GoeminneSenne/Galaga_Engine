@@ -14,6 +14,15 @@ int dae::Score::GetScore() const
 	return m_score;
 }
 
+void dae::Score::HandleEvent(const Event& event)
+{
+	if (event.id == make_sdbm_hash("ScoreAdded"))
+	{
+		auto args = dynamic_cast<ScoreAddedArgs*>(event.args.get());
+		m_score += args->scoreInc;
+	}
+}
+
 void dae::Score::AddScore(int score)
 {
 	m_score += score;
