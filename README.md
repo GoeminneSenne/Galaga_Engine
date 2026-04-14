@@ -7,7 +7,9 @@ Minigin is a very small project using [SDL3](https://www.libsdl.org/) and [glm](
 [![Build Status](https://github.com/GoeminneSenne/Galaga_Engine/actions/workflows/cmake.yml/badge.svg)](https://github.com/GoeminneSenne/Galaga_Engine/cmake/actions)
 [![Build Status](https://github.com/GoeminneSenne/Galaga_Engine/actions/workflows/emscripten.yml/badge.svg)](https://github.com/GoeminneSenne/emscripten/actions)
 
+## Web Build
 
+https://goeminnesenne.github.io/Galaga_Engine/
 
 # Goal
 
