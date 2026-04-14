@@ -13,7 +13,8 @@ namespace dae
 	{
 	public:
 		void Subscribe(EventId eventId, IEventListener* listener);
-		
+		void Unsubscribe(EventId eventId, IEventListener* listener);
+
 		void SendEvent(EventId eventId, std::unique_ptr<EventArgs> args);
 
 		void ProcessEvents();

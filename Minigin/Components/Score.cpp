@@ -1,8 +1,12 @@
 #include "Score.h"
 
+#include "EventQueue.h"
+
 dae::Score::Score(GameObject* pOwner)
 	:Component{pOwner}, m_score{0}, m_pSubject{std::make_unique<Subject>()}
-{}
+{
+	EventQueue::GetInstance().Subscribe(make_sdbm_hash("ScoreAdded"), this);
+}
 
 dae::Subject* dae::Score::GetSubject() const
 {
@@ -19,7 +23,10 @@ void dae::Score::HandleEvent(const Event& event)
 	if (event.id == make_sdbm_hash("ScoreAdded"))
 	{
 		auto args = dynamic_cast<ScoreAddedArgs*>(event.args.get());
-		m_score += args->scoreInc;
+		if (args->pTarget == GetOwner())
+		{
+			AddScore(args->scoreInc);
+		}
 	}
 }
 

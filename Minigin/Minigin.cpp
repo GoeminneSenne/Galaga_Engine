@@ -20,6 +20,8 @@
 //#include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include "Minigin.h"
+
+#include "EventQueue.h"
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Renderer.h"
@@ -131,6 +133,8 @@ void dae::Minigin::RunOneFrame()
 	SteamAPI_RunCallbacks();
 #endif
 	
+	EventQueue::GetInstance().ProcessEvents();
+
 	while (m_lag >= m_fixedTimeStep)
 	{
 		SceneManager::GetInstance().FixedUpdate(m_fixedTimeStep);

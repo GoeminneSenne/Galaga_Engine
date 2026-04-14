@@ -94,9 +94,9 @@ static void load()
 
 	auto dc = std::make_unique<dae::DamageCommand>(pLives);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_C, dae::KeyState::Down, std::move(dc));
-	auto asc = std::make_unique<dae::AddScoreCommand>(pScore1, 10);
+	auto asc = std::make_unique<dae::AddScoreCommand>(pScore1, go.get(), 10);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_Z, dae::KeyState::Down, std::move(asc));
-	asc = std::make_unique<dae::AddScoreCommand>(pScore1, 100);
+	asc = std::make_unique<dae::AddScoreCommand>(pScore1, go.get(), 100);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_X, dae::KeyState::Down, std::move(asc));
 
 	scene.Add(std::move(go));
@@ -166,9 +166,9 @@ static void load()
 
 	dc = std::make_unique<dae::DamageCommand>(pLives);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_I, dae::KeyState::Down, std::move(dc));
-	asc = std::make_unique<dae::AddScoreCommand>(pScore2, 10);
+	asc = std::make_unique<dae::AddScoreCommand>(pScore2, go.get(), 10);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_O, dae::KeyState::Down, std::move(asc));
-	asc = std::make_unique<dae::AddScoreCommand>(pScore2, 100);
+	asc = std::make_unique<dae::AddScoreCommand>(pScore2, go.get(), 100);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_P, dae::KeyState::Down, std::move(asc));
 
 	scene.Add(std::move(go));

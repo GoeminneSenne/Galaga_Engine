@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "GameObject.h"
 
 namespace dae
 {
@@ -12,7 +13,10 @@ namespace dae
 
 	struct ScoreAddedArgs : public EventArgs
 	{
+		explicit ScoreAddedArgs(int scoreInc, GameObject* pTarget) : EventArgs(), scoreInc(scoreInc), pTarget(pTarget) {}
+
 		int scoreInc;
+		GameObject* pTarget;
 	};
 
 	struct Event

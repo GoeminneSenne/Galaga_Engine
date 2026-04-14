@@ -6,6 +6,11 @@ void dae::EventQueue::Subscribe(EventId eventId, IEventListener* listener)
 	m_listeners[eventId].push_back(listener);
 }
 
+void dae::EventQueue::Unsubscribe(EventId, IEventListener*)
+{
+	//TODO
+}
+
 void dae::EventQueue::SendEvent(EventId eventId, std::unique_ptr<EventArgs> args)
 {
 	m_queue.emplace(eventId, std::move(args));
