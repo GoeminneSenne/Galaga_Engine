@@ -10,12 +10,11 @@ namespace dae
 	class AddScoreCommand : public ICommand
 	{
 	public: 
-		explicit AddScoreCommand(Score* pScore, GameObject* pTarget, int scoreIncrease) : m_scoreIncrease{ scoreIncrease }, pScore{ pScore }, pTarget{ pTarget } {}
+		explicit AddScoreCommand(int scoreIncrease, GameObject* pTarget) : m_scoreIncrease{ scoreIncrease }, pTarget{ pTarget } {}
 
 		void Execute(float deltaTime) override;
 	private:
 		int m_scoreIncrease;
-		Score* pScore;
 		GameObject* pTarget;
 	};
 }
