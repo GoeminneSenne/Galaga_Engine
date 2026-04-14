@@ -4,7 +4,12 @@ Minigin is a very small project using [SDL3](https://www.libsdl.org/) and [glm](
 
 [![Build Status](https://github.com/avadae/minigin/actions/workflows/cmake.yml/badge.svg)](https://github.com/avadae/cmake/actions)
 [![Build Status](https://github.com/avadae/minigin/actions/workflows/emscripten.yml/badge.svg)](https://github.com/avadae/emscripten/actions)
-[![GitHub Release](https://img.shields.io/github/v/release/avadae/minigin?logo=github&sort=semver)](https://github.com/avadae/minigin/releases/latest)
+<!--[![GitHub Release](https://img.shields.io/github/v/release/avadae/minigin?logo=github&sort=semver)](https://github.com/avadae/minigin/releases/latest)-->
+
+[![Build Status](https://github.com/GoeminneSenne/Galaga_Engine/actions/workflows/cmake.yml/badge.svg)](https://github.com/GoeminneSenne/cmake/actions)
+[![Build Status](https://github.com/GoeminneSenne/Galaga_Engine/actions/workflows/emscripten.yml/badge.svg)](https://github.com/GoeminneSenne/emscripten/actions)
+
+
 
 # Goal
 
