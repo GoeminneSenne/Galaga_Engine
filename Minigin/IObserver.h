@@ -17,5 +17,5 @@ namespace dae
 		IObserver(IObserver&& other) = delete;
 		IObserver& operator=(const IObserver& other) = delete;
 		IObserver& operator=(IObserver&& other) = delete;
-	};
+	};s
 }
