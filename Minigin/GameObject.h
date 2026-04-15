@@ -27,17 +27,15 @@ namespace dae
 		void Render() const;
 		void RenderUI() const;
 	
-		//TODO change to nodiscard version
-		Transform* GetTransform(); 
-		//[[nodiscard]] const Transform& GetTransformC(){ return m_transform; }
+		[[nodiscard]] Transform* GetTransform(); 
 
 
-		GameObject* GetParent() const;
+		[[nodiscard]] GameObject* GetParent() const;
 		void SetParent(GameObject* pParent, bool keepWorldPosition = true);
 		bool IsChild(GameObject* child) const;
 		int GetChildCount() const;
-		GameObject* GetChildAt(int index) const;
-		const std::vector<GameObject*>& GetChildren() const;
+		[[nodiscard]] GameObject* GetChildAt(int index) const;
+		[[nodiscard]] const std::vector<GameObject*>& GetChildren() const;
 
 		template<ComponentType T, typename...  Args>
 		requires std::constructible_from<T, GameObject*, Args...>
@@ -46,7 +44,7 @@ namespace dae
 		template<ComponentType T>
 		bool HasComponent() const;
 		template<ComponentType T>
-		T* GetComponent() const; //TODO, dit nodiscard maken
+		[[nodiscard]] T* GetComponent() const;
 
 		void Destroy();
 		bool GetPendingDestroy() const;

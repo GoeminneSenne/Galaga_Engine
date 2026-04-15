@@ -13,7 +13,7 @@ namespace dae
 		virtual void RenderUI();
 
 		void Destroy();
-		bool GetPendingDestroy() const;
+		[[nodiscard]] bool GetPendingDestroy() const;
 
 		virtual ~Component() = default;
 		Component(const Component& other) = delete;
@@ -23,7 +23,7 @@ namespace dae
 
 	protected:
 		explicit Component(GameObject* pOwner);
-		GameObject* GetOwner() const;
+		[[nodiscard]] GameObject* GetOwner() const;
 
 	private:
 		GameObject* const m_pOwner;
