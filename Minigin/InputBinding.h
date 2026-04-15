@@ -17,6 +17,7 @@ namespace dae
 		SDL_Scancode key;
 		KeyState state;
 		std::unique_ptr<ICommand> pCommand;
+		bool enabled = true;
 	};
 
 	enum class GamepadButton
@@ -37,12 +38,13 @@ namespace dae
 		DPAD_RIGHT
 	};
 
-	struct ButtonBind
+	struct Buttonbind
 	{
 		GamepadButton button;
 		int gamepadIndex;
 		KeyState state;
 		std::unique_ptr<ICommand> pCommand;
+		bool enabled = true;
 	};
 
 }

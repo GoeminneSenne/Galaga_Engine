@@ -48,8 +48,10 @@ bool dae::InputManager::ProcessInput(float deltaTime)
 	m_keyboard.UpdateState();
 
 	//Process Keyboard Input
-	for (const auto& [key, state, pCommand] : m_keybinds)
+	for (const auto& [key, state, pCommand, enabled] : m_keybinds)
 	{
+		if (!enabled) continue;
+
 		bool triggered = false;
 		switch (state)
 		{
@@ -75,6 +77,8 @@ bool dae::InputManager::ProcessInput(float deltaTime)
 	
 	for (const auto& buttonbind : m_buttonbinds)
 	{
+		if (!buttonbind.enabled) continue;
+
 		bool triggered = false;
 		switch (buttonbind.state)
 		{
@@ -115,7 +119,7 @@ void dae::InputManager::RemoveKeybind(SDL_Scancode key, KeyState state)
 
 void dae::InputManager::RemoveButtonbind(GamepadButton button, int gamepadIndex, KeyState state)
 {
-	std::erase_if(m_buttonbinds, [button, gamepadIndex, state](const ButtonBind& bind)
+	std::erase_if(m_buttonbinds, [button, gamepadIndex, state](const Buttonbind& bind)
 		{return bind.button == button && bind.gamepadIndex == gamepadIndex && bind.state == state; }
 	);
 }

@@ -26,7 +26,7 @@ namespace dae
 		void RemoveButtonbind(GamepadButton button, int gamepadIndex, KeyState state);
 	private:
 		std::vector<Keybind> m_keybinds;
-		std::vector<ButtonBind> m_buttonbinds;
+		std::vector<Buttonbind> m_buttonbinds;
 
 		Keyboard m_keyboard;
 
