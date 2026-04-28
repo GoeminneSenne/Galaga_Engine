@@ -44,7 +44,7 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
  "Minigin/Components/LivesDisplay.cpp" 
  "Minigin/Components/Score.cpp" 
  "Minigin/Components/ScoreDisplay.cpp" 
- "Minigin/EventQueue.cpp")
+ "Minigin/EventQueue.cpp" "Minigin/ServiceLocator.cpp")
 
  if(WIN32)
     target_sources(${TARGET_NAME} PRIVATE "Minigin/Input/XInputGamepad.cpp")
