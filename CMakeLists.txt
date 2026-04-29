@@ -195,7 +195,7 @@ target_include_directories("${TARGET_NAME}" PUBLIC
 
 target_link_libraries("${TARGET_NAME}" PUBLIC
   SDL3::SDL3
-  SDL3_mixer::SDL3_mixer-shared
+  SDL3_mixer::SDL3_mixer
   SDL3_ttf::SDL3_ttf
   glm::glm
   imgui
