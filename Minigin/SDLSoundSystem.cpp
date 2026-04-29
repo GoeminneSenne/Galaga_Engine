@@ -24,7 +24,7 @@ dae::SDLSoundSystem::SDLSoundSystem()
 
 	EventQueue::GetInstance().Subscribe(make_sdbm_hash("PlaySFX"), this);
 
-	m_audioThread = std::jthread(&SDLSoundSystem::ProcessAudio, this);
+		m_audioThread = std::jthread(&SDLSoundSystem::ProcessAudio, this);
 }
 
 dae::SDLSoundSystem::~SDLSoundSystem()

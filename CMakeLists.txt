@@ -37,7 +37,7 @@ set(MINIGIN_SOURCES
   Minigin/ServiceLocator.cpp 
   Minigin/NullSoundSystem.cpp
   Minigin/SDLSoundSystem.cpp
-  
+  Minigin/Input/SDLGamepad.cpp
 )
 
 #Minigin library header files
