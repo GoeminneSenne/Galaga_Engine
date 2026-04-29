@@ -92,6 +92,28 @@ if(NOT SDL3_FOUND)
   endif()
 endif()
 
+# Add SDL_mixer
+if(WIN32)
+  FetchContent_Declare(
+    SDL3_mixer
+    URL https://github.com/libsdl-org/SDL_mixer/releases/download/release-3.2.0/SDL3_mixer-devel-3.2.0-VC.zip
+    DOWNLOAD_NO_PROGRESS ON
+    DOWNLOAD_DIR ${CMAKE_BINARY_DIR}/downloads
+    )
+    FetchContent_MakeAvailable(SDL3_mixer)
+    list(PREPEND CMAKE_PREFIX_PATH "${sdl3_mixer_SOURCE_DIR}")
+    find_package(SDL3_mixer CONFIG REQUIRED)
+else()
+  FetchContent_Declare(
+    SDL3_mixer
+    URL https://github.com/libsdl-org/SDL_mixer
+    GIT_TAG release-3.2.0
+    GIT_SHALLOW TRUE
+    GIT_PROGRESS TRUE
+  )
+  FetchContent_MakeAvailable(SDL3_mixer)
+endif()
+
 # Add SDL3_ttf
 find_package(SDL3_ttf 3.2.2 CONFIG QUIET)
 if(NOT SDL3_ttf_FOUND)
@@ -173,6 +195,7 @@ target_include_directories("${TARGET_NAME}" PUBLIC
 
 target_link_libraries("${TARGET_NAME}" PUBLIC
   SDL3::SDL3
+  SDL3_mixer::SDL3_mixer-shared
   SDL3_ttf::SDL3_ttf
   glm::glm
   imgui
