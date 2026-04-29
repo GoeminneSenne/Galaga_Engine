@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <SDL3_mixer/SDL_mixer.h>
+#include "EventQueue.h"
 
 
 dae::SDLSoundSystem::SDLSoundSystem()
@@ -19,6 +20,7 @@ dae::SDLSoundSystem::SDLSoundSystem()
 		throw std::runtime_error(std::string("Create Mixer Device error: ") + SDL_GetError());
 	}
 
+	EventQueue::GetInstance().Subscribe(make_sdbm_hash("PlaySFX"), this);
 }
 
 void dae::SDLSoundSystem::PlaySFX(const std::string& path)
@@ -36,4 +38,12 @@ void dae::SDLSoundSystem::PlaySFX(const std::string& path)
 	}
 	MIX_SetTrackAudio(track, audio);
 	MIX_PlayTrack(track, 0);
+}
+
+void dae::SDLSoundSystem::HandleEvent(const Event& event)
+{
+	if (event.id == make_sdbm_hash("PlaySFX"))
+	{
+		PlaySFX("./Data/PlayerShoot.mp3");
+	}
 }

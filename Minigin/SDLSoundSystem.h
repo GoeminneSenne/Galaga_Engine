@@ -11,8 +11,10 @@ namespace dae
 	public:
 		SDLSoundSystem();
 		~SDLSoundSystem() override = default;
-		void PlaySFX(const std::string& path);
-	
+
+		void PlaySFX(const std::string& path) override;
+		void HandleEvent(const Event& event) override;
+
 	private:
 		MIX_Mixer* m_mixer = nullptr;
 	};

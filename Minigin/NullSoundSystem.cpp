@@ -9,3 +9,7 @@ void dae::NullSoundSystem::PlaySFX(const std::string&)
 {
 }
 
+void dae::NullSoundSystem::HandleEvent(const Event&)
+{
+}
+
