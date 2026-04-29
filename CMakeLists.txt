@@ -106,7 +106,7 @@ if(WIN32)
 else()
   FetchContent_Declare(
     SDL3_mixer
-    URL https://github.com/libsdl-org/SDL_mixer
+    GIT_REPOSITORY https://github.com/libsdl-org/SDL_mixer.git
     GIT_TAG release-3.2.0
     GIT_SHALLOW TRUE
     GIT_PROGRESS TRUE
