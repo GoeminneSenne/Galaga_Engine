@@ -3,6 +3,7 @@
 #include <iostream>
 #include <thread>
 
+#include "LoggingSoundSystem.h"
 #include "SDLSoundSystem.h"
 #include "ServiceLocator.h"
 
@@ -98,7 +99,13 @@ dae::Minigin::Minigin(const std::filesystem::path& dataPath)
 	Renderer::GetInstance().Init(g_window);
 	ResourceManager::GetInstance().Init(dataPath);
 
+#if _DEBUG
+	ServiceLocator::RegisterSoundSystem(std::make_unique<LoggingSoundSystem>(std::make_unique<SDLSoundSystem>()));
+
+#else
 	ServiceLocator::RegisterSoundSystem(std::make_unique<SDLSoundSystem>());
+#endif
+
 }
 
 dae::Minigin::~Minigin()

@@ -37,6 +37,7 @@ set(MINIGIN_SOURCES
   Minigin/ServiceLocator.cpp 
   Minigin/NullSoundSystem.cpp
   Minigin/SDLSoundSystem.cpp
+  
 )
 
 #Minigin library header files
@@ -70,6 +71,7 @@ set(MINIGIN_HEADERS
   Minigin/IObserver.h
   Minigin/ISoundSystem.h
   Minigin/GameObjectCommand.h
+  Minigin/LoggingSoundSystem.h
 )
 
 add_library(Minigin STATIC)
