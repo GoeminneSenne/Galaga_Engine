@@ -3,9 +3,10 @@
 
 namespace dae
 {
-	class NullSoundSystem : ISoundSystem
+	class NullSoundSystem : public ISoundSystem
 	{
 	public:
+		NullSoundSystem();
 		~NullSoundSystem() override = default;
 		void Play() override;
 	};

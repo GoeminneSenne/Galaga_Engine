@@ -6,6 +6,7 @@
 
 dae::SDLSoundSystem::SDLSoundSystem()
 {
+	//TODO init, ipv constructor
 	if (!MIX_Init())
 	{
 		std::cout << "Mixer error: " << SDL_GetError() << "\n";

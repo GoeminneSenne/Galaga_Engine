@@ -1,5 +1,6 @@
 #pragma once
 #include "ISoundSystem.h"
+#include "SDL3_mixer/SDL_mixer.h"
 
 namespace dae
 {
@@ -9,5 +10,8 @@ namespace dae
 		SDLSoundSystem();
 		~SDLSoundSystem() override = default;
 		void Play() override;
+	
+	private:
+		MIX_Mixer* m_mixer = nullptr;
 	};
 }

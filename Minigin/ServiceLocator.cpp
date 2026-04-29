@@ -1,6 +1,8 @@
 #include "ServiceLocator.h"
 
-std::unique_ptr<dae::ISoundSystem> dae::ServiceLocator::m_soundSystem = nullptr;
+#include "NullSoundSystem.h"
+
+std::unique_ptr<dae::ISoundSystem> dae::ServiceLocator::m_soundSystem{std::make_unique<NullSoundSystem>()};
 
 dae::ISoundSystem& dae::ServiceLocator::GetSoundSystem()
 {
@@ -9,5 +11,13 @@ dae::ISoundSystem& dae::ServiceLocator::GetSoundSystem()
 
 void dae::ServiceLocator::RegisterSoundSystem(std::unique_ptr<ISoundSystem> soundSystem)
 {
-	m_soundSystem = std::move(soundSystem);
+
+	if (soundSystem)
+	{
+		m_soundSystem = std::move(soundSystem);
+	}
+	else
+	{
+		m_soundSystem = std::make_unique<NullSoundSystem>();
+	}
 }
