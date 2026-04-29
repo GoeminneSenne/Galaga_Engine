@@ -70,8 +70,9 @@ static void load()
 	go = std::make_unique<dae::GameObject>();
 	go->GetTransform()->SetLocalPosition(10, 100);
 	go->AddComponent<dae::TextureRenderer>();
-	font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 18);
-	go->AddComponent<dae::TextComponent>("Use WASD to move Bird, C to inflict damage, Z and X to kill ships", font);
+	font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
+	//go->AddComponent<dae::TextComponent>("Use WASD to move Bird, C to inflict damage, Z and X to kill ships", font);
+	go->AddComponent<dae::TextComponent>("Press C to play SFX", font);
 	scene.Add(std::move(go));
 	///////////////////////////////////////////
 
@@ -132,7 +133,7 @@ static void load()
 	go->GetTransform()->SetLocalPosition(10, 118);
 	go->AddComponent<dae::TextureRenderer>();
 	font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 18);
-	go->AddComponent<dae::TextComponent>("Use Arrow keys to move Ship, I to inflict damage, O and P to kill ships", font);
+	//go->AddComponent<dae::TextComponent>("Use Arrow keys to move Ship, I to inflict damage, O and P to kill ships", font);
 	scene.Add(std::move(go));
 	///////////////////////////////////////////
 
