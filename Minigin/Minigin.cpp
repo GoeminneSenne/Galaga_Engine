@@ -4,6 +4,7 @@
 #include <thread>
 
 #include "SDLSoundSystem.h"
+#include "ServiceLocator.h"
 
 #if WIN32
 #define WIN32_LEAN_AND_MEAN 
@@ -97,7 +98,7 @@ dae::Minigin::Minigin(const std::filesystem::path& dataPath)
 	Renderer::GetInstance().Init(g_window);
 	ResourceManager::GetInstance().Init(dataPath);
 
-	SDLSoundSystem sdl{};
+	ServiceLocator::RegisterSoundSystem(std::make_unique<SDLSoundSystem>());
 }
 
 dae::Minigin::~Minigin()

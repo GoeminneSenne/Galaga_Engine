@@ -1,6 +1,6 @@
 #pragma once
-#include "../Component.h"
-#include "../IObserver.h"
+#include <Component.h>
+#include <IObserver.h>
 
 namespace dae
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameObjectCommand.h"
+#include <GameObjectCommand.h>
 #include <glm/glm.hpp>
 
 namespace dae

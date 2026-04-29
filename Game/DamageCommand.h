@@ -1,6 +1,6 @@
 #pragma once
-#include "../ICommand.h"
-#include "../Components/Lives.h"
+#include <ICommand.h>
+#include "Lives.h"
 
 namespace dae
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include "EventQueue.h"
-#include "../ICommand.h"
-#include "../Components/Score.h"
+#include <ICommand.h>
+#include "Score.h"
 
 namespace dae
 {

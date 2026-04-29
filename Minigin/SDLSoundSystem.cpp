@@ -6,33 +6,34 @@
 
 dae::SDLSoundSystem::SDLSoundSystem()
 {
-	//TODO init, ipv constructor
 	if (!MIX_Init())
 	{
 		std::cout << "Mixer error: " << SDL_GetError() << "\n";
 		throw std::runtime_error(std::string("Mixer Error: ") + SDL_GetError());
 	}
 
-	MIX_Mixer* mixer = MIX_CreateMixerDevice(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, nullptr);
-	if (!mixer)
+	m_mixer = MIX_CreateMixerDevice(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, nullptr);
+	if (!m_mixer)
 	{
 		std::cout << "Create Mixer Device error: " << SDL_GetError() << "\n";
 		throw std::runtime_error(std::string("Create Mixer Device error: ") + SDL_GetError());
 	}
 
-	const char* path = "./Data/PlayerShoot.mp3";
-	MIX_Audio* audio = MIX_LoadAudio(mixer, path, false);
+}
+
+void dae::SDLSoundSystem::PlaySFX(const std::string& path)
+{
+	MIX_Audio* audio = MIX_LoadAudio(m_mixer, path.c_str(), false);
 	if (!audio)
 	{
 		throw std::runtime_error("Failed to load audio");
 	}
 
-	MIX_Track* track = MIX_CreateTrack(mixer);
+	MIX_Track* track = MIX_CreateTrack(m_mixer);
+	if (!track)
+	{
+		throw std::runtime_error("Failed to create track");
+	}
 	MIX_SetTrackAudio(track, audio);
 	MIX_PlayTrack(track, 0);
-}
-
-void dae::SDLSoundSystem::Play()
-{
-
 }

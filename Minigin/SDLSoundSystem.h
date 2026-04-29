@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 #include "ISoundSystem.h"
 #include "SDL3_mixer/SDL_mixer.h"
 
@@ -9,7 +11,7 @@ namespace dae
 	public:
 		SDLSoundSystem();
 		~SDLSoundSystem() override = default;
-		void Play() override;
+		void PlaySFX(const std::string& path);
 	
 	private:
 		MIX_Mixer* m_mixer = nullptr;

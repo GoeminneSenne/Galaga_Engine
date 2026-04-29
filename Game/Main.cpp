@@ -1,33 +1,33 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
-#include "Commands/DamageCommand.h"
+#include "DamageCommand.h"
 
 #if _DEBUG && __has_include(<vld.h>)
 #include <vld.h>
 #endif
 
-#include "Minigin.h"
+#include <Minigin.h>
 #include "SceneManager.h"
 #include "ResourceManager.h"
 #include "Scene.h"
 
-#include "Components/FPS.h"
-#include "Components/TextComponent.h"
-#include "Components/TextureRenderer.h"
-#include "Components/Orbit.h"
-#include "Components/CacheGraph.h"
-#include "Components/CacheGraphEx2.h"
-#include "Components/Lives.h"
+#include "FPS.h"
+#include "TextComponent.h"
+#include "TextureRenderer.h"
+#include "Orbit.h"
+#include "CacheGraph.h"
+#include "CacheGraphEx2.h"
+#include "Lives.h"
 
 #include <filesystem>
 
 #include "InputManager.h"
-#include "Commands/AddScoreCommand.h"
-#include "Commands/MoveObjectCommand.h"
-#include "Components/LivesDisplay.h"
-#include "Components/Score.h"
-#include "Components/ScoreDisplay.h"
+#include "AddScoreCommand.h"
+#include "MoveObjectCommand.h"
+#include "LivesDisplay.h"
+#include "Score.h"
+#include "ScoreDisplay.h"
 
 #if USE_STEAMWORKS
 #include "AchievementObserver.h"

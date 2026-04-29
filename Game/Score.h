@@ -2,8 +2,8 @@
 #include <memory>
 
 #include "IEventListener.h"
-#include "../Component.h"
-#include "../Subject.h"
+#include <Component.h>
+#include <Subject.h>
 
 namespace dae
 {

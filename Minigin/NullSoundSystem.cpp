@@ -5,6 +5,7 @@ dae::NullSoundSystem::NullSoundSystem()
 {
 }
 
-void dae::NullSoundSystem::Play()
+void dae::NullSoundSystem::PlaySFX(const std::string&)
 {
 }
+

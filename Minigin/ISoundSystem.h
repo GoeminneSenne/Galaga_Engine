@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace dae
 {
@@ -6,6 +7,7 @@ namespace dae
 	{
 	public:
 		virtual ~ISoundSystem() = default;
-		virtual void Play() = 0;
+
+		virtual void PlaySFX(const std::string& path) = 0;
 	};
 }

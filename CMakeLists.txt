@@ -13,46 +13,98 @@ else()
   set(TARGET_PARAM WIN32)
 endif()
 
-# list source files here
-add_executable(${TARGET_NAME} ${TARGET_PARAM}
+#Minigin library source files
+set(MINIGIN_SOURCES
+  Minigin/Minigin.cpp
   Minigin/Font.cpp
   Minigin/GameObject.cpp
   Minigin/InputManager.cpp
-  Minigin/Main.cpp
-  Minigin/Minigin.cpp
   Minigin/Renderer.cpp
   Minigin/ResourceManager.cpp
   Minigin/Scene.cpp
   Minigin/SceneManager.cpp
   Minigin/Texture2D.cpp
   Minigin/Transform.cpp
- "Minigin/Component.cpp" 
- "Minigin/GameTime.cpp" 
- "Minigin/Components/FPS.cpp"  
- "Minigin/Components/TextureRenderer.cpp" 
- "Minigin/Components/TextComponent.cpp" 
- "Minigin/Components/Orbit.cpp" 
- "Minigin/Components/CacheGraph.cpp" 
- "Minigin/Components/CacheGraphEx2.cpp" 
- "Minigin/Commands/MoveObjectCommand.cpp"  
- "Minigin/Input/Gamepad.cpp" 
- "Minigin/Input/SDLGamepad.cpp" 
- "Minigin/Components/Lives.cpp" 
- "Minigin/Input/Keyboard.cpp" 
- "Minigin/Commands/DamageCommand.cpp" 
- "Minigin/Subject.cpp" 
- "Minigin/Components/LivesDisplay.cpp" 
- "Minigin/Components/Score.cpp" 
- "Minigin/Components/ScoreDisplay.cpp" 
- "Minigin/EventQueue.cpp" "Minigin/ServiceLocator.cpp" "Minigin/NullSoundSystem.cpp" "Minigin/SDLSoundSystem.cpp")
+  Minigin/Component.cpp 
+  Minigin/GameTime.cpp 
+  Minigin/TextureRenderer.cpp
+  Minigin/TextComponent.cpp
+  Minigin/FPS.cpp 
+  Minigin/Input/Keyboard.cpp
+  Minigin/Input/Gamepad.cpp
+  Minigin/Subject.cpp
+  Minigin/EventQueue.cpp 
+  Minigin/ServiceLocator.cpp 
+  Minigin/NullSoundSystem.cpp
+  Minigin/SDLSoundSystem.cpp
+)
+
+#Minigin library header files
+set(MINIGIN_HEADERS
+  Minigin/Minigin.h
+  Minigin/Font.h
+  Minigin/GameObject.h
+  Minigin/InputManager.h
+  Minigin/Renderer.h
+  Minigin/ResourceManager.h
+  Minigin/Scene.h
+  Minigin/SceneManager.h
+  Minigin/Texture2D.h
+  Minigin/Transform.h
+  Minigin/Component.h
+  Minigin/GameTime.h
+  Minigin/TextureRenderer.h
+  Minigin/TextComponent.h
+  Minigin/FPS.h
+  Minigin/Input/Keyboard.h
+  Minigin/Subject.h
+  Minigin/EventQueue.h
+  Minigin/ServiceLocator.h
+  Minigin/NullSoundSystem.h
+  Minigin/SDLSoundSystem.h
+  Minigin/Input/Gamepad.h
+  Minigin/AchievementObserver.h
+  Minigin/ICommand.h
+  Minigin/IEventListener.h
+  Minigin/InputBinding.h
+  Minigin/IObserver.h
+  Minigin/ISoundSystem.h
+  Minigin/GameObjectCommand.h
+)
+
+add_library(Minigin STATIC)
+
+target_sources(Minigin
+ PRIVATE ${MINIGIN_HEADERS}
+ PUBLIC ${MINIGIN_SOURCES}
+)
+
+# Game executable sources
+set(GAME_SOURCES
+  Game/Main.cpp
+  Game/Orbit.cpp
+  Game/CacheGraph.cpp
+  Game/CacheGraphEx2.cpp
+  Game/MoveObjectCommand.cpp 
+  Game/Lives.cpp
+  Game/DamageCommand.cpp
+  Game/LivesDisplay.cpp
+  Game/Score.cpp
+  Game/ScoreDisplay.cpp
+)
 
  if(WIN32)
-    target_sources(${TARGET_NAME} PRIVATE "Minigin/Input/XInputGamepad.cpp")
+    list(APPEND GAME_SOURCES Minigin/Input/XInputGamepad.cpp)
  endif()
 
+#Target executable
+add_executable(${TARGET_NAME} ${TARGET_PARAM} ${GAME_SOURCES})
 
 # enable c++20 features
 target_compile_features(${TARGET_NAME} PUBLIC cxx_std_20)
+
+#link minigin to Game
+target_link_libraries(${TARGET_NAME} PRIVATE Minigin)
 
 include(FetchContent)
 # add glm
@@ -193,7 +245,7 @@ target_include_directories("${TARGET_NAME}" PUBLIC
   ${VLD_INCLUDE_DIR}
 )
 
-target_link_libraries("${TARGET_NAME}" PUBLIC
+target_link_libraries(Minigin PUBLIC
   SDL3::SDL3
   SDL3_mixer::SDL3_mixer
   SDL3_ttf::SDL3_ttf
@@ -201,6 +253,7 @@ target_link_libraries("${TARGET_NAME}" PUBLIC
   imgui
   ${VLD_LIBRARIES}
 )
+
 
 # Add Xinput if on Windows
 if(WIN32)
