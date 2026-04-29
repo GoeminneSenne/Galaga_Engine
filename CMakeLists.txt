@@ -252,10 +252,11 @@ target_link_libraries(Minigin PUBLIC
   SDL3_mixer::SDL3_mixer
   SDL3_ttf::SDL3_ttf
   glm::glm
-  imgui
   ${VLD_LIBRARIES}
 )
 
+target_link_libraries(Minigin PRIVATE imgui)
+  
 
 # Add Xinput if on Windows
 if(WIN32)
