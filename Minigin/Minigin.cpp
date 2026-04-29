@@ -3,6 +3,8 @@
 #include <iostream>
 #include <thread>
 
+#include "SDLSoundSystem.h"
+
 #if WIN32
 #define WIN32_LEAN_AND_MEAN 
 #include <windows.h>
@@ -94,6 +96,8 @@ dae::Minigin::Minigin(const std::filesystem::path& dataPath)
 
 	Renderer::GetInstance().Init(g_window);
 	ResourceManager::GetInstance().Init(dataPath);
+
+	SDLSoundSystem sdl{};
 }
 
 dae::Minigin::~Minigin()

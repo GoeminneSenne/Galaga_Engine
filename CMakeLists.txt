@@ -44,7 +44,7 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
  "Minigin/Components/LivesDisplay.cpp" 
  "Minigin/Components/Score.cpp" 
  "Minigin/Components/ScoreDisplay.cpp" 
- "Minigin/EventQueue.cpp" "Minigin/ServiceLocator.cpp" "Minigin/NullSoundSystem.cpp")
+ "Minigin/EventQueue.cpp" "Minigin/ServiceLocator.cpp" "Minigin/NullSoundSystem.cpp" "Minigin/SDLSoundSystem.cpp")
 
  if(WIN32)
     target_sources(${TARGET_NAME} PRIVATE "Minigin/Input/XInputGamepad.cpp")
@@ -230,7 +230,7 @@ if(EMSCRIPTEN)
   add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
     COMMAND "${CMAKE_COMMAND}" -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/web" "$<TARGET_FILE_DIR:${TARGET_NAME}>/"
   )
-
+  
   # Have emscripten generate a html page too.
   set(CMAKE_EXECUTABLE_SUFFIX ".html")
 
@@ -244,6 +244,7 @@ elseif(WIN32)
   set(SDL_RUNTIME_DLLS
     SDL3::SDL3
     SDL3_ttf::SDL3_ttf
+    SDL3_mixer::SDL3_mixer
   )
 
   foreach(dllTarget IN LISTS SDL_RUNTIME_DLLS)
