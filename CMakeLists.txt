@@ -247,6 +247,12 @@ target_include_directories("${TARGET_NAME}" PUBLIC
   ${VLD_INCLUDE_DIR}
 )
 
+target_include_directories(Minigin PUBLIC
+  ${CMAKE_SOURCE_DIR}
+  ${imgui_SOURCE_DIR}
+  ${VLD_INCLUDE_DIR}
+)
+
 target_link_libraries(Minigin PUBLIC
   SDL3::SDL3
   SDL3_mixer::SDL3_mixer
