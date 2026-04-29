@@ -241,27 +241,20 @@ if(Steamworks_FOUND)
     target_sources(${TARGET_NAME} PRIVATE "Minigin/SteamAchievements.cpp")
 endif()
 
-target_include_directories("${TARGET_NAME}" PUBLIC
+target_include_directories(Minigin PUBLIC
   ${CMAKE_SOURCE_DIR}/Minigin/
   ${imgui_SOURCE_DIR}
   ${VLD_INCLUDE_DIR}
 )
 
-target_include_directories(Minigin PUBLIC
-  ${CMAKE_SOURCE_DIR}
-  ${imgui_SOURCE_DIR}
-  ${VLD_INCLUDE_DIR}
-)
-
 target_link_libraries(Minigin PUBLIC
-  SDL3::SDL3
   SDL3_mixer::SDL3_mixer
   SDL3_ttf::SDL3_ttf
   glm::glm
+  imgui
   ${VLD_LIBRARIES}
 )
 
-target_link_libraries(Minigin PRIVATE imgui)
 
 # Add Xinput if on Windows
 if(WIN32)
