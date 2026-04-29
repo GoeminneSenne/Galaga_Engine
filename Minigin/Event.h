@@ -21,7 +21,7 @@ namespace dae
 
 	struct PlaySFXArgs : public EventArgs
 	{
-		explicit PlaySFXArgs(std::string path) : EventArgs(), path(std::move(path)) {}
+		PlaySFXArgs(std::string path) : EventArgs(), path(std::move(path)) {}
 
 		std::string path;
 	};

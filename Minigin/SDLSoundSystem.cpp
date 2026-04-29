@@ -21,6 +21,22 @@ dae::SDLSoundSystem::SDLSoundSystem()
 	}
 
 	EventQueue::GetInstance().Subscribe(make_sdbm_hash("PlaySFX"), this);
+
+	m_audioThread = std::jthread(&SDLSoundSystem::ProcessAudio, this);
+}
+
+dae::SDLSoundSystem::~SDLSoundSystem()
+{
+	std::unique_lock<std::mutex> lock(m_mutex);
+	m_isRunning = false;
+	lock.unlock();
+
+	m_conditionVar.notify_all();
+
+	if (m_audioThread.joinable())
+	{
+		m_audioThread.join();
+	}
 }
 
 void dae::SDLSoundSystem::PlaySFX(const std::string& path)
@@ -44,6 +60,32 @@ void dae::SDLSoundSystem::HandleEvent(const Event& event)
 {
 	if (event.id == make_sdbm_hash("PlaySFX"))
 	{
-		PlaySFX("./Data/PlayerShoot.mp3");
+		std::unique_lock<std::mutex> lock(m_mutex);
+
+		auto sfxArgs = dynamic_cast<PlaySFXArgs*>(event.args.get());
+		m_audioArgs.push(sfxArgs->path);
+
+		m_conditionVar.notify_all();
+	}
+}
+
+void dae::SDLSoundSystem::ProcessAudio()
+{
+	while (m_isRunning)
+	{
+		std::unique_lock<std::mutex> lock(m_mutex);
+
+		m_conditionVar.wait(lock, [&]()
+			{ return !m_isRunning || !m_audioArgs.empty(); });
+
+		while (!m_audioArgs.empty())
+		{
+			auto path = m_audioArgs.front();
+			m_audioArgs.pop();
+
+			lock.unlock();
+			PlaySFX(path);
+			lock.lock();
+		}
 	}
 }
