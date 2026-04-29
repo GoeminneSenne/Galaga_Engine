@@ -77,8 +77,8 @@ set(MINIGIN_HEADERS
 add_library(Minigin STATIC)
 
 target_sources(Minigin
- PRIVATE ${MINIGIN_HEADERS}
- PUBLIC ${MINIGIN_SOURCES}
+ PUBLIC ${MINIGIN_HEADERS}
+ PRIVATE ${MINIGIN_SOURCES}
 )
 
 # Game executable sources
@@ -256,7 +256,6 @@ target_link_libraries(Minigin PUBLIC
 )
 
 target_link_libraries(Minigin PRIVATE imgui)
-  
 
 # Add Xinput if on Windows
 if(WIN32)
