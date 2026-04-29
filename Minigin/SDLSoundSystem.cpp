@@ -7,6 +7,7 @@
 
 
 dae::SDLSoundSystem::SDLSoundSystem()
+	: ISoundSystem()
 {
 	if (!MIX_Init())
 	{
