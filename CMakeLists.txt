@@ -74,12 +74,13 @@ set(MINIGIN_HEADERS
   Minigin/LoggingSoundSystem.h
 )
 
-add_library(Minigin STATIC)
 
-target_sources(Minigin
- PUBLIC ${MINIGIN_HEADERS}
- PRIVATE ${MINIGIN_SOURCES}
-)
+#add_library(Minigin STATIC)
+#
+#target_sources(Minigin
+# PUBLIC ${MINIGIN_HEADERS}
+# PRIVATE ${MINIGIN_SOURCES}
+#)
 
 # Game executable sources
 set(GAME_SOURCES
@@ -100,13 +101,13 @@ set(GAME_SOURCES
  endif()
 
 #Target executable
-add_executable(${TARGET_NAME} ${TARGET_PARAM} ${GAME_SOURCES})
+add_executable(${TARGET_NAME} ${TARGET_PARAM} ${GAME_SOURCES} ${MINIGIN_SOURCES})
 
 # enable c++20 features
 target_compile_features(${TARGET_NAME} PUBLIC cxx_std_20)
 
 #link minigin to Game
-target_link_libraries(${TARGET_NAME} PRIVATE Minigin)
+#target_link_libraries(${TARGET_NAME} PRIVATE Minigin)
 
 include(FetchContent)
 # add glm
@@ -241,13 +242,14 @@ if(Steamworks_FOUND)
     target_sources(${TARGET_NAME} PRIVATE "Minigin/SteamAchievements.cpp")
 endif()
 
-target_include_directories(Minigin PUBLIC
+target_include_directories(${TARGET_NAME} PUBLIC
   ${CMAKE_SOURCE_DIR}/Minigin/
   ${imgui_SOURCE_DIR}
   ${VLD_INCLUDE_DIR}
 )
 
-target_link_libraries(Minigin PUBLIC
+target_link_libraries(${TARGET_NAME} PUBLIC
+  SDL3::SDL3
   SDL3_mixer::SDL3_mixer
   SDL3_ttf::SDL3_ttf
   glm::glm
