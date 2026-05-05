@@ -14,6 +14,7 @@ namespace dae
 	public:
 		void Subscribe(EventId eventId, IEventListener* listener);
 		void Unsubscribe(EventId eventId, IEventListener* listener);
+		void ProcessPendingRemovals();
 
 		void SendEvent(EventId eventId, std::unique_ptr<EventArgs> args);
 
@@ -24,5 +25,7 @@ namespace dae
 
 		std::queue<Event> m_queue;
 		std::unordered_map<EventId, std::vector<IEventListener*>> m_listeners;
+
+		std::queue< std::pair<EventId, IEventListener*>> m_pendingUnsubscribes;
 	};
 }

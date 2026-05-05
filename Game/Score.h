@@ -11,6 +11,7 @@ namespace dae
 	{
 	public:
 		explicit Score(GameObject* pOwner);
+		~Score() override;
 
 		Subject* GetSubject() const;
 		int GetScore() const;

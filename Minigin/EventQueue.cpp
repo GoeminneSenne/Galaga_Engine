@@ -2,13 +2,24 @@
 
 void dae::EventQueue::Subscribe(EventId eventId, IEventListener* listener)
 {
-	//TODO: check if listener is already in vector
+	if (std::ranges::find(m_listeners[eventId], listener) != m_listeners[eventId].end()) return;
+
 	m_listeners[eventId].push_back(listener);
 }
 
-void dae::EventQueue::Unsubscribe(EventId, IEventListener*)
+void dae::EventQueue::Unsubscribe(EventId eventId, IEventListener* listener)
 {
-	//TODO
+	m_pendingUnsubscribes.emplace(eventId, listener);
+}
+
+void dae::EventQueue::ProcessPendingRemovals()
+{
+	while (! m_pendingUnsubscribes.empty())
+	{
+		const auto& [eventId, listener] = m_pendingUnsubscribes.front();
+		std::erase(m_listeners[eventId], listener);
+		m_pendingUnsubscribes.pop();
+	}
 }
 
 void dae::EventQueue::SendEvent(EventId eventId, std::unique_ptr<EventArgs> args)

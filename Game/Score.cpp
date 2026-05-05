@@ -8,6 +8,11 @@ dae::Score::Score(GameObject* pOwner)
 	EventQueue::GetInstance().Subscribe(make_sdbm_hash("ScoreAdded"), this);
 }
 
+dae::Score::~Score()
+{
+	EventQueue::GetInstance().Unsubscribe(make_sdbm_hash("ScoreAdded"), this);
+}
+
 dae::Subject* dae::Score::GetSubject() const
 {
 	return m_pSubject.get();
