@@ -46,3 +46,9 @@ dae::Scene& dae::SceneManager::CreateScene()
 	m_scenes.emplace_back(new Scene());
 	return *m_scenes.back();
 }
+
+//TODO Implement proper scene management
+dae::Scene* dae::SceneManager::GetCurrentScene() const
+{
+	return m_scenes[0].get();
+}

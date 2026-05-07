@@ -12,6 +12,9 @@ namespace dae
 	{
 	public:
 		Scene& CreateScene();
+		
+		//TODO implement proper scene management (set current scene & change between scenes)
+		Scene* GetCurrentScene() const;
 
 		void Update(float deltaTime);
 		void FixedUpdate(float fixedTimeStep);

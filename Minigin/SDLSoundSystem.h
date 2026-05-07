@@ -23,7 +23,7 @@ namespace dae
 	private:
 		MIX_Mixer* m_mixer = nullptr;
 
-		//TODO replace by event content for other events
+		//TODO replace by event args for other events
 		std::queue<std::string> m_audioArgs;
 		std::mutex m_mutex;
 		std::condition_variable m_conditionVar;
