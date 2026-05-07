@@ -10,7 +10,7 @@ namespace dae
 		~Bullet() override = default;
 
 	private:
-		float m_speed{10.f};
+		//float m_speed{10.f};
 
 	};
 }
