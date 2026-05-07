@@ -6,10 +6,10 @@ if(EMSCRIPTEN)
 endif()
 
 if(EMSCRIPTEN)
-  set(TARGET_NAME minigin_web)
+  set(TARGET_NAME galaga_web)
   set(TARGET_PARAM )
 else()
-  set(TARGET_NAME minigin)
+  set(TARGET_NAME galaga)
   set(TARGET_PARAM WIN32)
 endif()
 
@@ -74,26 +74,29 @@ set(MINIGIN_HEADERS
   Minigin/LoggingSoundSystem.h
 )
 
+# Minigin static library
+add_library(Minigin STATIC)
 
-#add_library(Minigin STATIC)
-#
-#target_sources(Minigin
-# PUBLIC ${MINIGIN_HEADERS}
-# PRIVATE ${MINIGIN_SOURCES}
-#)
+target_sources(Minigin
+ PUBLIC ${MINIGIN_HEADERS}
+ PRIVATE ${MINIGIN_SOURCES}
+)
 
 # Game executable sources
 set(GAME_SOURCES
-  Game/Main.cpp
-  Game/Orbit.cpp
-  Game/CacheGraph.cpp
-  Game/CacheGraphEx2.cpp
-  Game/MoveObjectCommand.cpp 
-  Game/Lives.cpp
-  Game/DamageCommand.cpp
-  Game/LivesDisplay.cpp
-  Game/Score.cpp
-  Game/ScoreDisplay.cpp
+  Galaga/Main.cpp
+  Galaga/Orbit.cpp
+  Galaga/CacheGraph.cpp
+  Galaga/CacheGraphEx2.cpp
+  Galaga/MoveObjectCommand.cpp 
+  Galaga/Lives.cpp
+  Galaga/DamageCommand.cpp
+  Galaga/LivesDisplay.cpp
+  Galaga/Score.cpp
+  Galaga/ScoreDisplay.cpp
+  Galaga/Bullet.cpp
+  Galaga/PlayerShip.cpp
+  Galaga/ShootCommand.cpp
 )
 
  if(WIN32)
@@ -107,7 +110,7 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM} ${GAME_SOURCES} ${MINIGIN_SOURCES}
 target_compile_features(${TARGET_NAME} PUBLIC cxx_std_20)
 
 #link minigin to Game
-#target_link_libraries(${TARGET_NAME} PRIVATE Minigin)
+target_link_libraries(${TARGET_NAME} PRIVATE Minigin)
 
 include(FetchContent)
 # add glm
@@ -239,16 +242,16 @@ find_package(Steamworks QUIET)
 
 #Add Steamworks specific classes
 if(Steamworks_FOUND)
-    target_sources(${TARGET_NAME} PRIVATE "Minigin/SteamAchievements.cpp")
+    target_sources(Minigin PRIVATE "Minigin/SteamAchievements.cpp")
 endif()
 
-target_include_directories(${TARGET_NAME} PUBLIC
+target_include_directories(Minigin PUBLIC
   ${CMAKE_SOURCE_DIR}/Minigin/
   ${imgui_SOURCE_DIR}
   ${VLD_INCLUDE_DIR}
 )
 
-target_link_libraries(${TARGET_NAME} PUBLIC
+target_link_libraries(Minigin PUBLIC
   SDL3::SDL3
   SDL3_mixer::SDL3_mixer
   SDL3_ttf::SDL3_ttf
@@ -260,7 +263,7 @@ target_link_libraries(${TARGET_NAME} PUBLIC
 
 # Add Xinput if on Windows
 if(WIN32)
-    target_link_libraries(${TARGET_NAME} PRIVATE XInput)
+    target_link_libraries(Minigin PRIVATE XInput)
 endif()
 
 if(MSVC)

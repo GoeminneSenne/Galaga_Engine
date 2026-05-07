@@ -28,6 +28,8 @@
 #include "LivesDisplay.h"
 #include "Score.h"
 #include "ScoreDisplay.h"
+#include "ShootCommand.h"
+#include "PlayerShip.h"
 
 #if USE_STEAMWORKS
 #include "AchievementObserver.h"
@@ -83,6 +85,7 @@ static void load()
 	go->GetTransform()->SetLocalPosition(500, 400);
 	auto pLives = go->AddComponent<dae::Lives>(3);
 	auto pScore1 = go->AddComponent<dae::Score>();
+	auto pPlayerShip = go->AddComponent<dae::PlayerShip>();
 
 	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1,0,0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_D, dae::KeyState::Pressed, std::move(moc));
@@ -99,6 +102,9 @@ static void load()
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_Z, dae::KeyState::Down, std::move(asc));
 	asc = std::make_unique<dae::AddScoreCommand>(100, go.get());
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_X, dae::KeyState::Down, std::move(asc));
+
+	auto sc = std::make_unique<dae::ShootCommand>(pPlayerShip);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_SPACE, dae::KeyState::Down, std::move(sc));
 
 	scene.Add(std::move(go));
 	////////////////////////////////////////////////////////////
