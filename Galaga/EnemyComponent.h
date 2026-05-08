@@ -2,12 +2,11 @@
 #include <memory>
 
 #include "Component.h"
+#include "EnemyState.h"
 #include "glm/vec3.hpp"
 
 namespace galaga
 {
-	class EnemyState;
-
 	class EnemyComponent : public dae::Component
 	{
 	public:

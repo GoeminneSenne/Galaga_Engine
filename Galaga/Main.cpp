@@ -75,7 +75,7 @@ static void load()
 	go->AddComponent<dae::TextureRenderer>();
 	font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
 	//go->AddComponent<dae::TextComponent>("Use WASD to move Bird, C to inflict damage, Z and X to kill ships", font);
-	go->AddComponent<dae::TextComponent>("Press C to play SFX", font);
+	go->AddComponent<dae::TextComponent>("Press Space to fire bullets, Q/D to move", font);
 	scene.Add(std::move(go));
 	///////////////////////////////////////////
 
@@ -85,7 +85,7 @@ static void load()
 	go->AddComponent<dae::TextureRenderer>("Galaga.png");
 	go->GetTransform()->SetLocalPosition(500, 400);
 	auto pLives = go->AddComponent<dae::Lives>(3);
-	auto pScore1 = go->AddComponent<dae::Score>();
+	go->AddComponent<dae::Score>();
 	auto pPlayerShip = go->AddComponent<dae::PlayerShip>();
 
 	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1,0,0), 50.f);
@@ -110,6 +110,7 @@ static void load()
 	scene.Add(std::move(go));
 	////////////////////////////////////////////////////////////
 
+	/*
 	///LivesDisplay 1
 	/////////////////////////////////////////////////////////////
 	go = std::make_unique<dae::GameObject>();
@@ -153,7 +154,7 @@ static void load()
 	pLives = go->AddComponent<dae::Lives>(3);
 	auto pScore2 = go->AddComponent<dae::Score>();
 
-	/*
+	
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1, 0, 0), 100.f);
 	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_RIGHT, 0, dae::KeyState::Pressed, std::move(moc));
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(-1, 0, 0), 100.f);
@@ -162,7 +163,7 @@ static void load()
 	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_UP, 0, dae::KeyState::Pressed, std::move(moc));
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, 1, 0), 100.f);
 	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_DOWN, 0, dae::KeyState::Pressed, std::move(moc));
-	*/
+	
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1, 0, 0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_RIGHT, dae::KeyState::Pressed, std::move(moc));
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(-1, 0, 0), 50.f);
@@ -205,6 +206,7 @@ static void load()
 
 	scene.Add(std::move(go));
 	////////////////////////////////////////////////////////////
+	*/
 
 	/// Enemy Ship
 	//////////////////////////////////////////////////////////

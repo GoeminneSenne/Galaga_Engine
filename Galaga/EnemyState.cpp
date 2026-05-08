@@ -6,10 +6,9 @@
 std::unique_ptr<galaga::EnemyState> galaga::EntryState::Update(float deltaTime, EnemyComponent* enemy)
 {
 	enemy->Move(m_moveDirection * m_speed * deltaTime);
-	if (glm::distance(enemy->GetWorldPosition(), enemy->GetFormationPosition()) <= 0.1f)
+	if (glm::distance(enemy->GetWorldPosition(), enemy->GetFormationPosition()) <= 1.f)
 	{
-		assert(false);
-		//Return other state.
+		return std::make_unique<IdleState>();
 	}
 	
 	return nullptr;
@@ -21,4 +20,16 @@ void galaga::EntryState::OnEnter(EnemyComponent* enemyComponent)
 	glm::vec3 formationPos{ enemyComponent->GetFormationPosition() };
 
 	m_moveDirection = glm::normalize(formationPos - startPos);
+}
+
+std::unique_ptr<galaga::EnemyState> galaga::IdleState::Update(float deltaTime, EnemyComponent*)
+{
+	m_waitTime -= deltaTime;
+
+	if (m_waitTime <= 0.f)
+	{
+		return std::make_unique<BombingRunState>();
+	}
+
+	return nullptr;
 }
