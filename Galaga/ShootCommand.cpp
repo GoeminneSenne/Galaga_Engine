@@ -9,7 +9,7 @@ dae::ShootCommand::ShootCommand(PlayerShip* pPlayer)
 
 void dae::ShootCommand::Execute(float)
 {
-	if (m_pPlayer)
+	if (m_pPlayer && m_pPlayer->CanShoot())
 	{
 		m_pPlayer->ShootBullet();
 	}
