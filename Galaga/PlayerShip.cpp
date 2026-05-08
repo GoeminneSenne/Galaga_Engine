@@ -15,6 +15,13 @@ dae::PlayerShip::PlayerShip(GameObject* pOwner)
 	auto texture = GetOwner()->GetComponent<TextureRenderer>();
 	texture->SetSourceRect(m_srcRect);
 	texture->SetDestinationSize(m_width, m_height);
+
+	EventQueue::GetInstance().Subscribe(make_sdbm_hash("BulletDestroyed"), this);
+}
+
+dae::PlayerShip::~PlayerShip()
+{
+	EventQueue::GetInstance().Unsubscribe(make_sdbm_hash("BulletDestroyed"), this);
 }
 
 void dae::PlayerShip::Update(float deltaTime)
@@ -22,6 +29,14 @@ void dae::PlayerShip::Update(float deltaTime)
 	if (m_currentCooldown > 0.f)
 	{
 		m_currentCooldown -= deltaTime;
+	}
+}
+
+void dae::PlayerShip::HandleEvent(const Event& event)
+{
+	if (event.id == make_sdbm_hash("BulletDestroyed"))
+	{
+		--m_activeBullets;
 	}
 }
 
