@@ -17,6 +17,14 @@ dae::PlayerShip::PlayerShip(GameObject* pOwner)
 	texture->SetDestinationSize(m_width, m_height);
 }
 
+void dae::PlayerShip::Update(float deltaTime)
+{
+	if (m_currentCooldown > 0.f)
+	{
+		m_currentCooldown -= deltaTime;
+	}
+}
+
 void dae::PlayerShip::ShootBullet()
 {
 	//SFX
@@ -29,6 +37,7 @@ void dae::PlayerShip::ShootBullet()
 	bulletObj->AddComponent<Bullet>(GetOwner()->GetTransform()->GetLocalPosition());
 
 	++m_activeBullets;
+	m_currentCooldown += m_shootCooldown;
 
 	//Add to scene
 	SceneManager::GetInstance().GetCurrentScene()->Add(std::move(bulletObj));
@@ -36,5 +45,5 @@ void dae::PlayerShip::ShootBullet()
 
 bool dae::PlayerShip::CanShoot() const
 {
-	return m_activeBullets < m_maxActiveBullets;
+	return m_activeBullets < m_maxActiveBullets && m_currentCooldown <= 0.f;
 }
