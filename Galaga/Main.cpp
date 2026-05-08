@@ -24,6 +24,7 @@
 
 #include "InputManager.h"
 #include "AddScoreCommand.h"
+#include "EnemyComponent.h"
 #include "MoveObjectCommand.h"
 #include "LivesDisplay.h"
 #include "Score.h"
@@ -204,6 +205,21 @@ static void load()
 
 	scene.Add(std::move(go));
 	////////////////////////////////////////////////////////////
+
+	/// Enemy Ship
+	//////////////////////////////////////////////////////////
+	go = std::make_unique<dae::GameObject>();
+	auto tc = go->AddComponent<dae::TextureRenderer>("Galaga2.png");
+	tc->SetSourceRect(145.f, 19.f, 16.f, 16.f);
+	tc->SetDestinationSize(32.f, 32.f);
+	go->GetTransform()->SetLocalPosition(300, 0);
+	
+	go->AddComponent<galaga::EnemyComponent>(glm::vec3{ 300, 300, 0 });
+
+	scene.Add(std::move(go));
+	//////////////////////////////////////////////////////////
+
+
 
 
 #if USE_STEAMWORKS
