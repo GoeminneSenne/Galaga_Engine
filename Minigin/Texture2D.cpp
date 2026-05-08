@@ -43,10 +43,16 @@ dae::Texture2D::Texture2D(const std::string &fullPath)
             std::string("Failed to create texture from surface: ") + SDL_GetError()
         );
     }
+
+	//Set Scale Mode to nearest to prevent interpolation with borders from sprite art
+    SDL_SetTextureScaleMode(m_texture, SDL_SCALEMODE_NEAREST);
 }
 
 dae::Texture2D::Texture2D(SDL_Texture* texture)	: m_texture{ texture } 
 {
 	assert(m_texture != nullptr);
+
+    //Set Scale Mode to nearest to prevent interpolation with borders from sprite art
+    SDL_SetTextureScaleMode(m_texture, SDL_SCALEMODE_NEAREST);
 }
 

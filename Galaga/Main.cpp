@@ -81,7 +81,7 @@ static void load()
 	///SHIP 1
 	/////////////////////////////////////////////////////////
 	go = std::make_unique<dae::GameObject>();
-	go->AddComponent<dae::TextureRenderer>("Galaga/ship1.png");
+	go->AddComponent<dae::TextureRenderer>("Galaga.png");
 	go->GetTransform()->SetLocalPosition(500, 400);
 	auto pLives = go->AddComponent<dae::Lives>(3);
 	auto pScore1 = go->AddComponent<dae::Score>();
