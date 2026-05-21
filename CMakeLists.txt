@@ -30,14 +30,14 @@ set(MINIGIN_SOURCES
   Minigin/TextureRenderer.cpp
   Minigin/TextComponent.cpp
   Minigin/FPS.cpp 
-  Minigin/Input/Keyboard.cpp
-  Minigin/Input/Gamepad.cpp
+  Minigin/Keyboard.cpp
+  Minigin/Gamepad.cpp
   Minigin/Subject.cpp
   Minigin/EventQueue.cpp 
   Minigin/ServiceLocator.cpp 
   Minigin/NullSoundSystem.cpp
   Minigin/SDLSoundSystem.cpp
-  Minigin/Input/SDLGamepad.cpp
+  Minigin/SDLGamepad.cpp
 )
 
 #Minigin library header files
@@ -57,13 +57,13 @@ set(MINIGIN_HEADERS
   Minigin/TextureRenderer.h
   Minigin/TextComponent.h
   Minigin/FPS.h
-  Minigin/Input/Keyboard.h
+  Minigin/Keyboard.h
   Minigin/Subject.h
   Minigin/EventQueue.h
   Minigin/ServiceLocator.h
   Minigin/NullSoundSystem.h
   Minigin/SDLSoundSystem.h
-  Minigin/Input/Gamepad.h
+  Minigin/Gamepad.h
   Minigin/AchievementObserver.h
   Minigin/ICommand.h
   Minigin/IEventListener.h
@@ -100,11 +100,11 @@ set(GAME_SOURCES
  "Galaga/EnemyComponent.cpp" "Galaga/EnemyState.cpp")
 
  if(WIN32)
-    list(APPEND GAME_SOURCES Minigin/Input/XInputGamepad.cpp)
+    list(APPEND GAME_SOURCES Minigin/XInputGamepad.cpp)
  endif()
 
 #Target executable
-add_executable(${TARGET_NAME} ${TARGET_PARAM} ${GAME_SOURCES} ${MINIGIN_SOURCES})
+add_executable(${TARGET_NAME} ${TARGET_PARAM} ${GAME_SOURCES})
 
 # enable c++20 features
 target_compile_features(${TARGET_NAME} PUBLIC cxx_std_20)

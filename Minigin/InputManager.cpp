@@ -2,14 +2,14 @@
 #include "InputManager.h"
 #include "InputBinding.h"
 #include "ICommand.h"
-#include "Input/Gamepad.h"
+#include "Gamepad.h"
 
 #include "backends/imgui_impl_sdl3.h"
 
 #ifdef _WIN32
-#include "Input/XInputGamepad.h"
+#include "XInputGamepad.h"
 #else
-#include "Input/SDLGamepad.h"
+#include "SDLGamepad.h"
 #endif
 
 dae::InputManager::InputManager()

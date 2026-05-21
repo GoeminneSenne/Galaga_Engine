@@ -4,8 +4,8 @@
 
 #include "InputBinding.h"
 #include "Singleton.h"
-#include "Input/Gamepad.h"
-#include "Input/Keyboard.h"
+#include "Gamepad.h"
+#include "Keyboard.h"
 
 namespace dae
 {
