@@ -1,11 +1,6 @@
 #pragma once
-#include <mutex>
-#include <queue>
 #include <string>
-#include <thread>
-
 #include "ISoundSystem.h"
-#include "SDL3_mixer/SDL_mixer.h"
 
 namespace dae
 {

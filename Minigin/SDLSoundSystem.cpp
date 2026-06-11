@@ -1,9 +1,12 @@
 #include "SDLSoundSystem.h"
 
-#include <iostream>
 #include <SDL3_mixer/SDL_mixer.h>
-#include "EventQueue.h"
+
+#include <iostream>
 #include <thread>
+#include <mutex>
+#include <condition_variable>
+#include <queue>
 
 // --- PIMPL ---------------------
 class dae::SDLSoundSystem::SDLSoundSystemImpl final
