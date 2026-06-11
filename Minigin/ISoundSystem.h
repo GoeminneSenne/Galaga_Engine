@@ -11,6 +11,6 @@ namespace dae
 		ISoundSystem() = default;
 		virtual ~ISoundSystem() = default;
 
-		virtual void PlaySFX(const std::string& path) = 0;
+		virtual void PlaySFX(const std::string& path, float volume) = 0;
 	};
 }

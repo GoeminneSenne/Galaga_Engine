@@ -44,7 +44,7 @@ void dae::PlayerShip::HandleEvent(const Event& event)
 void dae::PlayerShip::ShootBullet()
 {
 	//SFX
-	ServiceLocator::GetSoundSystem().PlaySFX("./Data/PlayerShoot.mp3");
+	ServiceLocator::GetSoundSystem().PlaySFX("./Data/PlayerShoot.mp3", 0.1f);
 
 	//Create Object
 	auto bulletObj = std::make_unique<dae::GameObject>();

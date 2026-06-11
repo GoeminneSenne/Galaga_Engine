@@ -31,6 +31,7 @@
 #include "ScoreDisplay.h"
 #include "ShootCommand.h"
 #include "PlayerShip.h"
+#include "ServiceLocator.h"
 
 #if USE_STEAMWORKS
 #include "AchievementObserver.h"
@@ -221,6 +222,8 @@ static void load()
 	scene.Add(std::move(go));
 	//////////////////////////////////////////////////////////
 
+	//Start Sound Effect
+	dae::ServiceLocator::GetSoundSystem().PlaySFX("./Data/Start.mp3", 0.1f);
 
 
 

@@ -13,7 +13,7 @@ namespace dae
 	class SDLSoundSystem : public ISoundSystem
 	{
 	public:
-		void PlaySFX(const std::string& path) override;
+		void PlaySFX(const std::string& path, float volume) override;
 
 		SDLSoundSystem();
 		~SDLSoundSystem() override;

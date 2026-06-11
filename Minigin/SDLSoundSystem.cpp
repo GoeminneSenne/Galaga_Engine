@@ -15,7 +15,7 @@ public:
 	SDLSoundSystemImpl();
 	~SDLSoundSystemImpl();
 
-	void PlaySFX(const std::string& path);
+	void PlaySFX(const std::string& path, float volume);
 	void ProcessAudio();
 
 private:
@@ -63,10 +63,10 @@ dae::SDLSoundSystem::SDLSoundSystemImpl::~SDLSoundSystemImpl()
 
 }
 
-void dae::SDLSoundSystem::SDLSoundSystemImpl::PlaySFX(const std::string& path)
+void dae::SDLSoundSystem::SDLSoundSystemImpl::PlaySFX(const std::string& path, float volume)
 {
 	std::unique_lock<std::mutex> lock(m_mutex);
-	m_queue.emplace(SoundEvent{ path, 0 });
+	m_queue.emplace(SoundEvent{ path, volume });
 	m_conditionVar.notify_one();
 }
 
@@ -105,6 +105,7 @@ void dae::SDLSoundSystem::SDLSoundSystemImpl::ProcessPlaySFX(const SoundEvent& e
 		throw std::runtime_error("Failed to create track");
 	}
 	MIX_SetTrackAudio(track, audio);
+	MIX_SetTrackGain(track, event.volume);
 	MIX_PlayTrack(track, 0);
 }
 
@@ -118,8 +119,8 @@ dae::SDLSoundSystem::~SDLSoundSystem() = default;
 
 
 //TODO: volume toevoegen
-void dae::SDLSoundSystem::PlaySFX(const std::string& path)
+void dae::SDLSoundSystem::PlaySFX(const std::string& path, float volume)
 {
-	m_pImpl->PlaySFX(path);
+	m_pImpl->PlaySFX(path, volume);
 }
 

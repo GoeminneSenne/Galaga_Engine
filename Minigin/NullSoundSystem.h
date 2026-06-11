@@ -9,6 +9,6 @@ namespace dae
 		NullSoundSystem();
 		~NullSoundSystem() override = default;
 
-		void PlaySFX(const std::string& path) override;
+		void PlaySFX(const std::string& path, float volume) override;
 	};
 }

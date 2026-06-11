@@ -101,7 +101,6 @@ dae::Minigin::Minigin(const std::filesystem::path& dataPath)
 
 #if _DEBUG
 	ServiceLocator::RegisterSoundSystem(std::make_unique<LoggingSoundSystem>(std::make_unique<SDLSoundSystem>()));
-
 #else
 	ServiceLocator::RegisterSoundSystem(std::make_unique<SDLSoundSystem>());
 #endif
