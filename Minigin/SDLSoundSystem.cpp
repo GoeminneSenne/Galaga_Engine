@@ -111,6 +111,8 @@ dae::SDLSoundSystem::SDLSoundSystem()
 	, m_pImpl(std::make_unique<SDLSoundSystemImpl>())
 {}
 
+dae::SDLSoundSystem::~SDLSoundSystem() = default;
+
 
 //TODO: volume toevoegen
 void dae::SDLSoundSystem::PlaySFX(const std::string& path)

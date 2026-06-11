@@ -21,7 +21,7 @@ namespace dae
 		void PlaySFX(const std::string& path) override;
 
 		SDLSoundSystem();
-		~SDLSoundSystem() override = default;
+		~SDLSoundSystem() override;
 		SDLSoundSystem(const SDLSoundSystem&) = delete;
 		SDLSoundSystem(SDLSoundSystem&&) = delete;
 		SDLSoundSystem& operator=(const SDLSoundSystem&) = delete;
