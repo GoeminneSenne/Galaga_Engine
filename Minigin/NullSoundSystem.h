@@ -10,6 +10,5 @@ namespace dae
 		~NullSoundSystem() override = default;
 
 		void PlaySFX(const std::string& path) override;
-		void HandleEvent(const Event& event) override;
 	};
 }

@@ -9,6 +9,12 @@
 
 namespace dae
 {
+	struct SoundEvent
+	{
+		std::string path{};
+		float volume{};
+	};
+
 	class SDLSoundSystem : public ISoundSystem
 	{
 	public:
@@ -16,7 +22,6 @@ namespace dae
 		~SDLSoundSystem() override;
 
 		void PlaySFX(const std::string& path) override;
-		void HandleEvent(const Event& event) override;
 
 		void ProcessAudio();
 
@@ -25,10 +30,14 @@ namespace dae
 
 		//TODO replace by event args for other events
 		std::queue<std::string> m_audioArgs;
+		std::queue<SoundEvent> m_queue;
 		std::mutex m_mutex;
 		std::condition_variable m_conditionVar;
 		std::jthread m_audioThread;
 
 		bool m_isRunning{ true };
+
+		
+		void ProcessPlaySFX(const SoundEvent& event);
 	};
 }
