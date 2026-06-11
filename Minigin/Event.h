@@ -19,13 +19,6 @@ namespace dae
 		GameObject* pTarget;
 	};
 
-	struct PlaySFXArgs : public EventArgs
-	{
-		PlaySFXArgs(std::string path) : EventArgs(), path(std::move(path)) {}
-
-		std::string path;
-	};
-
 	struct Event
 	{
 		EventId id;

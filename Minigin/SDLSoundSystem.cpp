@@ -5,9 +5,28 @@
 #include "EventQueue.h"
 #include <thread>
 
+// --- PIMPL ---------------------
+class dae::SDLSoundSystem::SDLSoundSystemImpl final
+{
+public:
+	SDLSoundSystemImpl();
+	~SDLSoundSystemImpl();
 
-dae::SDLSoundSystem::SDLSoundSystem()
-	: ISoundSystem()
+	void PlaySFX(const std::string& path);
+	void ProcessAudio();
+
+private:
+	MIX_Mixer* m_mixer = nullptr;
+	std::queue<SoundEvent> m_queue;
+	std::mutex m_mutex;
+	std::condition_variable m_conditionVar;
+	std::jthread m_audioThread;
+	bool m_isRunning{ true };
+
+	void ProcessPlaySFX(const SoundEvent& event) const;
+};
+
+dae::SDLSoundSystem::SDLSoundSystemImpl::SDLSoundSystemImpl()
 {
 	if (!MIX_Init())
 	{
@@ -22,48 +41,33 @@ dae::SDLSoundSystem::SDLSoundSystem()
 		throw std::runtime_error(std::string("Create Mixer Device error: ") + SDL_GetError());
 	}
 
-	m_audioThread = std::jthread(&SDLSoundSystem::ProcessAudio, this);
+	m_audioThread = std::jthread(&SDLSoundSystemImpl::ProcessAudio, this);
 }
 
-dae::SDLSoundSystem::~SDLSoundSystem()
+dae::SDLSoundSystem::SDLSoundSystemImpl::~SDLSoundSystemImpl()
 {
+	
 	std::unique_lock<std::mutex> lock(m_mutex);
 	m_isRunning = false;
 	lock.unlock();
-
+	
 	m_conditionVar.notify_all();
-
+	
 	if (m_audioThread.joinable())
 	{
 		m_audioThread.join();
 	}
+
 }
 
-void dae::SDLSoundSystem::PlaySFX(const std::string& path)
+void dae::SDLSoundSystem::SDLSoundSystemImpl::PlaySFX(const std::string& path)
 {
-
 	std::unique_lock<std::mutex> lock(m_mutex);
 	m_queue.emplace(SoundEvent{ path, 0 });
 	m_conditionVar.notify_one();
-
-	/*
-	MIX_Audio* audio = MIX_LoadAudio(m_mixer, path.c_str(), false);
-	if (!audio)
-	{
-		throw std::runtime_error("Failed to load audio");
-	}
-
-	MIX_Track* track = MIX_CreateTrack(m_mixer);
-	if (!track)
-	{
-		throw std::runtime_error("Failed to create track");
-	}
-	MIX_SetTrackAudio(track, audio);
-	MIX_PlayTrack(track, 0);
-	*/
 }
 
-void dae::SDLSoundSystem::ProcessAudio()
+void dae::SDLSoundSystem::SDLSoundSystemImpl::ProcessAudio()
 {
 	while (m_isRunning)
 	{
@@ -84,7 +88,7 @@ void dae::SDLSoundSystem::ProcessAudio()
 	}
 }
 
-void dae::SDLSoundSystem::ProcessPlaySFX(const SoundEvent& event)
+void dae::SDLSoundSystem::SDLSoundSystemImpl::ProcessPlaySFX(const SoundEvent& event) const
 {
 	MIX_Audio* audio = MIX_LoadAudio(m_mixer, event.path.c_str(), false);
 	if (!audio)
@@ -100,3 +104,17 @@ void dae::SDLSoundSystem::ProcessPlaySFX(const SoundEvent& event)
 	MIX_SetTrackAudio(track, audio);
 	MIX_PlayTrack(track, 0);
 }
+
+
+dae::SDLSoundSystem::SDLSoundSystem()
+	: ISoundSystem()
+	, m_pImpl(std::make_unique<SDLSoundSystemImpl>())
+{}
+
+
+//TODO: volume toevoegen
+void dae::SDLSoundSystem::PlaySFX(const std::string& path)
+{
+	m_pImpl->PlaySFX(path);
+}
+

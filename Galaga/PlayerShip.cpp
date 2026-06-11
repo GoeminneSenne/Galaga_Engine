@@ -44,10 +44,6 @@ void dae::PlayerShip::HandleEvent(const Event& event)
 void dae::PlayerShip::ShootBullet()
 {
 	//SFX
-	
-	//std::unique_ptr<EventArgs> args = std::make_unique<PlaySFXArgs>("./Data/PlayerShoot.mp3");
-	//EventQueue::GetInstance().SendEvent(make_sdbm_hash("PlaySFX"), std::move(args));
-
 	ServiceLocator::GetSoundSystem().PlaySFX("./Data/PlayerShoot.mp3");
 
 	//Create Object

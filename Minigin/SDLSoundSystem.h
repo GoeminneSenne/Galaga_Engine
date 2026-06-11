@@ -18,26 +18,16 @@ namespace dae
 	class SDLSoundSystem : public ISoundSystem
 	{
 	public:
-		SDLSoundSystem();
-		~SDLSoundSystem() override;
-
 		void PlaySFX(const std::string& path) override;
 
-		void ProcessAudio();
-
+		SDLSoundSystem();
+		~SDLSoundSystem() override = default;
+		SDLSoundSystem(const SDLSoundSystem&) = delete;
+		SDLSoundSystem(SDLSoundSystem&&) = delete;
+		SDLSoundSystem& operator=(const SDLSoundSystem&) = delete;
+		SDLSoundSystem& operator=(SDLSoundSystem&&) = delete;
 	private:
-		MIX_Mixer* m_mixer = nullptr;
-
-		//TODO replace by event args for other events
-		std::queue<std::string> m_audioArgs;
-		std::queue<SoundEvent> m_queue;
-		std::mutex m_mutex;
-		std::condition_variable m_conditionVar;
-		std::jthread m_audioThread;
-
-		bool m_isRunning{ true };
-
-		
-		void ProcessPlaySFX(const SoundEvent& event);
+		class SDLSoundSystemImpl;
+		std::unique_ptr<SDLSoundSystemImpl> m_pImpl;
 	};
 }
