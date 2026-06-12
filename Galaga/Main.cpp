@@ -53,12 +53,9 @@ static void load()
 	go->GetTransform()->SetLocalPosition(358, 180);
 	scene.Add(std::move(go));
 
-	go = std::make_unique<dae::GameObject>();
-	go->GetTransform()->SetLocalPosition(292, 20);
-	go->AddComponent<dae::TextureRenderer>();
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	go->AddComponent<dae::TextComponent>("Programming 4 Assignment", font, SDL_Color{255, 255, 0, 255});
-	scene.Add(std::move(go));
+
+
 
 	///FPS COMPONENT
 	/////////////////////////////////////////////
@@ -89,11 +86,14 @@ static void load()
 	auto pLives = go->AddComponent<dae::Lives>(3);
 	go->AddComponent<dae::Score>();
 	auto pPlayerShip = go->AddComponent<dae::PlayerShip>(0.f, 1024.f);
+	go->AddComponent<dae::Collider>(32.f, 32.f);
 
 	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1,0,0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_D, dae::KeyState::Pressed, std::move(moc));
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(-1, 0, 0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_A, dae::KeyState::Pressed, std::move(moc));
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, -1, 0), 150.f);
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_W, dae::KeyState::Pressed, std::move(moc));
 
 	auto dc = std::make_unique<dae::DamageCommand>(pLives);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_C, dae::KeyState::Down, std::move(dc));

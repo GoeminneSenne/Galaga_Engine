@@ -16,6 +16,7 @@ namespace dae
 		int GetNumLives() const;
 
 		void Damage();
+		void OnCollision(GameObject* other) override;
 
 	private:
 		int m_numLives;
