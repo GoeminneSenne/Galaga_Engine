@@ -18,8 +18,24 @@ int dae::Lives::GetNumLives() const
 
 void dae::Lives::Damage()
 {
+	if (m_isImmortal) return;
+
+	m_isImmortal = true;
 	--m_numLives;
 	m_pSubject->NotifyObservers(make_sdbm_hash("PlayerDied"), GetOwner());
+}
+
+void dae::Lives::Update(float deltaTime)
+{
+	if (m_isImmortal)
+	{
+		m_immortalTime += deltaTime;
+		if (m_immortalTime >= m_maxImmortalTime)
+		{
+			m_isImmortal = false;
+			m_immortalTime = 0.f;
+		}
+	}
 }
 
 void dae::Lives::OnCollision(GameObject* other)

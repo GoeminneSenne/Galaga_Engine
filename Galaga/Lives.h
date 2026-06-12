@@ -16,10 +16,16 @@ namespace dae
 		int GetNumLives() const;
 
 		void Damage();
+		void Update(float deltaTime) override;
 		void OnCollision(GameObject* other) override;
 
 	private:
 		int m_numLives;
 		std::unique_ptr<Subject> m_pSubject;
+
+		bool m_isImmortal{false};
+		float m_immortalTime{0.f};
+		constexpr static float m_maxImmortalTime{ 1.f };
+
 	};
 }
