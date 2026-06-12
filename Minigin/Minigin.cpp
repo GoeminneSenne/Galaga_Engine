@@ -7,6 +7,7 @@
 #include "LoggingSoundSystem.h"
 #include "SDLSoundSystem.h"
 #include "ServiceLocator.h"
+#include "Window.h"
 
 #if WIN32
 #define WIN32_LEAN_AND_MEAN 
@@ -31,8 +32,6 @@
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
-
-SDL_Window* g_window{};
 
 void LogSDLVersion(const std::string& message, int major, int minor, int patch)
 {
@@ -85,19 +84,9 @@ dae::Minigin::Minigin(const std::filesystem::path& dataPath)
 		SDL_Log("Renderer error: %s", SDL_GetError());
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
-
-	g_window = SDL_CreateWindow(
-		"Programming 4 assignment",
-		1024,
-		576,
-		SDL_WINDOW_OPENGL
-	);
-	if (g_window == nullptr) 
-	{
-		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
-	}
-
-	Renderer::GetInstance().Init(g_window);
+	
+	Window::GetInstance().Init(1024, 576, "Galaga");
+	Renderer::GetInstance().Init(Window::GetInstance().GetSDLWindow());
 	ResourceManager::GetInstance().Init(dataPath);
 
 #if _DEBUG
@@ -111,8 +100,7 @@ dae::Minigin::Minigin(const std::filesystem::path& dataPath)
 dae::Minigin::~Minigin()
 {
 	Renderer::GetInstance().Destroy();
-	SDL_DestroyWindow(g_window);
-	g_window = nullptr;
+	Window::GetInstance().Destroy();
 	SDL_Quit();
 
 #if USE_STEAMWORKS
