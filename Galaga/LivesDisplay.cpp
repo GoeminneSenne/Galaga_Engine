@@ -2,19 +2,20 @@
 
 #include "GameObject.h"
 #include "Lives.h"
+#include "Renderer.h"
+#include "ResourceManager.h"
 #include "TextComponent.h"
 
 dae::LivesDisplay::LivesDisplay(GameObject* pOwner, Lives* pLives)
 	: Component{pOwner}
 {
-	m_pTextComponent = pOwner->GetComponent<TextComponent>();
-
 	if (pLives)
 	{
-		UpdateText(pLives->GetNumLives());
+		m_numLives = pLives->GetNumLives();
 	}
-}
 
+	m_texture = ResourceManager::GetInstance().LoadTexture("Galaga.png");
+}
 
 void dae::LivesDisplay::Notify(EventId eventId, GameObject* object)
 {
@@ -22,16 +23,19 @@ void dae::LivesDisplay::Notify(EventId eventId, GameObject* object)
 	{
 		if (auto livesComp = object->GetComponent<Lives>())
 		{
-			UpdateText(livesComp->GetNumLives());
+			m_numLives = livesComp->GetNumLives();
 		}
 	}
 }
 
-void dae::LivesDisplay::UpdateText(int numLives) const
+void dae::LivesDisplay::Render() const
 {
-	if (m_pTextComponent)
+	if (m_texture == nullptr) return;
+
+	const auto& pos = GetOwner()->GetTransform()->GetWorldPosition();
+
+	for (int idx{}; idx < m_numLives; ++idx)
 	{
-		m_pTextComponent->SetText("# lives: " + std::to_string(numLives));
+		Renderer::GetInstance().RenderTexture(*m_texture, pos.x + ( m_size * static_cast<float>(idx)) , pos.y, m_size, m_size, m_srcRect);
 	}
 }
-
