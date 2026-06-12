@@ -14,8 +14,15 @@ dae::Collider::~Collider()
 	CollisionManager::GetInstance().RemoveCollider(this);
 }
 
+void dae::Collider::Enable(bool enabled)
+{
+	m_isEnabled = enabled;
+}
+
 bool dae::Collider::IsColliding(const Collider& other) const
 {
+	if (!m_isEnabled || !other.m_isEnabled) return false;
+
 	glm::vec2 thisMin{ GetMin() };
 	glm::vec2 thisMax{ GetMax() };
 	

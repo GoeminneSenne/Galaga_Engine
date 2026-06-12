@@ -1,5 +1,7 @@
 #include "CollisionManager.h"
 
+#include <algorithm>
+
 #include "Collider.h"
 #include "GameObject.h"
 
@@ -12,7 +14,9 @@ void dae::CollisionManager::AddCollider(Collider* collider)
 
 void dae::CollisionManager::RemoveCollider(Collider* collider)
 {
-	std::erase(m_colliders, collider);
+	auto itr = std::ranges::find(m_colliders, collider);
+	if (itr == m_colliders.end()) return;
+	m_colliders.erase(itr);
 }
 
 void dae::CollisionManager::CheckCollisions() const

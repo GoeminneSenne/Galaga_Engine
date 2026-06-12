@@ -16,6 +16,7 @@ namespace dae
 		Collider& operator=(const Collider&) = delete;
 		Collider& operator=(Collider&&) = delete;
 
+		void Enable(bool enabled);
 		bool IsColliding(const Collider& other) const;
 		glm::vec2 GetMin() const;
 		glm::vec2 GetMax() const;
@@ -23,5 +24,6 @@ namespace dae
 	private:
 		float m_width{};
 		float m_height{};
+		bool m_isEnabled{ true };
 	};
 }
