@@ -1,5 +1,6 @@
 #include "PlayerShip.h"
 
+#include <algorithm>
 #include <memory>
 #include <Event.h>
 #include <EventQueue.h>
@@ -10,8 +11,8 @@
 #include "TextureRenderer.h"
 
 
-dae::PlayerShip::PlayerShip(GameObject* pOwner)
-	: Component(pOwner)
+dae::PlayerShip::PlayerShip(GameObject* pOwner, float leftBounds, float rightBounds)
+	: Component(pOwner), m_leftBounds(leftBounds), m_rightBounds(rightBounds)
 {
 	auto texture = GetOwner()->GetComponent<TextureRenderer>();
 	texture->SetSourceRect(m_srcRect);
@@ -31,6 +32,11 @@ void dae::PlayerShip::Update(float deltaTime)
 	{
 		m_currentCooldown -= deltaTime;
 	}
+
+	//Level bounds
+	auto pos = GetOwner()->GetTransform()->GetLocalPosition();
+	pos.x = std::clamp(pos.x, m_leftBounds, m_rightBounds - m_width);
+	GetOwner()->GetTransform()->SetLocalPosition(pos);
 }
 
 void dae::PlayerShip::HandleEvent(const Event& event)

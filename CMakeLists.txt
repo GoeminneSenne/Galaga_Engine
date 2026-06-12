@@ -38,7 +38,7 @@ set(MINIGIN_SOURCES
   Minigin/NullSoundSystem.cpp
   Minigin/SDLSoundSystem.cpp
   Minigin/SDLGamepad.cpp
-)
+ "Minigin/Collider.cpp" "Minigin/CollisionManager.cpp")
 
 #Minigin library header files
 set(MINIGIN_HEADERS
@@ -72,7 +72,7 @@ set(MINIGIN_HEADERS
   Minigin/ISoundSystem.h
   Minigin/GameObjectCommand.h
   Minigin/LoggingSoundSystem.h
-)
+ "Minigin/Collider.h" "Minigin/CollisionManager.h")
 
 # Minigin static library
 add_library(Minigin STATIC)

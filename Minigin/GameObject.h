@@ -26,7 +26,8 @@ namespace dae
 		void FixedUpdate(float fixedTimeStep);
 		void Render() const;
 		void RenderUI() const;
-	
+		void OnCollision(GameObject* other) const;
+
 		[[nodiscard]] Transform* GetTransform(); 
 
 

@@ -26,7 +26,11 @@ void dae::Component::Render() const
 
 void Component::RenderUI()
 {
+	
 }
+
+void Component::OnCollision(GameObject* other)
+{}
 
 GameObject* dae::Component::GetOwner() const
 {

@@ -87,7 +87,7 @@ static void load()
 	go->GetTransform()->SetLocalPosition(500, 400);
 	auto pLives = go->AddComponent<dae::Lives>(3);
 	go->AddComponent<dae::Score>();
-	auto pPlayerShip = go->AddComponent<dae::PlayerShip>();
+	auto pPlayerShip = go->AddComponent<dae::PlayerShip>(0.f, 1024.f);
 
 	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1,0,0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_D, dae::KeyState::Pressed, std::move(moc));
@@ -208,6 +208,7 @@ static void load()
 	scene.Add(std::move(go));
 	////////////////////////////////////////////////////////////
 	*/
+
 
 	/// Enemy Ship
 	//////////////////////////////////////////////////////////

@@ -52,6 +52,14 @@ void dae::GameObject::RenderUI() const
 	}
 }
 
+void dae::GameObject::OnCollision(GameObject* other) const
+{
+	for (const auto& component : m_components)
+	{
+		component->OnCollision(other);
+	}
+}
+
 dae::Transform* dae::GameObject::GetTransform()
 {
 	return &m_transform;

@@ -4,7 +4,6 @@
 #include "Lives.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
-#include "TextComponent.h"
 
 dae::LivesDisplay::LivesDisplay(GameObject* pOwner, Lives* pLives)
 	: Component{pOwner}

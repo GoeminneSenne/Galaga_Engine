@@ -3,6 +3,7 @@
 #include <iostream>
 #include <thread>
 
+#include "CollisionManager.h"
 #include "LoggingSoundSystem.h"
 #include "SDLSoundSystem.h"
 #include "ServiceLocator.h"
@@ -145,6 +146,7 @@ void dae::Minigin::RunOneFrame()
 #endif
 	
 	EventQueue::GetInstance().ProcessEvents();
+	CollisionManager::GetInstance().CheckCollisions();
 
 	while (m_lag >= m_fixedTimeStep)
 	{
