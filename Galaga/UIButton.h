@@ -23,9 +23,9 @@ namespace galaga
 		void SetIsSelected(bool isSelected);
 
 	private:
+		MenuComponent* m_pMenu{};
 		bool m_isSelected{ false };
 		std::string m_name{};
-		MenuComponent* m_pMenu{};
 		dae::TextureRenderer* m_pTextureRenderer{};
 		constexpr static SDL_FRect m_normalSrcRect{ 0.f, 0.f, 60.f, 30.f };
 		constexpr static SDL_FRect m_selectedSrcRect{ 0.f, 30.f, 60.f, 30.f };

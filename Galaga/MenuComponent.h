@@ -11,9 +11,11 @@ namespace galaga
 		explicit MenuComponent(dae::GameObject* pOwner);
 		~MenuComponent() override;
 
-
 		void RegisterButton(UIButton* button);
 		void UnregisterButton(UIButton* button);
+
+		void SelectNextButton();
+		void SelectPreviousButton();
 
 	private:
 		std::vector<UIButton*> m_buttons;

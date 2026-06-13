@@ -170,4 +170,11 @@ void galaga::SceneCreator::CreateMainMenu()
 	go->AddComponent<dae::TextureRenderer>("Button.png");
 	go->AddComponent<UIButton>(menu, "test");
 	scene.Add(std::move(go));
+
+	//TEst button 2 
+	go = std::make_unique<dae::GameObject>();
+	go->GetTransform()->SetLocalPosition(130.f, 100.f);
+	go->AddComponent<dae::TextureRenderer>("Button.png");
+	go->AddComponent<UIButton>(menu, "test");
+	scene.Add(std::move(go));
 }
