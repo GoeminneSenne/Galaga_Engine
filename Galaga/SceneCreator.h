@@ -7,7 +7,5 @@ namespace galaga
 	{
 	public:
 		void CreateGameScene();
-
-
 	};
 }

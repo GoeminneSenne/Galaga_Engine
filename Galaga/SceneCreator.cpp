@@ -1,42 +1,31 @@
 #include "SceneCreator.h"
 
-#include <SDL3/SDL.h>
-
-#include "DamageCommand.h"
-
-
+//Engine includes
 #include <Minigin.h>
-#include "SceneManager.h"
-#include "ResourceManager.h"
-#include "Scene.h"
-
-#include "FPS.h"
-#include "TextComponent.h"
-#include "TextureRenderer.h"
-#include "Orbit.h"
-#include "CacheGraph.h"
-#include "CacheGraphEx2.h"
-#include "Lives.h"
-
-#include <filesystem>
-
-#include "InputManager.h"
-#include "AddScoreCommand.h"
-#include "BackgroundComponent.h"
-#include "Collider.h"
-#include "EnemyComponent.h"
-#include "MoveObjectCommand.h"
-#include "LivesDisplay.h"
-#include "Score.h"
-#include "ScoreDisplay.h"
-#include "ShootCommand.h"
-#include "PlayerShip.h"
-#include "ServiceLocator.h"
-#include "Window.h"
+#include <SceneManager.h>
+#include <ResourceManager.h>
+#include <InputManager.h>
+#include <ServiceLocator.h>
+#include <Window.h>
+#include <TextureRenderer.h>
+#include <TextComponent.h>
+#include <FPS.h>
+#include <Collider.h>
 
 #if USE_STEAMWORKS
-#include "AchievementObserver.h"
+#include <AchievementObserver.h>
 #endif
+
+//Galaga includes
+#include "DamageCommand.h"
+#include "BackgroundComponent.h"
+#include "Score.h"
+#include "PlayerShip.h"
+#include "MoveObjectCommand.h"
+#include "AddScoreCommand.h"
+#include "ShootCommand.h"
+#include "LivesDisplay.h"
+#include "EnemyComponent.h"
 
 namespace fs = std::filesystem;
 
