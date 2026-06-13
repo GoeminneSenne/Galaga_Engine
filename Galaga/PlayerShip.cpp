@@ -20,12 +20,12 @@ dae::PlayerShip::PlayerShip(GameObject* pOwner, float leftBounds, float rightBou
 	texture->SetSourceRect(m_srcRect);
 	texture->SetDestinationSize(m_width, m_height);
 
-	EventQueue::GetInstance().Subscribe(make_sdbm_hash("BulletDestroyed"), this);
+	EventQueue::GetInstance().Subscribe(this);
 }
 
 dae::PlayerShip::~PlayerShip()
 {
-	EventQueue::GetInstance().Unsubscribe(make_sdbm_hash("BulletDestroyed"), this);
+	EventQueue::GetInstance().Unsubscribe(this);
 
 	InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_D, KeyState::Pressed);
 	InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_A, KeyState::Pressed);

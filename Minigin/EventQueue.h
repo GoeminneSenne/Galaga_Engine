@@ -12,9 +12,8 @@ namespace dae
 	class EventQueue : public Singleton<EventQueue>
 	{
 	public:
-		void Subscribe(EventId eventId, IEventListener* listener);
-		void Unsubscribe(EventId eventId, IEventListener* listener);
-		void ProcessPendingRemovals();
+		void Subscribe(IEventListener* listener);
+		void Unsubscribe(IEventListener* listener);
 
 		void SendEvent(EventId eventId, std::unique_ptr<EventArgs> args);
 
@@ -24,10 +23,6 @@ namespace dae
 		void Broadcast(const Event& event);
 
 		std::queue<Event> m_queue;
-
-		std::vector<IEventListener*> m_listenersV;
-		//std::unordered_map<EventId, std::vector<IEventListener*>> m_listeners;
-
-		std::queue< std::pair<EventId, IEventListener*>> m_pendingUnsubscribes;
+		std::vector<IEventListener*> m_listeners;
 	};
 }

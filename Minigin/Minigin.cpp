@@ -146,7 +146,6 @@ void dae::Minigin::RunOneFrame()
 	SceneManager::GetInstance().Update(deltaTime);
 
 	SceneManager::GetInstance().ProcessPendingDestroys();
-	EventQueue::GetInstance().ProcessPendingRemovals();
 	
 	Renderer::GetInstance().Render();
 

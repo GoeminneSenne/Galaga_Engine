@@ -5,12 +5,12 @@
 dae::Score::Score(GameObject* pOwner)
 	:Component{pOwner}, m_score{0}, m_pSubject{std::make_unique<Subject>()}
 {
-	EventQueue::GetInstance().Subscribe(make_sdbm_hash("ScoreAdded"), this);
+	EventQueue::GetInstance().Subscribe(this);
 }
 
 dae::Score::~Score()
 {
-	EventQueue::GetInstance().Unsubscribe(make_sdbm_hash("ScoreAdded"), this);
+	EventQueue::GetInstance().Unsubscribe(this);
 }
 
 dae::Subject* dae::Score::GetSubject() const

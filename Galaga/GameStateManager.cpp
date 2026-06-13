@@ -5,8 +5,7 @@
 
 void galaga::GameStateManager::Init()
 {
-	dae::EventQueue::GetInstance().Subscribe(dae::make_sdbm_hash("ButtonClicked")  ,this);
-	dae::EventQueue::GetInstance().Subscribe(dae::make_sdbm_hash("GameOver")  ,this);
+	dae::EventQueue::GetInstance().Subscribe(this);
 
 	m_currentState = std::make_unique<MainMenuState>();
 	m_currentState->OnEnter(this);
