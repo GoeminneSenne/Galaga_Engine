@@ -97,7 +97,7 @@ set(GAME_SOURCES
   Galaga/Bullet.cpp
   Galaga/PlayerShip.cpp
   Galaga/ShootCommand.cpp
- "Galaga/EnemyComponent.cpp" "Galaga/EnemyState.cpp")
+ "Galaga/EnemyComponent.cpp" "Galaga/EnemyState.cpp" "Galaga/BackgroundComponent.cpp")
 
  if(WIN32)
     list(APPEND GAME_SOURCES Minigin/XInputGamepad.cpp)

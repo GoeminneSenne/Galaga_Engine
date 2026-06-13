@@ -85,7 +85,8 @@ dae::Minigin::Minigin(const std::filesystem::path& dataPath)
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
 	
-	Window::GetInstance().Init(1024, 576, "Galaga");
+
+	Window::GetInstance().Init(576, 576, "Galaga");
 	Renderer::GetInstance().Init(Window::GetInstance().GetSDLWindow());
 	ResourceManager::GetInstance().Init(dataPath);
 

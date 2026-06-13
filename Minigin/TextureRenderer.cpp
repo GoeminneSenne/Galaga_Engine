@@ -23,7 +23,15 @@ void dae::TextureRenderer::Render() const
 	const auto& pos = GetOwner()->GetTransform()->GetWorldPosition();
 	if (SDL_RectEmptyFloat(&m_srcRect))
 	{
-		Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
+		if (m_width == 0 && m_height == 0)
+		{
+			Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
+		}
+		else
+		{
+			Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y, m_width, m_height);
+		}
+
 	}
 	else
 	{

@@ -24,6 +24,7 @@
 
 #include "InputManager.h"
 #include "AddScoreCommand.h"
+#include "BackgroundComponent.h"
 #include "Collider.h"
 #include "EnemyComponent.h"
 #include "MoveObjectCommand.h"
@@ -44,21 +45,29 @@ static void load()
 {
 	auto& scene = dae::SceneManager::GetInstance().CreateScene();
 
+	//Background
+	////////////////////////////////////////////////
 	auto go = std::make_unique<dae::GameObject>();
-	go->AddComponent<dae::TextureRenderer>("background.png");
+	go->GetTransform()->SetLocalPosition(0, 0);
+	auto tc = go->AddComponent<dae::TextureRenderer>("background.png");
+	tc->SetDestinationSize(576.f, 576.f);
+
+	constexpr float scrollSpeed{ 200.f };
+	go->AddComponent<galaga::BackgroundComponent>(scrollSpeed, 576.f);
 	scene.Add(std::move(go));
 
 	go = std::make_unique<dae::GameObject>();
-	go->AddComponent<dae::TextureRenderer>("logo.png");
-	go->GetTransform()->SetLocalPosition(358, 180);
+	go->GetTransform()->SetLocalPosition(0, -576.f);
+	tc = go->AddComponent<dae::TextureRenderer>("background.png");
+	tc->SetDestinationSize(576.f, 576.f);
+	go->AddComponent<galaga::BackgroundComponent>(scrollSpeed, 576.f);
 	scene.Add(std::move(go));
-
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-
-
+	////////////////////////////////////////////////
 
 	///FPS COMPONENT
 	/////////////////////////////////////////////
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	
 	go = std::make_unique<dae::GameObject>();
 	go->GetTransform()->SetLocalPosition(10, 10);
 	go->AddComponent<dae::TextureRenderer>();
@@ -85,7 +94,7 @@ static void load()
 	go->GetTransform()->SetLocalPosition(500, 400);
 	auto pLives = go->AddComponent<dae::Lives>(3);
 	go->AddComponent<dae::Score>();
-	auto pPlayerShip = go->AddComponent<dae::PlayerShip>(0.f, 1024.f);
+	auto pPlayerShip = go->AddComponent<dae::PlayerShip>(0.f, 576.f);
 	go->AddComponent<dae::Collider>(32.f, 32.f);
 
 	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1,0,0), 50.f);
@@ -122,7 +131,7 @@ static void load()
 	/// Enemy Ship
 	//////////////////////////////////////////////////////////
 	go = std::make_unique<dae::GameObject>();
-	auto tc = go->AddComponent<dae::TextureRenderer>("Galaga2.png");
+	tc = go->AddComponent<dae::TextureRenderer>("Galaga2.png");
 	tc->SetSourceRect(145.f, 19.f, 16.f, 16.f);
 	tc->SetDestinationSize(32.f, 32.f);
 	go->GetTransform()->SetLocalPosition(300, 0);
