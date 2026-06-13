@@ -24,7 +24,9 @@ namespace dae
 		void Broadcast(const Event& event);
 
 		std::queue<Event> m_queue;
-		std::unordered_map<EventId, std::vector<IEventListener*>> m_listeners;
+
+		std::vector<IEventListener*> m_listenersV;
+		//std::unordered_map<EventId, std::vector<IEventListener*>> m_listeners;
 
 		std::queue< std::pair<EventId, IEventListener*>> m_pendingUnsubscribes;
 	};

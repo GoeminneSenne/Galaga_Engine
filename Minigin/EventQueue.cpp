@@ -2,14 +2,27 @@
 
 void dae::EventQueue::Subscribe(EventId eventId, IEventListener* listener)
 {
-	if (std::ranges::find(m_listeners[eventId], listener) != m_listeners[eventId].end()) return;
+	//Check if listener is already registered
+	if (std::ranges::find(m_listenersV, listener) != m_listenersV.end()) return;
 
-	m_listeners[eventId].push_back(listener);
+	//Look for an empty spot in current vector before increasing size
+	auto itr = std::ranges::find(m_listenersV, nullptr);
+	if (itr != m_listenersV.end())
+	{
+		*itr = listener;
+		return;
+	}
+
+	//If there is no empty spot, extend vector
+	m_listenersV.push_back(listener);
 }
 
-void dae::EventQueue::Unsubscribe(EventId eventId, IEventListener* listener)
+void dae::EventQueue::Unsubscribe(EventId, IEventListener* listener)
 {
-	m_pendingUnsubscribes.emplace(eventId, listener);
+	//Set to nullpointer so iteration is not disrupted
+	auto itr = std::ranges::find(m_listenersV, listener);
+	if (itr != m_listenersV.end())
+		*itr = nullptr;
 }
 
 void dae::EventQueue::ProcessPendingRemovals()
@@ -17,7 +30,8 @@ void dae::EventQueue::ProcessPendingRemovals()
 	while (! m_pendingUnsubscribes.empty())
 	{
 		const auto& [eventId, listener] = m_pendingUnsubscribes.front();
-		std::erase(m_listeners[eventId], listener);
+		//std::erase(m_listeners[eventId], listener);
+		std::erase(m_listenersV, listener);
 		m_pendingUnsubscribes.pop();
 	}
 }
@@ -40,8 +54,9 @@ void dae::EventQueue::ProcessEvents()
 
 void dae::EventQueue::Broadcast(const Event& event)
 {
-	for (auto* listener : m_listeners[event.id])
+	for (auto* listener : m_listenersV)
 	{
-		listener->HandleEvent(event);
+		if (listener != nullptr)
+			listener->HandleEvent(event);
 	}
 }
