@@ -4,10 +4,11 @@
 #include "EnemyState.h"
 #include "GameObject.h"
 
-galaga::EnemyComponent::EnemyComponent(dae::GameObject* pOwner, glm::vec3 formationPos)
+galaga::EnemyComponent::EnemyComponent(dae::GameObject* pOwner, glm::vec3 formationPos, EnemyType* pType)
 	: Component(pOwner)
 	, m_formationPosition(formationPos)
-	, m_state(std::make_unique<EntryState>())
+	, m_state(std::make_unique<EntryState>(formationPos, glm::vec3{50.f, 200.f,0.f}))
+	, m_pType(pType)
 {
 	m_state->OnEnter(this);
 }

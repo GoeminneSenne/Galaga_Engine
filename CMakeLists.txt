@@ -106,7 +106,7 @@ set(GAME_SOURCES
   Galaga/BackgroundComponent.cpp
   Galaga/SceneCreator.cpp
   Galaga/UIButton.cpp
- "Galaga/MenuComponent.cpp" "Galaga/GameStateManager.cpp" "Galaga/GameStates.cpp")
+ "Galaga/MenuComponent.cpp" "Galaga/GameStateManager.cpp" "Galaga/GameStates.cpp" "Galaga/FormationManager.cpp")
 
  if(WIN32)
     list(APPEND GAME_SOURCES Minigin/XInputGamepad.cpp)

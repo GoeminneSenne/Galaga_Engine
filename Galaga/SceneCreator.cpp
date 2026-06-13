@@ -12,6 +12,7 @@
 #include <FPS.h>
 #include <Collider.h>
 
+#include "FormationManager.h"
 #include "GameStateManager.h"
 #include "UIButton.h"
 
@@ -125,20 +126,13 @@ void galaga::SceneCreator::CreateGameScene()
 
 	/// Enemy Ship
 	//////////////////////////////////////////////////////////
-	go = std::make_unique<dae::GameObject>();
-	tc = go->AddComponent<dae::TextureRenderer>("Galaga2.png");
-	tc->SetSourceRect(145.f, 19.f, 16.f, 16.f);
-	tc->SetDestinationSize(32.f, 32.f);
-	go->GetTransform()->SetLocalPosition(300, 0);
-
-	go->AddComponent<galaga::EnemyComponent>(glm::vec3{ 300, 300, 0 });
-	go->AddComponent<dae::Collider>(32.f, 32.f);
-
+	go = FormationManager::GetInstance().CreateBee(glm::vec3{ 300.f, 0.f, 0.f });
 	scene.Add(std::move(go));
 	//////////////////////////////////////////////////////////
 
 	//Start Sound Effect
-	dae::ServiceLocator::GetSoundSystem().PlaySFX("./Data/Start.mp3", 0.1f);
+	//TODO volume 0.1
+	dae::ServiceLocator::GetSoundSystem().PlaySFX("./Data/Start.mp3", 0.f);
 
 #if USE_STEAMWORKS
 	///Achievements
