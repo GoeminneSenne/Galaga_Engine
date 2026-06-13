@@ -1,11 +1,9 @@
+#include "SceneCreator.h"
+
 #include <SDL3/SDL.h>
-#include <SDL3/SDL_main.h>
 
 #include "DamageCommand.h"
 
-#if _DEBUG && __has_include(<vld.h>)
-#include <vld.h>
-#endif
 
 #include <Minigin.h>
 #include "SceneManager.h"
@@ -33,7 +31,6 @@
 #include "ScoreDisplay.h"
 #include "ShootCommand.h"
 #include "PlayerShip.h"
-#include "SceneCreator.h"
 #include "ServiceLocator.h"
 #include "Window.h"
 
@@ -43,11 +40,8 @@
 
 namespace fs = std::filesystem;
 
-static void load()
+void galaga::SceneCreator::CreateGameScene()
 {
-	galaga::SceneCreator::GetInstance().CreateGameScene();
-
-	/*
 	auto& scene = dae::SceneManager::GetInstance().CreateScene();
 
 	//Background
@@ -75,7 +69,7 @@ static void load()
 	///FPS COMPONENT
 	/////////////////////////////////////////////
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	
+
 	go = std::make_unique<dae::GameObject>();
 	go->GetTransform()->SetLocalPosition(10, 10);
 	go->AddComponent<dae::TextureRenderer>();
@@ -105,7 +99,7 @@ static void load()
 	auto pPlayerShip = go->AddComponent<dae::PlayerShip>(0.f, wWidth);
 	go->AddComponent<dae::Collider>(32.f, 32.f);
 
-	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1,0,0), 50.f);
+	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1, 0, 0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_D, dae::KeyState::Pressed, std::move(moc));
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(-1, 0, 0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_A, dae::KeyState::Pressed, std::move(moc));
@@ -143,7 +137,7 @@ static void load()
 	tc->SetSourceRect(145.f, 19.f, 16.f, 16.f);
 	tc->SetDestinationSize(32.f, 32.f);
 	go->GetTransform()->SetLocalPosition(300, 0);
-	
+
 	go->AddComponent<galaga::EnemyComponent>(glm::vec3{ 300, 300, 0 });
 	go->AddComponent<dae::Collider>(32.f, 32.f);
 
@@ -165,18 +159,4 @@ static void load()
 	scene.Add(std::move(go));
 	///////////////////////////////////
 #endif
-*/
-}
-
-int main(int, char*[]) {
-#if __EMSCRIPTEN__
-	fs::path data_location = "";
-#else
-	fs::path data_location = "./Data/";
-	if(!fs::exists(data_location))
-		data_location = "../Data/";
-#endif
-	dae::Minigin engine(data_location);
-	engine.Run(load);
-    return 0;
 }
