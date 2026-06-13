@@ -14,6 +14,7 @@ namespace galaga
 		~EnemyComponent() override = default;
 
 		void Update(float deltaTime) override;
+		void OnCollision(dae::GameObject* other) override;
 
 		auto Move(const glm::vec3& movement) -> void;
 		glm::vec3 GetWorldPosition() const;

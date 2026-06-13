@@ -14,6 +14,7 @@ namespace dae
 		~Bullet() override = default;
 
 		void Update(float deltaTime) override;
+		void OnCollision(GameObject* other) override;
 
 	private:
 		float m_currentLifetime{};

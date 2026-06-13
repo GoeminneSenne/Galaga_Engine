@@ -1,5 +1,6 @@
 #include "EnemyComponent.h"
 
+#include "Bullet.h"
 #include "EnemyState.h"
 #include "GameObject.h"
 
@@ -20,6 +21,16 @@ void galaga::EnemyComponent::Update(float deltaTime)
 		m_state = std::move(newState);
 		m_state->OnEnter(this);
 	}
+}
+
+void galaga::EnemyComponent::OnCollision(dae::GameObject* other)
+{
+	if (other->HasComponent<dae::Bullet>())
+	{
+		//TODO: finish implementation
+		GetOwner()->Destroy();
+	}
+
 }
 
 void galaga::EnemyComponent::Move(const glm::vec3& movement)

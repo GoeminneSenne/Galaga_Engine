@@ -1,5 +1,6 @@
 #include "Bullet.h"
 
+#include "EnemyComponent.h"
 #include "EventQueue.h"
 #include "GameObject.h"
 #include "TextureRenderer.h"
@@ -30,5 +31,14 @@ void dae::Bullet::Update(float deltaTime)
 	glm::vec3 pos = GetOwner()->GetTransform()->GetLocalPosition();
 	pos += glm::vec3(0.f, -m_speed * deltaTime, 0.f);
 	GetOwner()->GetTransform()->SetLocalPosition(pos);
+}
+
+void dae::Bullet::OnCollision(GameObject* other)
+{
+	if (other->HasComponent<galaga::EnemyComponent>())
+	{
+		//TODO finish implementation
+		GetOwner()->Destroy();
+	}
 }
 

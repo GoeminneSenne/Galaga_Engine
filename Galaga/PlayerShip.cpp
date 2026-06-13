@@ -6,6 +6,7 @@
 #include <EventQueue.h>
 
 #include "Bullet.h"
+#include "Collider.h"
 #include "SceneManager.h"
 #include "ServiceLocator.h"
 #include "TextureRenderer.h"
@@ -56,6 +57,7 @@ void dae::PlayerShip::ShootBullet()
 	auto bulletObj = std::make_unique<dae::GameObject>();
 	bulletObj->AddComponent<dae::TextureRenderer>("Galaga.png");
 	bulletObj->AddComponent<Bullet>(GetOwner()->GetTransform()->GetLocalPosition());
+	bulletObj->AddComponent<Collider>(32.f, 32.f);
 
 	++m_activeBullets;
 	m_currentCooldown += m_shootCooldown;
