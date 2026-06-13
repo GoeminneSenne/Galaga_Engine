@@ -16,6 +16,7 @@ namespace galaga
 
 		void SelectNextButton();
 		void SelectPreviousButton();
+		void ClickSelectedButton();
 
 	private:
 		std::vector<UIButton*> m_buttons;

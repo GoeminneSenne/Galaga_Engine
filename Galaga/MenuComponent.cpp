@@ -1,10 +1,23 @@
 #include "MenuComponent.h"
 
 #include <algorithm>
+#include <memory>
+
+#include "InputManager.h"
+#include "MenuCommands.h"
 
 galaga::MenuComponent::MenuComponent(dae::GameObject* pOwner)
 	: Component(pOwner)
-{}
+{
+	auto nextCmd = std::make_unique<NextButtonCommand>(this);
+	auto prevCmd = std::make_unique<PreviousButtonCommand>(this);
+	auto clickCmd = std::make_unique<ClickButtonCommand>(this);
+
+	//TODO: is this the correct place for this? Should commands be tracked and unregistered here in destructor?
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_RIGHT, dae::KeyState::Pressed, std::move(nextCmd));
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_LEFT, dae::KeyState::Pressed, std::move(prevCmd));
+	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_SPACE, dae::KeyState::Pressed, std::move(clickCmd));
+}
 
 galaga::MenuComponent::~MenuComponent()
 {
@@ -54,4 +67,9 @@ void galaga::MenuComponent::SelectPreviousButton()
 	m_selectedButton = std::max(m_selectedButton, 0);
 
 	m_buttons[m_selectedButton]->SetIsSelected(true);
+}
+
+void galaga::MenuComponent::ClickSelectedButton()
+{
+	m_buttons[m_selectedButton]->OnClick();
 }

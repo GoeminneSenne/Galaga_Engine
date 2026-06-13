@@ -1,5 +1,6 @@
 #include "UIButton.h"
 
+
 #include "GameObject.h"
 #include "TextureRenderer.h"
 #include "MenuComponent.h"
@@ -43,4 +44,10 @@ void galaga::UIButton::SetIsSelected(bool isSelected)
 		else
 			m_pTextureRenderer->SetSourceRect(m_normalSrcRect);
 	}
+}
+
+void galaga::UIButton::OnClick() const
+{
+	//TODO send event to eventQueue
+	
 }

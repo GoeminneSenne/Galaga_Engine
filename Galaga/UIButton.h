@@ -21,6 +21,7 @@ namespace galaga
 
 		void DetachMenu();
 		void SetIsSelected(bool isSelected);
+		void OnClick() const;
 
 	private:
 		MenuComponent* m_pMenu{};
