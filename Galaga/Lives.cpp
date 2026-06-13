@@ -1,6 +1,7 @@
 #include "Lives.h"
 
 #include "EnemyComponent.h"
+#include "EventQueue.h"
 
 dae::Lives::Lives(GameObject* pOwner, int numLives)
 	: Component{ pOwner }, m_numLives{ numLives }, m_pSubject{std::make_unique<Subject>()}
@@ -23,6 +24,11 @@ void dae::Lives::Damage()
 	m_isImmortal = true;
 	--m_numLives;
 	m_pSubject->NotifyObservers(make_sdbm_hash("PlayerDied"), GetOwner());
+
+	if (m_numLives < 0)
+	{
+		EventQueue::GetInstance().SendEvent(make_sdbm_hash("GameOver"), nullptr);
+	}
 }
 
 void dae::Lives::Update(float deltaTime)

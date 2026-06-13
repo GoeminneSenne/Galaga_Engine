@@ -7,6 +7,7 @@
 
 #include "Bullet.h"
 #include "Collider.h"
+#include "InputManager.h"
 #include "SceneManager.h"
 #include "ServiceLocator.h"
 #include "TextureRenderer.h"
@@ -25,6 +26,11 @@ dae::PlayerShip::PlayerShip(GameObject* pOwner, float leftBounds, float rightBou
 dae::PlayerShip::~PlayerShip()
 {
 	EventQueue::GetInstance().Unsubscribe(make_sdbm_hash("BulletDestroyed"), this);
+
+	InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_D, KeyState::Pressed);
+	InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_A, KeyState::Pressed);
+	InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_W, KeyState::Pressed);
+	InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_SPACE, KeyState::Down);
 }
 
 void dae::PlayerShip::Update(float deltaTime)

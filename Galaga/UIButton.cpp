@@ -1,6 +1,8 @@
 #include "UIButton.h"
 
 
+#include "EventArgs.h"
+#include "EventQueue.h"
 #include "GameObject.h"
 #include "TextureRenderer.h"
 #include "MenuComponent.h"
@@ -49,5 +51,6 @@ void galaga::UIButton::SetIsSelected(bool isSelected)
 void galaga::UIButton::OnClick() const
 {
 	//TODO send event to eventQueue
-	
+	auto args = std::make_unique<ButtonClickedArgs>(m_name);
+	dae::EventQueue::GetInstance().SendEvent(dae::make_sdbm_hash("ButtonClicked"), std::move(args));
 }

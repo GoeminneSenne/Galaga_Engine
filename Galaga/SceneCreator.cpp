@@ -12,6 +12,7 @@
 #include <FPS.h>
 #include <Collider.h>
 
+#include "GameStateManager.h"
 #include "UIButton.h"
 
 #if USE_STEAMWORKS
@@ -171,10 +172,12 @@ void galaga::SceneCreator::CreateMainMenu()
 	go->AddComponent<UIButton>(menu, "test");
 	scene.Add(std::move(go));
 
-	//TEst button 2 
+	
+	//Start Level button
 	go = std::make_unique<dae::GameObject>();
 	go->GetTransform()->SetLocalPosition(130.f, 100.f);
 	go->AddComponent<dae::TextureRenderer>("Button.png");
-	go->AddComponent<UIButton>(menu, "test");
+	go->AddComponent<UIButton>(menu, "StartLevel");
 	scene.Add(std::move(go));
+	
 }

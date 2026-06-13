@@ -7,6 +7,8 @@
 
 #include <filesystem>
 #include <Minigin.h>
+
+#include "GameStateManager.h"
 #include "SceneCreator.h"
 
 namespace fs = std::filesystem;
@@ -14,7 +16,9 @@ namespace fs = std::filesystem;
 static void load()
 {
 	//galaga::SceneCreator::GetInstance().CreateGameScene();
-	galaga::SceneCreator::GetInstance().CreateMainMenu();
+	//galaga::SceneCreator::GetInstance().CreateMainMenu();
+
+	galaga::GameStateManager::GetInstance().Init();
 }
 
 int main(int, char*[]) {

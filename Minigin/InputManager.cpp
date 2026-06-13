@@ -114,13 +114,25 @@ void dae::InputManager::AddButtonbind(GamepadButton button, int gamepadIndex, Ke
 
 void dae::InputManager::RemoveKeybind(SDL_Scancode key, KeyState state)
 {
-	std::erase_if(m_keybinds, [key, state](const Keybind& bind) {return bind.key == key && bind.state == state; });
+	auto itr = std::ranges::find_if(m_keybinds, 
+		[key, state](const Keybind& bind) { return bind.key == key && bind.state == state; });
+
+	if (itr != m_keybinds.end())
+	{
+		m_keybinds.erase(itr);
+	}
 }
 
 void dae::InputManager::RemoveButtonbind(GamepadButton button, int gamepadIndex, KeyState state)
 {
-	std::erase_if(m_buttonbinds, [button, gamepadIndex, state](const Buttonbind& bind)
-		{return bind.button == button && bind.gamepadIndex == gamepadIndex && bind.state == state; }
-	);
+	auto itr = std::ranges::find_if(m_buttonbinds,
+		[button, gamepadIndex, state](const Buttonbind& bind)
+		{return bind.button == button && bind.gamepadIndex == gamepadIndex && bind.state == state; });
+
+	if (itr != m_buttonbinds.end())
+	{
+		m_buttonbinds.erase(itr);
+	}
+
 }
 
