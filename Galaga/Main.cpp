@@ -13,7 +13,8 @@ namespace fs = std::filesystem;
 
 static void load()
 {
-	galaga::SceneCreator::GetInstance().CreateGameScene();
+	//galaga::SceneCreator::GetInstance().CreateGameScene();
+	galaga::SceneCreator::GetInstance().CreateMainMenu();
 }
 
 int main(int, char*[]) {

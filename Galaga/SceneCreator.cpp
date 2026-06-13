@@ -12,6 +12,8 @@
 #include <FPS.h>
 #include <Collider.h>
 
+#include "UIButton.h"
+
 #if USE_STEAMWORKS
 #include <AchievementObserver.h>
 #endif
@@ -26,6 +28,7 @@
 #include "ShootCommand.h"
 #include "LivesDisplay.h"
 #include "EnemyComponent.h"
+#include "MenuComponent.h"
 
 namespace fs = std::filesystem;
 
@@ -148,4 +151,23 @@ void galaga::SceneCreator::CreateGameScene()
 	scene.Add(std::move(go));
 	///////////////////////////////////
 #endif
+}
+
+void galaga::SceneCreator::CreateMainMenu()
+{
+	auto& scene = dae::SceneManager::GetInstance().CreateScene();
+
+	auto go = std::make_unique<dae::GameObject>();
+	//go->AddComponent<dae::TextureRenderer>("logo.png");
+	go->GetTransform()->SetLocalPosition(50.f, 50.f);
+	auto menu = go->AddComponent<MenuComponent>();
+	scene.Add(std::move(go));
+
+
+	//TEst button
+	go = std::make_unique<dae::GameObject>();
+	go->GetTransform()->SetLocalPosition(50.f, 100.f);
+	go->AddComponent<dae::TextureRenderer>("Button.png");
+	go->AddComponent<UIButton>(menu, "test");
+	scene.Add(std::move(go));
 }

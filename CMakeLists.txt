@@ -38,7 +38,9 @@ set(MINIGIN_SOURCES
   Minigin/NullSoundSystem.cpp
   Minigin/SDLSoundSystem.cpp
   Minigin/SDLGamepad.cpp
- "Minigin/Collider.cpp" "Minigin/CollisionManager.cpp" "Minigin/Window.cpp")
+  Minigin/Collider.cpp 
+  Minigin/CollisionManager.cpp
+  Minigin/Window.cpp)
 
 #Minigin library header files
 set(MINIGIN_HEADERS
@@ -72,7 +74,9 @@ set(MINIGIN_HEADERS
   Minigin/ISoundSystem.h
   Minigin/GameObjectCommand.h
   Minigin/LoggingSoundSystem.h
- "Minigin/Collider.h" "Minigin/CollisionManager.h" "Minigin/Window.h")
+  Minigin/Collider.h
+  Minigin/CollisionManager.h
+  Minigin/Window.h)
 
 # Minigin static library
 add_library(Minigin STATIC)
@@ -97,7 +101,12 @@ set(GAME_SOURCES
   Galaga/Bullet.cpp
   Galaga/PlayerShip.cpp
   Galaga/ShootCommand.cpp
- "Galaga/EnemyComponent.cpp" "Galaga/EnemyState.cpp" "Galaga/BackgroundComponent.cpp" "Galaga/SceneCreator.cpp")
+  Galaga/EnemyComponent.cpp
+  Galaga/EnemyState.cpp
+  Galaga/BackgroundComponent.cpp
+  Galaga/SceneCreator.cpp
+  Galaga/UIButton.cpp
+ "Galaga/MenuComponent.cpp")
 
  if(WIN32)
     list(APPEND GAME_SOURCES Minigin/XInputGamepad.cpp)
