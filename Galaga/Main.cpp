@@ -149,8 +149,6 @@ static void load()
 	//Start Sound Effect
 	dae::ServiceLocator::GetSoundSystem().PlaySFX("./Data/Start.mp3", 0.1f);
 
-
-
 #if USE_STEAMWORKS
 	///Achievements
 	////////////////////////////////////

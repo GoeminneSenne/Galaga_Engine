@@ -24,6 +24,8 @@ namespace dae
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
-		std::vector<std::unique_ptr<Scene>> m_scenes{};
+		//std::vector<std::unique_ptr<Scene>> m_scenes{};
+		std::unique_ptr<Scene> m_scene{};
+	
 	};
 }
