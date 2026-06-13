@@ -34,6 +34,7 @@
 #include "ShootCommand.h"
 #include "PlayerShip.h"
 #include "ServiceLocator.h"
+#include "Window.h"
 
 #if USE_STEAMWORKS
 #include "AchievementObserver.h"
@@ -47,20 +48,23 @@ static void load()
 
 	//Background
 	////////////////////////////////////////////////
+	constexpr float scrollSpeed{ 200.f };
+	const float wWidth = float(dae::Window::GetInstance().GetWidth());
+	const float wHeight = float(dae::Window::GetInstance().GetHeight());
+
 	auto go = std::make_unique<dae::GameObject>();
 	go->GetTransform()->SetLocalPosition(0, 0);
 	auto tc = go->AddComponent<dae::TextureRenderer>("background.png");
-	tc->SetDestinationSize(576.f, 576.f);
+	tc->SetDestinationSize(wWidth, wHeight);
 
-	constexpr float scrollSpeed{ 200.f };
-	go->AddComponent<galaga::BackgroundComponent>(scrollSpeed, 576.f);
+	go->AddComponent<galaga::BackgroundComponent>(scrollSpeed, wHeight);
 	scene.Add(std::move(go));
 
 	go = std::make_unique<dae::GameObject>();
-	go->GetTransform()->SetLocalPosition(0, -576.f);
+	go->GetTransform()->SetLocalPosition(0, -wHeight);
 	tc = go->AddComponent<dae::TextureRenderer>("background.png");
-	tc->SetDestinationSize(576.f, 576.f);
-	go->AddComponent<galaga::BackgroundComponent>(scrollSpeed, 576.f);
+	tc->SetDestinationSize(wWidth, wHeight);
+	go->AddComponent<galaga::BackgroundComponent>(scrollSpeed, wHeight);
 	scene.Add(std::move(go));
 	////////////////////////////////////////////////
 
@@ -94,7 +98,7 @@ static void load()
 	go->GetTransform()->SetLocalPosition(500, 400);
 	auto pLives = go->AddComponent<dae::Lives>(3);
 	go->AddComponent<dae::Score>();
-	auto pPlayerShip = go->AddComponent<dae::PlayerShip>(0.f, 576.f);
+	auto pPlayerShip = go->AddComponent<dae::PlayerShip>(0.f, wWidth);
 	go->AddComponent<dae::Collider>(32.f, 32.f);
 
 	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1,0,0), 50.f);
