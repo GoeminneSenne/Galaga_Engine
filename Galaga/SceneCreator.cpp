@@ -14,6 +14,7 @@
 
 #include "FormationManager.h"
 #include "GameStateManager.h"
+#include "ScoreDisplay.h"
 #include "UIButton.h"
 
 #if USE_STEAMWORKS
@@ -64,6 +65,7 @@ void galaga::SceneCreator::CreateGameScene()
 	/////////////////////////////////////////////
 	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 
+	/*
 	go = std::make_unique<dae::GameObject>();
 	go->GetTransform()->SetLocalPosition(10, 10);
 	go->AddComponent<dae::TextureRenderer>();
@@ -71,17 +73,20 @@ void galaga::SceneCreator::CreateGameScene()
 	go->AddComponent<dae::FPS>();
 	scene.Add(std::move(go));
 	/////////////////////////////////////////////
+	*/
 
+	/*
 	///CONTROLS 1
 	////////////////////////////////////////////
 	go = std::make_unique<dae::GameObject>();
 	go->GetTransform()->SetLocalPosition(10, 100);
 	go->AddComponent<dae::TextureRenderer>();
-	font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
+	//font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 30);
 	//go->AddComponent<dae::TextComponent>("Use WASD to move Bird, C to inflict damage, Z and X to kill ships", font);
 	go->AddComponent<dae::TextComponent>("Press Space to fire bullets, Q/D to move", font);
-	scene.Add(std::move(go));
+	scene.Add(std::move(go)); 
 	///////////////////////////////////////////
+	*/
 
 	///SHIP 1
 	/////////////////////////////////////////////////////////
@@ -92,6 +97,7 @@ void galaga::SceneCreator::CreateGameScene()
 	go->AddComponent<dae::Score>();
 	auto pPlayerShip = go->AddComponent<dae::PlayerShip>(0.f, wWidth);
 	go->AddComponent<dae::Collider>(32.f, 32.f);
+	auto score = go->AddComponent<dae::Score>();
 
 	auto moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1, 0, 0), 50.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_D, dae::KeyState::Pressed, std::move(moc));
@@ -123,16 +129,20 @@ void galaga::SceneCreator::CreateGameScene()
 	scene.Add(std::move(go));
 	/////////////////////////////////////////////////////////////
 
+	///ScoreDisplay
+	////////////////////////////////////////////////////////////
+	go = std::make_unique<dae::GameObject>();
+	go->AddComponent<dae::TextureRenderer>();
+	go->AddComponent<dae::TextComponent>("0", font);
+	auto scoreDisplay = go->AddComponent<dae::ScoreDisplay>();
+	score->GetSubject()->AddObserver(scoreDisplay);
+	go->GetTransform()->SetLocalPosition(10, 0);
+	scene.Add(std::move(go));
+	////////////////////////////////////////////////////////////
 
 	/// Enemy Ship
 	//////////////////////////////////////////////////////////
 	FormationManager::GetInstance().Init();
-	
-	//go = FormationManager::GetInstance().CreateBee(glm::vec3{ 300.f, 0.f, 0.f });
-	//scene.Add(std::move(go));
-	//
-	//go = FormationManager::GetInstance().CreateButterfly(glm::vec3{ 350.f, 0.f, 0.f });
-	//scene.Add(std::move(go));
 	//////////////////////////////////////////////////////////
 
 	//Start Sound Effect

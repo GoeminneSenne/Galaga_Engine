@@ -39,6 +39,10 @@ void dae::Bullet::OnCollision(GameObject* other)
 	{
 		//TODO finish implementation
 		GetOwner()->Destroy();
+
+		auto args = std::make_unique<BulletDestroyedArgs>();
+		args->hasHitEnemy = true;
+		EventQueue::GetInstance().SendEvent(make_sdbm_hash("BulletDestroyed"), std::move(args));
 	}
 }
 

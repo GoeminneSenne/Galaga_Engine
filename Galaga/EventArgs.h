@@ -9,4 +9,11 @@ namespace galaga
 
 		std::string buttonName{};
 	};
+
+	struct EnemyDestroyedArgs : public dae::EventArgs
+	{
+		explicit EnemyDestroyedArgs(int score) : score(score) {}
+
+		int score;
+	};
 }

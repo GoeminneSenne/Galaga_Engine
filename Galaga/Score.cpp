@@ -1,5 +1,6 @@
 #include "Score.h"
 
+#include "EventArgs.h"
 #include "EventQueue.h"
 
 dae::Score::Score(GameObject* pOwner)
@@ -32,6 +33,11 @@ void dae::Score::HandleEvent(const Event& event)
 		{
 			AddScore(args->scoreInc);
 		}
+	}
+	else if (event.id == make_sdbm_hash("EnemyDestroyed"))
+	{
+		auto args = dynamic_cast<galaga::EnemyDestroyedArgs*>(event.args.get());
+		AddScore(args->score);
 	}
 }
 

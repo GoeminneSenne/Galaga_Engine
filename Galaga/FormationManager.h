@@ -14,17 +14,17 @@ namespace galaga
 	class EnemyType
 	{
 	public:
-		EnemyType(const SDL_FRect& srcRect, float formationScore, float divingScore, int health);
+		EnemyType(const SDL_FRect& srcRect, int formationScore, int divingScore, int health);
 
 		const SDL_FRect& GetSourceRect() const;
-		float GetFormationScore() const;
-		float GetDivingScore() const;
+		int GetFormationScore() const;
+		int GetDivingScore() const;
 		int GetHealth() const;
 
 	private:
 		SDL_FRect m_srcRect{};
-		float m_formationScore{};
-		float m_divingScore{};
+		int m_formationScore{};
+		int m_divingScore{};
 		int m_health{};
 	};
 
@@ -46,7 +46,7 @@ namespace galaga
 		std::vector<FormationEntry> m_formationEntries;
 
 		//Enemy Types
-		EnemyType m_beeType{ SDL_FRect{145.f, 19.f, 16.f, 16.f}, 50.f, 100.f, 1 };
-		EnemyType m_butterflyType{ SDL_FRect{145.f, 55.f, 16.f, 16.f}, 80.f, 160.f, 1 };
+		EnemyType m_beeType{ SDL_FRect{145.f, 19.f, 16.f, 16.f}, 50, 100, 1 };
+		EnemyType m_butterflyType{ SDL_FRect{145.f, 55.f, 16.f, 16.f}, 80, 160, 1 };
 	};
 }

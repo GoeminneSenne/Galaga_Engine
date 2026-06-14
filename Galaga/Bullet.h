@@ -20,7 +20,7 @@ namespace dae
 		float m_currentLifetime{};
 
 		constexpr static float m_maxLifetime{ 1.f };
-		constexpr static float m_speed{100.f};
+		constexpr static float m_speed{400.f};
 		constexpr static SDL_FRect m_srcRect{ 307.f, 154.f, 16.f, 16.f };
 		constexpr static float m_width{ 32.f };
 		constexpr static float m_height{ 32.f };

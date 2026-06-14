@@ -2,6 +2,8 @@
 
 #include "Bullet.h"
 #include "EnemyState.h"
+#include "EventArgs.h"
+#include "EventQueue.h"
 #include "FormationManager.h"
 #include "GameObject.h"
 #include "TextureRenderer.h"
@@ -38,8 +40,11 @@ void galaga::EnemyComponent::OnCollision(dae::GameObject* other)
 {
 	if (other->HasComponent<dae::Bullet>())
 	{
+		dae::EventQueue::GetInstance().SendEvent(dae::make_sdbm_hash("EnemyDestroyed"), std::make_unique<EnemyDestroyedArgs>(m_pType->GetFormationScore()));
+
 		//TODO: finish implementation
 		GetOwner()->Destroy();
+
 	}
 
 }

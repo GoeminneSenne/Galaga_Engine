@@ -8,7 +8,7 @@
 #include "TextureRenderer.h"
 #include "Window.h"
 
-galaga::EnemyType::EnemyType(const SDL_FRect& srcRect, float formationScore, float divingScore, int health)
+galaga::EnemyType::EnemyType(const SDL_FRect& srcRect, int formationScore, int divingScore, int health)
 	: m_srcRect(srcRect), m_formationScore(formationScore), m_divingScore(divingScore), m_health(health){}
 
 const SDL_FRect& galaga::EnemyType::GetSourceRect() const
@@ -16,12 +16,12 @@ const SDL_FRect& galaga::EnemyType::GetSourceRect() const
 	return m_srcRect;
 }
 
-float galaga::EnemyType::GetFormationScore() const
+int galaga::EnemyType::GetFormationScore() const
 {
 	return m_formationScore;
 }
 
-float galaga::EnemyType::GetDivingScore() const
+int galaga::EnemyType::GetDivingScore() const
 {
 	return m_divingScore;
 }

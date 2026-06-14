@@ -25,6 +25,6 @@ void dae::ScoreDisplay::UpdateText(int score) const
 {
 	if (m_pTextComponent)
 	{
-		m_pTextComponent->SetText("Score: " + std::to_string(score));
+		m_pTextComponent->SetText(std::to_string(score));
 	}
 }
