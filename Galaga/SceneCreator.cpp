@@ -126,7 +126,12 @@ void galaga::SceneCreator::CreateGameScene()
 
 	/// Enemy Ship
 	//////////////////////////////////////////////////////////
+	FormationManager::GetInstance().Init();
+	
 	go = FormationManager::GetInstance().CreateBee(glm::vec3{ 300.f, 0.f, 0.f });
+	scene.Add(std::move(go));
+
+	go = FormationManager::GetInstance().CreateButterfly(glm::vec3{ 350.f, 0.f, 0.f });
 	scene.Add(std::move(go));
 	//////////////////////////////////////////////////////////
 

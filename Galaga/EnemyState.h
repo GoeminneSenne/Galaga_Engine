@@ -20,7 +20,22 @@ namespace galaga
 	class EntryState : public EnemyState
 	{
 	public:
-		EntryState(const glm::vec3& loopPos, const glm::vec3& targetPos);
+		EntryState(const glm::vec3& formationPos);
+
+		void OnEnter(EnemyComponent*) override;
+		std::unique_ptr<EnemyState> Update(float deltaTime, EnemyComponent* pEnemy) override;
+	private:
+		glm::vec3 m_startPos{};
+		glm::vec3 m_targetPos{};
+		float m_elapsed{};
+		constexpr static float m_speed{ .3f };
+	};
+	
+	//Unused
+	class EntryMovementState : public EnemyState
+	{
+	public:
+		EntryMovementState(const glm::vec3& targetPos, const glm::vec3& loopPos);
 
 		std::unique_ptr<EnemyState> Update(float deltaTime, EnemyComponent* enemy) override;
 		void OnEnter(EnemyComponent*) override;

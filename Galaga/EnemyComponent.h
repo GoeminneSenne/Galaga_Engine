@@ -12,7 +12,7 @@ namespace galaga
 	class EnemyComponent : public dae::Component
 	{
 	public:
-		explicit EnemyComponent(dae::GameObject* pOwner, glm::vec3 formationPos, EnemyType* pType);
+		explicit EnemyComponent(dae::GameObject* pOwner, const glm::vec3& formationPos, EnemyType* pType);
 		~EnemyComponent() override = default;
 
 		void Update(float deltaTime) override;

@@ -25,14 +25,14 @@ namespace galaga
 	class FormationManager final : public dae::Singleton<FormationManager>
 	{
 	public:
+		void Init();
 
 		std::unique_ptr<dae::GameObject> CreateBee(const glm::vec3& pos);
+		std::unique_ptr < dae::GameObject> CreateButterfly(const glm::vec3& pos);
+		std::unique_ptr<dae::GameObject> CreateEnemy(const glm::vec3& targetPos, EnemyType* pType);
 
 	private:
-
-		//Loop points
-		glm::vec3 m_leftLoopPoint{ 70.f, 200.f, 0.f };
-		glm::vec3 m_rightLoopPoint{ 500.f, 200.f, 0.f };
+		glm::vec3 m_spawnPos{};
 
 		//Enemy Types
 		EnemyType m_beeType{ SDL_FRect{145.f, 19.f, 16.f, 16.f}, 50.f, 100.f, 1 };

@@ -2,15 +2,25 @@
 
 #include "Bullet.h"
 #include "EnemyState.h"
+#include "FormationManager.h"
 #include "GameObject.h"
+#include "TextureRenderer.h"
 
-galaga::EnemyComponent::EnemyComponent(dae::GameObject* pOwner, glm::vec3 formationPos, EnemyType* pType)
+galaga::EnemyComponent::EnemyComponent(dae::GameObject* pOwner, const glm::vec3& formationPos,
+                                       EnemyType* pType)
 	: Component(pOwner)
 	, m_formationPosition(formationPos)
-	, m_state(std::make_unique<EntryState>(formationPos, glm::vec3{50.f, 200.f,0.f}))
+	, m_state(std::make_unique<EntryState>(formationPos))
 	, m_pType(pType)
 {
 	m_state->OnEnter(this);
+
+	dae::TextureRenderer* pTextureRenderer = pOwner->GetComponent<dae::TextureRenderer>();
+	if (pTextureRenderer)
+	{
+		pTextureRenderer->SetSourceRect(pType->GetSourceRect());
+		pTextureRenderer->SetDestinationSize(32.f, 32.f);
+	}
 }
 
 void galaga::EnemyComponent::Update(float deltaTime)

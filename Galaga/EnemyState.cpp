@@ -10,7 +10,36 @@
 #include "glm/gtc/constants.hpp"
 
 
-galaga::EntryState::EntryState(const glm::vec3& targetPos, const glm::vec3& loopPos)
+galaga::EntryState::EntryState(const glm::vec3& formationPos)
+	:m_targetPos(formationPos)
+{}
+
+void galaga::EntryState::OnEnter(EnemyComponent* pEnemy)
+{
+	m_startPos = pEnemy->GetOwner()->GetTransform()->GetLocalPosition();
+}
+
+std::unique_ptr<galaga::EnemyState> galaga::EntryState::Update(float deltaTime, EnemyComponent* pEnemy)
+{
+	m_elapsed += deltaTime * m_speed;
+
+	glm::vec3 pos = glm::mix(m_startPos, m_targetPos, m_elapsed);
+
+	if (glm::length(pos - m_targetPos) < 2.f)
+	{
+		pEnemy->GetOwner()->GetTransform()->SetLocalPosition(m_targetPos);
+		return std::make_unique<IdleState>();
+	}
+	else
+	{
+		pEnemy->GetOwner()->GetTransform()->SetLocalPosition(pos);
+	}
+	
+
+	return nullptr;
+}
+
+galaga::EntryMovementState::EntryMovementState(const glm::vec3& targetPos, const glm::vec3& loopPos)
 	: m_targetPos(targetPos), m_loopPoint(loopPos)
 {
 	float centerX = float(dae::Window::GetInstance().GetWidth()) / 2.f;
@@ -22,7 +51,7 @@ galaga::EntryState::EntryState(const glm::vec3& targetPos, const glm::vec3& loop
 
 }
 
-std::unique_ptr<galaga::EnemyState> galaga::EntryState::Update(float deltaTime, EnemyComponent* pEnemy)
+std::unique_ptr<galaga::EnemyState> galaga::EntryMovementState::Update(float deltaTime, EnemyComponent* pEnemy)
 {
 
 	switch (m_phase)
@@ -42,12 +71,12 @@ std::unique_ptr<galaga::EnemyState> galaga::EntryState::Update(float deltaTime, 
 	return nullptr;
 }
 
-void galaga::EntryState::OnEnter(EnemyComponent* enemyComponent)
+void galaga::EntryMovementState::OnEnter(EnemyComponent* enemyComponent)
 {
 	m_startPos = enemyComponent->GetWorldPosition();
 }
 
-void galaga::EntryState::MoveToLoop(float deltaTime, EnemyComponent* pEnemy)
+void galaga::EntryMovementState::MoveToLoop(float deltaTime, EnemyComponent* pEnemy)
 {
 	m_elapsed += deltaTime * m_entrySpeed;
 	m_elapsed = std::clamp(m_elapsed, 0.f, 1.f);
@@ -67,7 +96,7 @@ void galaga::EntryState::MoveToLoop(float deltaTime, EnemyComponent* pEnemy)
 	
 }
 
-void galaga::EntryState::Loop(float deltaTime, EnemyComponent* pEnemy)
+void galaga::EntryMovementState::Loop(float deltaTime, EnemyComponent* pEnemy)
 {
 	float delta = m_angularSpeed * deltaTime;
 	m_angle += delta;
@@ -91,7 +120,7 @@ void galaga::EntryState::Loop(float deltaTime, EnemyComponent* pEnemy)
 	}
 }
 
-bool galaga::EntryState::MoveToTarget(float deltaTime, EnemyComponent* pEnemy)
+bool galaga::EntryMovementState::MoveToTarget(float deltaTime, EnemyComponent* pEnemy)
 {
 	m_elapsed += deltaTime * m_entrySpeed;
 	m_elapsed = std::clamp(m_elapsed, 0.f, 1.f);
