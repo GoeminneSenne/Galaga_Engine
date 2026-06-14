@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "EnemyComponent.h"
+#include "FormationManager.h"
 #include "GameObject.h"
 #include "Window.h"
 #include "glm/glm.hpp"
@@ -28,8 +29,8 @@ std::unique_ptr<galaga::EnemyState> galaga::EntryState::Update(float deltaTime, 
 	if (glm::length(pos - m_targetPos) < 2.f)
 	{
 		pEnemy->GetOwner()->GetTransform()->SetLocalPosition(m_targetPos);
-		//return std::make_unique<IdleState>();
-		return std::make_unique<BombingRunState>();
+		return std::make_unique<IdleState>();
+		//return std::make_unique<BombingRunState>();
 	}
 	else
 	{
@@ -138,16 +139,8 @@ bool galaga::EntryMovementState::MoveToTarget(float deltaTime, EnemyComponent* p
 	return false;
 }
 
-std::unique_ptr<galaga::EnemyState> galaga::IdleState::Update(float deltaTime, EnemyComponent*)
+std::unique_ptr<galaga::EnemyState> galaga::IdleState::Update(float, EnemyComponent*)
 {
-	m_waitTime -= deltaTime;
-
-	if (m_waitTime <= 0.f)
-	{
-		return nullptr;
-		//return std::make_unique<BombingRunState>();
-	}
-
 	return nullptr;
 }
 
@@ -171,9 +164,7 @@ std::unique_ptr<galaga::EnemyState> galaga::BombingRunState::Update(float deltaT
 	}
 
 	direction = glm::normalize(direction);
-	//TODO add speed parameter
-	pos += direction * 40.f * deltaTime;
-
+	pos += direction * m_speed * deltaTime;
 	pEnemy->GetOwner()->GetTransform()->SetLocalPosition(pos);
 
 	return nullptr;
@@ -202,4 +193,9 @@ void galaga::BombingRunState::OnEnter(EnemyComponent* pEnemy)
 
 	//Return to formationPos
 	m_path.push_back(pEnemy->GetFormationPosition());
+}
+
+void galaga::BombingRunState::OnExit(EnemyComponent*)
+{
+	FormationManager::GetInstance().DecreaseActiveBombers();
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include "EnemyComponent.h"
 #include "GameObject.h"
 #include "Singleton.h"
 #include "SDL3/SDL_rect.h"
@@ -37,6 +38,12 @@ namespace galaga
 		std::unique_ptr < dae::GameObject> CreateButterfly(const glm::vec3& pos);
 		std::unique_ptr<dae::GameObject> CreateEnemy(const glm::vec3& targetPos, EnemyType* pType);
 
+		void Update(float deltaTime);
+		void TriggerBombingRun();
+
+		void RemoveEnemy(EnemyComponent* pEnemy);
+		void DecreaseActiveBombers();
+
 		void LoadWave(const std::string& file);
 		void SpawnEnemies();
 
@@ -44,6 +51,12 @@ namespace galaga
 		glm::vec3 m_spawnPos{};
 
 		std::vector<FormationEntry> m_formationEntries;
+		std::vector<EnemyComponent*> m_enemies;
+		int m_numEnemiesAlive{};
+		int m_numActiveBombers{};
+		
+		constexpr static float m_diveCooldown{5.f};
+		float m_diveTimer{};
 
 		//Enemy Types
 		EnemyType m_beeType{ SDL_FRect{145.f, 19.f, 16.f, 16.f}, 50, 100, 1 };

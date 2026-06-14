@@ -56,10 +56,67 @@ std::unique_ptr<dae::GameObject> galaga::FormationManager::CreateEnemy(const glm
 	go->GetTransform()->SetLocalPosition(m_spawnPos);
 
 
-	go->AddComponent<EnemyComponent>(targetPos, pType);
+	auto ec = go->AddComponent<EnemyComponent>(targetPos, pType);
+	m_enemies.push_back(ec);
+	++m_numEnemiesAlive;
+
 	go->AddComponent<dae::Collider>(32.f, 32.f);
 
-	return std::move(go);
+	return go;
+}
+
+void galaga::FormationManager::Update(float deltaTime)
+{
+	m_diveTimer += deltaTime;
+
+	if (m_diveTimer >= m_diveCooldown)
+	{
+		m_diveTimer = 0.f;
+		TriggerBombingRun();
+	}
+}
+
+void galaga::FormationManager::TriggerBombingRun()
+{
+
+	constexpr int maxNumDivers = 2;
+	int numDivers = maxNumDivers - m_numActiveBombers;
+	if (numDivers <= 0) return;
+	
+	std::vector<EnemyComponent*> idleEnemies;
+
+	for (auto* pEnemy : m_enemies)
+	{
+		if (!pEnemy)
+			continue;
+
+		if (dynamic_cast<IdleState*>(pEnemy->GetState()))
+		{
+			idleEnemies.push_back(pEnemy);
+		}
+	}
+
+	numDivers = std::min(numDivers, int(idleEnemies.size()));
+
+	for (int idx{}; idx < numDivers; ++idx)
+	{
+		int enemyIdx = rand() % (int)idleEnemies.size();
+		idleEnemies[enemyIdx]->SetState(std::make_unique<BombingRunState>());
+		++m_numActiveBombers;
+	}
+}
+
+void galaga::FormationManager::RemoveEnemy(EnemyComponent* pEnemy)
+{
+	auto itr = std::ranges::find(m_enemies, pEnemy);
+	if (itr == m_enemies.end()) return;
+	*itr = nullptr;
+	--m_numEnemiesAlive;
+}
+
+void galaga::FormationManager::DecreaseActiveBombers()
+{
+	--m_numActiveBombers;
 }
 
 void galaga::FormationManager::LoadWave(const std::string& file)

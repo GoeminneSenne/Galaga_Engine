@@ -13,6 +13,7 @@
 #include <Collider.h>
 
 #include "FormationManager.h"
+#include "FormationManagerUpdater.h"
 #include "GameStateManager.h"
 #include "ScoreDisplay.h"
 #include "UIButton.h"
@@ -143,6 +144,11 @@ void galaga::SceneCreator::CreateGameScene()
 	/// Enemy Ship
 	//////////////////////////////////////////////////////////
 	FormationManager::GetInstance().Init();
+
+	go = std::make_unique<dae::GameObject>();
+	go->AddComponent<FormationManagerUpdater>();
+
+	scene.Add(std::move(go));
 	//////////////////////////////////////////////////////////
 
 	//Start Sound Effect

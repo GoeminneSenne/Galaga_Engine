@@ -13,7 +13,7 @@ namespace galaga
 	{
 	public:
 		explicit EnemyComponent(dae::GameObject* pOwner, const glm::vec3& formationPos, EnemyType* pType);
-		~EnemyComponent() override = default;
+		~EnemyComponent() override;
 
 		void Update(float deltaTime) override;
 		void OnCollision(dae::GameObject* other) override;
@@ -21,6 +21,8 @@ namespace galaga
 		void Move(const glm::vec3& movement);
 		glm::vec3 GetWorldPosition() const;
 		glm::vec3 GetFormationPosition() const;
+		EnemyState* GetState() const;
+		void SetState(std::unique_ptr<EnemyState> newState);
 	private:
 		glm::vec3 m_formationPosition{};
 		std::unique_ptr<EnemyState> m_state{};

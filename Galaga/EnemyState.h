@@ -28,7 +28,7 @@ namespace galaga
 		glm::vec3 m_startPos{};
 		glm::vec3 m_targetPos{};
 		float m_elapsed{};
-		constexpr static float m_speed{ .3f };
+		constexpr static float m_speed{ .4f };
 	};
 	
 	//Unused
@@ -74,7 +74,7 @@ namespace galaga
 		std::unique_ptr<EnemyState> Update(float deltaTime, EnemyComponent* enemy) override;
 
 	private:
-		float m_waitTime{ 2.f };
+
 	};
 
 	class BombingRunState : public EnemyState
@@ -83,9 +83,12 @@ namespace galaga
 	public:
 		std::unique_ptr<EnemyState> Update(float deltaTime, EnemyComponent* enemy) override;
 		void OnEnter(EnemyComponent* enemy) override;
+		void OnExit(EnemyComponent*) override;
 
 	private:
 		std::vector<glm::vec3> m_path;
 		int m_pathIndex{};
+
+		constexpr static float m_speed{ 200.f };
 	};
 }

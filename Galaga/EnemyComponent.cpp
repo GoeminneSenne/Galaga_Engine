@@ -25,6 +25,12 @@ galaga::EnemyComponent::EnemyComponent(dae::GameObject* pOwner, const glm::vec3&
 	}
 }
 
+galaga::EnemyComponent::~EnemyComponent()
+{
+	if (m_state) m_state->OnExit(this);
+	FormationManager::GetInstance().RemoveEnemy(this);
+}
+
 void galaga::EnemyComponent::Update(float deltaTime)
 {
 	auto newState{ m_state->Update(deltaTime, this) };
@@ -48,7 +54,6 @@ void galaga::EnemyComponent::OnCollision(dae::GameObject* other)
 
 		dae::EventQueue::GetInstance().SendEvent(dae::make_sdbm_hash("EnemyDestroyed"), std::make_unique<EnemyDestroyedArgs>(score));
 
-		//TODO: finish implementation
 		GetOwner()->Destroy();
 
 	}
@@ -70,4 +75,16 @@ glm::vec3 galaga::EnemyComponent::GetWorldPosition() const
 glm::vec3 galaga::EnemyComponent::GetFormationPosition() const
 {
 	return m_formationPosition;
+}
+
+galaga::EnemyState* galaga::EnemyComponent::GetState() const
+{
+	return m_state.get();
+}
+
+void galaga::EnemyComponent::SetState(std::unique_ptr<EnemyState> newState)
+{
+	if (m_state) m_state->OnExit(this);
+	m_state = std::move(newState);
+	if (m_state) m_state->OnEnter(this);
 }
