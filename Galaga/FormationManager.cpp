@@ -186,5 +186,10 @@ void galaga::FormationManager::SpawnEnemies()
 			auto g = CreateButterfly(entry.formationPos);
 			scene->Add(std::move(g));
 		}
+		else if (entry.enemyType == 'B')
+		{
+			auto b = CreateEnemy(entry.formationPos, &m_bossType);
+			scene->Add(std::move(b));
+		}
 	}
 }

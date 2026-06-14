@@ -65,5 +65,6 @@ namespace galaga
 		//Enemy Types
 		EnemyType m_beeType{ SDL_FRect{145.f, 19.f, 16.f, 16.f}, 50, 100, 1 };
 		EnemyType m_butterflyType{ SDL_FRect{145.f, 55.f, 16.f, 16.f}, 80, 160, 1 };
+		EnemyType m_bossType{ SDL_FRect{145.f, 109.f, 16.f, 16.f}, 150, 400, 2 };
 	};
 }
