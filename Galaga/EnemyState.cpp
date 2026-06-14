@@ -28,7 +28,8 @@ std::unique_ptr<galaga::EnemyState> galaga::EntryState::Update(float deltaTime, 
 	if (glm::length(pos - m_targetPos) < 2.f)
 	{
 		pEnemy->GetOwner()->GetTransform()->SetLocalPosition(m_targetPos);
-		return std::make_unique<IdleState>();
+		//return std::make_unique<IdleState>();
+		return std::make_unique<BombingRunState>();
 	}
 	else
 	{
@@ -143,8 +144,62 @@ std::unique_ptr<galaga::EnemyState> galaga::IdleState::Update(float deltaTime, E
 
 	if (m_waitTime <= 0.f)
 	{
-		return std::make_unique<BombingRunState>();
+		return nullptr;
+		//return std::make_unique<BombingRunState>();
 	}
 
 	return nullptr;
+}
+
+std::unique_ptr<galaga::EnemyState> galaga::BombingRunState::Update(float deltaTime, EnemyComponent* pEnemy)
+{
+
+	auto pos = pEnemy->GetOwner()->GetTransform()->GetWorldPosition();
+	auto targetPos = m_path[m_pathIndex];
+	glm::vec3 direction = targetPos - pos;
+
+	if (glm::length(direction) < 2.f)
+	{
+		++m_pathIndex;
+
+		if (m_pathIndex >= (int)m_path.size())
+		{
+			return std::make_unique<IdleState>();
+		}
+
+		return nullptr;
+	}
+
+	direction = glm::normalize(direction);
+	//TODO add speed parameter
+	pos += direction * 40.f * deltaTime;
+
+	pEnemy->GetOwner()->GetTransform()->SetLocalPosition(pos);
+
+	return nullptr;
+}
+
+void galaga::BombingRunState::OnEnter(EnemyComponent* pEnemy)
+{
+	constexpr float margin{ 60.f };
+
+	constexpr float minX{ 50.f };
+	const float maxX{ dae::Window::GetInstance().GetWidth() - 50.f };
+
+	//Bombing start
+	float startX{ float(minX + rand() % int(maxX - minX)) };
+	constexpr float diveStartY{ 170.f };
+
+	m_path.push_back(glm::vec3{ startX, diveStartY, 0.f });
+
+	//Go straight down
+	float bottomHeight = (float)dae::Window::GetInstance().GetHeight() - margin;
+	m_path.push_back(glm::vec3{ startX, bottomHeight, 0.f });
+
+	//Move sideways again
+	float endX{ float(minX + rand() % int(maxX - minX)) };
+	m_path.push_back(glm::vec3{ endX, bottomHeight, 0.f });
+
+	//Return to formationPos
+	m_path.push_back(pEnemy->GetFormationPosition());
 }

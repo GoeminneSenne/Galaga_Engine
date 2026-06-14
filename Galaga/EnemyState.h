@@ -79,13 +79,13 @@ namespace galaga
 
 	class BombingRunState : public EnemyState
 	{
-		/*
+		
 	public:
 		std::unique_ptr<EnemyState> Update(float deltaTime, EnemyComponent* enemy) override;
 		void OnEnter(EnemyComponent* enemy) override;
 
 	private:
-		glm::vec3 m_attackPos{};
-		*/
+		std::vector<glm::vec3> m_path;
+		int m_pathIndex{};
 	};
 }

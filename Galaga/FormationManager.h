@@ -5,6 +5,12 @@
 
 namespace galaga
 {
+	struct FormationEntry
+	{
+		char enemyType;
+		glm::vec3 formationPos;
+	};
+
 	class EnemyType
 	{
 	public:
@@ -31,8 +37,13 @@ namespace galaga
 		std::unique_ptr < dae::GameObject> CreateButterfly(const glm::vec3& pos);
 		std::unique_ptr<dae::GameObject> CreateEnemy(const glm::vec3& targetPos, EnemyType* pType);
 
+		void LoadWave(const std::string& file);
+		void SpawnEnemies();
+
 	private:
 		glm::vec3 m_spawnPos{};
+
+		std::vector<FormationEntry> m_formationEntries;
 
 		//Enemy Types
 		EnemyType m_beeType{ SDL_FRect{145.f, 19.f, 16.f, 16.f}, 50.f, 100.f, 1 };

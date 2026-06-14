@@ -1,7 +1,10 @@
 #include "FormationManager.h"
 
+#include <fstream>
+
 #include "Collider.h"
 #include "EnemyComponent.h"
+#include "SceneManager.h"
 #include "TextureRenderer.h"
 #include "Window.h"
 
@@ -31,11 +34,14 @@ int galaga::EnemyType::GetHealth() const
 void galaga::FormationManager::Init()
 {
 	m_spawnPos = glm::vec3{ (float)dae::Window::GetInstance().GetWidth() / 2.f, 0.f, 0.f};
+
+	LoadWave("Data/Wave1.txt");
+	SpawnEnemies();
 }
 
-std::unique_ptr<dae::GameObject> galaga::FormationManager::CreateBee(const glm::vec3&)
+std::unique_ptr<dae::GameObject> galaga::FormationManager::CreateBee(const glm::vec3& formationPos)
 {
-	return CreateEnemy(glm::vec3{ 300.f, 50.f, 0.f }, &m_beeType);
+	return CreateEnemy(formationPos, &m_beeType);
 }
 
 std::unique_ptr<dae::GameObject> galaga::FormationManager::CreateButterfly(const glm::vec3&)
@@ -49,8 +55,55 @@ std::unique_ptr<dae::GameObject> galaga::FormationManager::CreateEnemy(const glm
 	go->AddComponent<dae::TextureRenderer>("Galaga2.png");
 	go->GetTransform()->SetLocalPosition(m_spawnPos);
 
+
 	go->AddComponent<EnemyComponent>(targetPos, pType);
 	go->AddComponent<dae::Collider>(32.f, 32.f);
 
 	return std::move(go);
+}
+
+void galaga::FormationManager::LoadWave(const std::string& file)
+{
+	std::ifstream input(file);
+
+	if (!input.is_open()) return;
+
+	constexpr static float startX{ 100.f };
+
+	glm::vec3 formationPos{ startX, 32.f, 0.f };
+	constexpr static float enemySize{ 32.f };
+
+	std::string line{};
+
+	while (std::getline(input, line))
+	{
+		for (int idx{}; idx < (int)line.size(); ++idx)
+		{
+			if (line[idx] != '.')
+			{
+				m_formationEntries.emplace_back(line[idx], formationPos);
+			}
+
+			formationPos.x += enemySize;
+		}
+		
+		formationPos.x = startX;
+		formationPos.y += enemySize;
+	}
+
+	input.close();
+}
+
+void galaga::FormationManager::SpawnEnemies()
+{
+	const auto& scene = dae::SceneManager::GetInstance().GetCurrentScene();
+
+	for (const auto& entry : m_formationEntries)
+	{
+		if (entry.enemyType == 'Z')
+		{
+			auto z = CreateBee(entry.formationPos);
+			scene->Add(std::move(z));
+		}
+	}
 }
