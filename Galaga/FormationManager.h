@@ -44,6 +44,7 @@ namespace galaga
 		void RemoveEnemy(EnemyComponent* pEnemy);
 		void DecreaseActiveBombers();
 
+		void LoadWave(int currentWave);
 		void LoadWave(const std::string& file);
 		void SpawnEnemies();
 
@@ -54,6 +55,9 @@ namespace galaga
 		std::vector<EnemyComponent*> m_enemies;
 		int m_numEnemiesAlive{};
 		int m_numActiveBombers{};
+		int m_currentWave{};
+
+		constexpr static int m_numWaves{ 2 };
 		
 		constexpr static float m_diveCooldown{5.f};
 		float m_diveTimer{};

@@ -6,6 +6,7 @@
 #include "EventQueue.h"
 #include "FormationManager.h"
 #include "GameObject.h"
+#include "ServiceLocator.h"
 #include "TextureRenderer.h"
 
 galaga::EnemyComponent::EnemyComponent(dae::GameObject* pOwner, const glm::vec3& formationPos,
@@ -53,7 +54,7 @@ void galaga::EnemyComponent::OnCollision(dae::GameObject* other)
 		}
 
 		dae::EventQueue::GetInstance().SendEvent(dae::make_sdbm_hash("EnemyDestroyed"), std::make_unique<EnemyDestroyedArgs>(score));
-
+		dae::ServiceLocator::GetSoundSystem().PlaySFX("Data/EnemyDies.mp3", 0.1f);
 		GetOwner()->Destroy();
 
 	}

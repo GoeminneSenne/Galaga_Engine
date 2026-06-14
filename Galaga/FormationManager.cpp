@@ -35,7 +35,7 @@ void galaga::FormationManager::Init()
 {
 	m_spawnPos = glm::vec3{ (float)dae::Window::GetInstance().GetWidth() / 2.f, 0.f, 0.f};
 
-	LoadWave("Data/Wave1.txt");
+	LoadWave(m_currentWave);
 	SpawnEnemies();
 }
 
@@ -67,6 +67,16 @@ std::unique_ptr<dae::GameObject> galaga::FormationManager::CreateEnemy(const glm
 
 void galaga::FormationManager::Update(float deltaTime)
 {
+	if (m_numEnemiesAlive == 0)
+	{
+		++m_currentWave;
+		m_currentWave %= m_numWaves;
+		LoadWave(m_currentWave);
+		SpawnEnemies();
+		return;
+	}
+
+
 	m_diveTimer += deltaTime;
 
 	if (m_diveTimer >= m_diveCooldown)
@@ -119,8 +129,15 @@ void galaga::FormationManager::DecreaseActiveBombers()
 	--m_numActiveBombers;
 }
 
+void galaga::FormationManager::LoadWave(int currentWave)
+{
+	LoadWave("Data/Wave" + std::to_string(currentWave + 1) + ".txt");
+}
+
 void galaga::FormationManager::LoadWave(const std::string& file)
 {
+	m_formationEntries.clear();
+
 	std::ifstream input(file);
 
 	if (!input.is_open()) return;
@@ -154,6 +171,8 @@ void galaga::FormationManager::LoadWave(const std::string& file)
 void galaga::FormationManager::SpawnEnemies()
 {
 	const auto& scene = dae::SceneManager::GetInstance().GetCurrentScene();
+
+	m_enemies.clear();
 
 	for (const auto& entry : m_formationEntries)
 	{
