@@ -15,6 +15,7 @@
 #include "FormationManager.h"
 #include "FormationManagerUpdater.h"
 #include "GameStateManager.h"
+#include "GameStats.h"
 #include "ScoreDisplay.h"
 #include "UIButton.h"
 
@@ -104,18 +105,16 @@ void galaga::SceneCreator::CreateGameScene()
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_D, dae::KeyState::Pressed, std::move(moc));
 	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(-1, 0, 0), 150.f);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_A, dae::KeyState::Pressed, std::move(moc));
-	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(0, -1, 0), 150.f);
-	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_W, dae::KeyState::Pressed, std::move(moc));
-
-	auto dc = std::make_unique<dae::DamageCommand>(pLives);
-	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_C, dae::KeyState::Down, std::move(dc));
-	auto asc = std::make_unique<dae::AddScoreCommand>(10, go.get());
-	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_Z, dae::KeyState::Down, std::move(asc));
-	asc = std::make_unique<dae::AddScoreCommand>(100, go.get());
-	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_X, dae::KeyState::Down, std::move(asc));
+	
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(1, 0, 0), 150.f);
+	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_RIGHT, 0, dae::KeyState::Pressed, std::move(moc));
+	moc = std::make_unique<dae::MoveObjectCommand>(go.get(), glm::vec3(-1, 0, 0), 150.f);
+	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_LEFT, 0, dae::KeyState::Pressed, std::move(moc));
 
 	auto sc = std::make_unique<dae::ShootCommand>(pPlayerShip);
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_SPACE, dae::KeyState::Down, std::move(sc));
+	sc = std::make_unique<dae::ShootCommand>(pPlayerShip);
+	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::A,0,  dae::KeyState::Down, std::move(sc));
 
 	scene.Add(std::move(go));
 	////////////////////////////////////////////////////////////
@@ -124,7 +123,8 @@ void galaga::SceneCreator::CreateGameScene()
 	/////////////////////////////////////////////////////////////
 	go = std::make_unique<dae::GameObject>();
 	auto livesDisplay = go->AddComponent<dae::LivesDisplay>(pLives);
-	go->GetTransform()->SetLocalPosition(10, 150);
+	float livesY = (float)dae::Window::GetInstance().GetHeight() - 42.f;
+	go->GetTransform()->SetLocalPosition(10, livesY);
 	pLives->GetSubject()->AddObserver(livesDisplay);
 
 	scene.Add(std::move(go));
@@ -151,6 +151,9 @@ void galaga::SceneCreator::CreateGameScene()
 	scene.Add(std::move(go));
 	//////////////////////////////////////////////////////////
 
+	//Reset GameStats
+	GameStats::GetInstance().ResetStats();
+
 	//Start Sound Effect
 	//TODO volume 0.1
 	dae::ServiceLocator::GetSoundSystem().PlaySFX("./Data/Start.mp3", 0.f);
@@ -174,20 +177,10 @@ void galaga::SceneCreator::CreateMainMenu()
 	auto& scene = dae::SceneManager::GetInstance().CreateScene();
 
 	auto go = std::make_unique<dae::GameObject>();
-	//go->AddComponent<dae::TextureRenderer>("logo.png");
 	go->GetTransform()->SetLocalPosition(50.f, 50.f);
 	auto menu = go->AddComponent<MenuComponent>();
 	scene.Add(std::move(go));
-
-
-	//TEst button
-	go = std::make_unique<dae::GameObject>();
-	go->GetTransform()->SetLocalPosition(50.f, 100.f);
-	go->AddComponent<dae::TextureRenderer>("Button.png");
-	go->AddComponent<UIButton>(menu, "test");
-	scene.Add(std::move(go));
-
-	
+		
 	//Start Level button
 	go = std::make_unique<dae::GameObject>();
 	dae::GameObject* buttonObj = go.get();

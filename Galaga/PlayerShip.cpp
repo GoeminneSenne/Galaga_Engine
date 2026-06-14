@@ -29,8 +29,11 @@ dae::PlayerShip::~PlayerShip()
 
 	InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_D, KeyState::Pressed);
 	InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_A, KeyState::Pressed);
-	InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_W, KeyState::Pressed);
 	InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_SPACE, KeyState::Down);
+
+	InputManager::GetInstance().RemoveButtonbind(GamepadButton::DPAD_RIGHT, 0, KeyState::Pressed);
+	InputManager::GetInstance().RemoveButtonbind(GamepadButton::DPAD_LEFT, 0, KeyState::Pressed);
+	InputManager::GetInstance().RemoveButtonbind(GamepadButton::A, 0, KeyState::Down);
 }
 
 void dae::PlayerShip::Update(float deltaTime)
@@ -67,6 +70,8 @@ void dae::PlayerShip::ShootBullet()
 
 	++m_activeBullets;
 	m_currentCooldown += m_shootCooldown;
+
+	EventQueue::GetInstance().SendEvent(make_sdbm_hash("ShootBullet"), nullptr);
 
 	//Add to scene
 	SceneManager::GetInstance().GetCurrentScene()->Add(std::move(bulletObj));

@@ -142,7 +142,7 @@ void galaga::FormationManager::LoadWave(const std::string& file)
 
 	if (!input.is_open()) return;
 
-	constexpr static float startX{ 100.f };
+	constexpr static float startX{ 140.f };
 
 	glm::vec3 formationPos{ startX, 32.f, 0.f };
 	constexpr static float enemySize{ 32.f };

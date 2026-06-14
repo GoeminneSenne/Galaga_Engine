@@ -13,10 +13,17 @@ galaga::MenuComponent::MenuComponent(dae::GameObject* pOwner)
 	auto prevCmd = std::make_unique<PreviousButtonCommand>(this);
 	auto clickCmd = std::make_unique<ClickButtonCommand>(this);
 
-	//TODO: is this the correct place for this? Should commands be tracked and unregistered here in destructor?
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_RIGHT, dae::KeyState::Down, std::move(nextCmd));
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_LEFT, dae::KeyState::Down, std::move(prevCmd));
 	dae::InputManager::GetInstance().AddKeybind(SDL_SCANCODE_SPACE, dae::KeyState::Down, std::move(clickCmd));
+
+	nextCmd = std::make_unique<NextButtonCommand>(this);
+	prevCmd = std::make_unique<PreviousButtonCommand>(this);
+	clickCmd = std::make_unique<ClickButtonCommand>(this);
+
+	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_RIGHT, 0, dae::KeyState::Down, std::move(nextCmd));
+	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::DPAD_LEFT, 0, dae::KeyState::Down, std::move(prevCmd));
+	dae::InputManager::GetInstance().AddButtonbind(dae::GamepadButton::A, 0, dae::KeyState::Down, std::move(clickCmd));
 }
 
 galaga::MenuComponent::~MenuComponent()
@@ -27,10 +34,13 @@ galaga::MenuComponent::~MenuComponent()
 		button->DetachMenu();
 	}
 
-	//TODO: not hardcoded
 	dae::InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_RIGHT, dae::KeyState::Down);
 	dae::InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_LEFT, dae::KeyState::Down);
 	dae::InputManager::GetInstance().RemoveKeybind(SDL_SCANCODE_SPACE, dae::KeyState::Down);
+
+	dae::InputManager::GetInstance().RemoveButtonbind(dae::GamepadButton::DPAD_RIGHT, 0, dae::KeyState::Down);
+	dae::InputManager::GetInstance().RemoveButtonbind(dae::GamepadButton::DPAD_LEFT, 0, dae::KeyState::Down);
+	dae::InputManager::GetInstance().RemoveButtonbind(dae::GamepadButton::A, 0, dae::KeyState::Down);
 }
 
 void galaga::MenuComponent::RegisterButton(UIButton* button)
