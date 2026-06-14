@@ -190,9 +190,21 @@ void galaga::SceneCreator::CreateMainMenu()
 	
 	//Start Level button
 	go = std::make_unique<dae::GameObject>();
+	dae::GameObject* buttonObj = go.get();
 	go->GetTransform()->SetLocalPosition(130.f, 100.f);
 	go->AddComponent<dae::TextureRenderer>("Button.png");
 	go->AddComponent<UIButton>(menu, "StartLevel");
 	scene.Add(std::move(go));
+
+
+	//Start text
+	auto textGo = std::make_unique<dae::GameObject>();
+	textGo->SetParent(buttonObj, false);
+	textGo->GetTransform()->SetLocalPosition(10.f, 5.f);
+
+	textGo->AddComponent<dae::TextureRenderer>();
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 17);
+	textGo->AddComponent<dae::TextComponent>("Start", font);
+	scene.Add(std::move(textGo));
 	
 }

@@ -44,9 +44,9 @@ std::unique_ptr<dae::GameObject> galaga::FormationManager::CreateBee(const glm::
 	return CreateEnemy(formationPos, &m_beeType);
 }
 
-std::unique_ptr<dae::GameObject> galaga::FormationManager::CreateButterfly(const glm::vec3&)
+std::unique_ptr<dae::GameObject> galaga::FormationManager::CreateButterfly(const glm::vec3& formationPos)
 {
-	return CreateEnemy(glm::vec3{350.f, 50.f, 0.f}, &m_butterflyType);
+	return CreateEnemy(formationPos, &m_butterflyType);
 }
 
 std::unique_ptr<dae::GameObject> galaga::FormationManager::CreateEnemy(const glm::vec3& targetPos, EnemyType* pType)
@@ -180,6 +180,11 @@ void galaga::FormationManager::SpawnEnemies()
 		{
 			auto z = CreateBee(entry.formationPos);
 			scene->Add(std::move(z));
+		}
+		else if (entry.enemyType == 'G')
+		{
+			auto g = CreateButterfly(entry.formationPos);
+			scene->Add(std::move(g));
 		}
 	}
 }
