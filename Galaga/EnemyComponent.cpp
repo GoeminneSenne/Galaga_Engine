@@ -32,7 +32,7 @@ void galaga::EnemyComponent::Update(float deltaTime)
 	{
 		m_state->OnExit(this);
 		m_state = std::move(newState);
-		m_state->OnEnter(this);
+		m_state->OnEnter(this);	
 	}
 }
 
@@ -40,7 +40,13 @@ void galaga::EnemyComponent::OnCollision(dae::GameObject* other)
 {
 	if (other->HasComponent<dae::Bullet>())
 	{
-		dae::EventQueue::GetInstance().SendEvent(dae::make_sdbm_hash("EnemyDestroyed"), std::make_unique<EnemyDestroyedArgs>(m_pType->GetFormationScore()));
+		int score = m_pType->GetFormationScore();
+		if (dynamic_cast<BombingRunState*>(m_state.get()))
+		{
+			score = m_pType->GetDivingScore();
+		}
+
+		dae::EventQueue::GetInstance().SendEvent(dae::make_sdbm_hash("EnemyDestroyed"), std::make_unique<EnemyDestroyedArgs>(score));
 
 		//TODO: finish implementation
 		GetOwner()->Destroy();
